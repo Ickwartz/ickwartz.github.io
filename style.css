@@ -1,0 +1,67 @@
+#logo {
+    font-size: 26px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: darkslategray;
+    position: relative;
+    padding-left: 15px;
+}
+
+#logo::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 35px;
+    background-color: orange;
+    background-position: center;
+    background-size: contain;
+    margin-top: 5px;
+    left: 0px;
+}
+
+#contacts {
+    background-color: orange;
+    padding: 5px;
+}
+
+.mail {
+    position: relative;
+    padding-left: 18px;
+}
+
+.mail::before {
+    content: "";
+    position: absolute;
+    margin-top: 5px;
+    left: 0px;
+    width: 16px;
+    height: 16px;
+    background-image: url("src/img/mail.png");
+    background-position: center;
+    background-size: contain;
+}
+
+.phone {
+    position: relative;
+    margin-left: 15px;
+    padding-left: 18px;
+}
+
+.phone::before {
+    content: '';
+    position: absolute;
+    margin-top: 5px;
+    left: 0px;
+    width: 16px;
+    height: 16px;
+    background-image: url("src/img/phone.png");
+    background-position: center;
+    background-size: contain;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+ }
+
