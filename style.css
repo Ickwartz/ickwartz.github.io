@@ -35,7 +35,7 @@
 
 #index-content::before {
     content: "";
-    background-image: url("src/img/pepe.jpg");
+    background-image: url("src/img/gym.jpg");
     background-size: contain;
     position: absolute;
     top: 0px;
