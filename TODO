@@ -1,0 +1,3 @@
+- Db Handling in Tabellen Klassen
+- Klasse die DB Verbindung initiiert und dann exportiert
+--> Konstruktor Tabellen Klassen?

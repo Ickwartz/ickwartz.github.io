@@ -14,21 +14,25 @@ app
         "/css",
         express.static(root + "node_modules/bootstrap/dist/css")
         )
+        
     // own css
     .use(
         "/css",
         express.static(root + "src/html/css")
         )
+
     // bootstrap js
     .use(
         "/js",
         express.static(root + "node_modules/bootstrap/dist/js")
     )
-    // jquery js
+
+    // bootstrap jquery
     .use(
         "/js",
         express.static(root + "node_modules/jquery/dist")
     )
+
     // images
     .use(
         "/img",
