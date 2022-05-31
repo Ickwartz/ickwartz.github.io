@@ -1,7 +1,7 @@
 const sqlite3 = require("sqlite3").verbose();   // verbose = sql errors are shown 
 
 class Db_Handler {
-    constructor(dbstring = "C:/Users/Schiffke/Documents/Ausbildung/Praxis/HiDriveFE/WebsiteErika2/test/code/database/website_db.db") {
+    constructor(dbstring = "C:/Users/Schiffke/Documents/Ausbildung/Praxis/HiDriveFE/WebsiteErika2/src/database/website_db.db") {
         this.db = new sqlite3.Database(dbstring)
     }
 
