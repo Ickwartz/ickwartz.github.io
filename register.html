@@ -75,6 +75,16 @@
         <div id="inputs" class="offset-md-4 col-md-4 offset-sm-3 col-sm-6 col-10 offset-1 col-xl-2 offset-xl-5">
             <!-- Email input -->
             <div class="mb-4">
+                <input name="first_name" placeholder="Vorname" type="text" class="form-control" required/>
+            </div>
+
+            <!-- Email input -->
+            <div class="mb-4">
+                <input name="surname" placeholder="Nachname" type="text" class="form-control" required/>
+            </div>
+            
+            <!-- Email input -->
+            <div class="mb-4">
                 <input name="email" placeholder="Email Adresse" type="email" class="form-control" required/>
             </div>
             
@@ -82,17 +92,15 @@
             <div class="mb-4">
                 <input name="password" type="password" placeholder="Passwort" class="form-control" required/>
             </div>
+            <!-- Password confirm input -->
+            <div class="mb-4">
+                <input name="password_confirm" type="password" placeholder="Passwort Wiederholen" class="form-control" required/>
+            </div>
         </div>
         
         <!-- Submit button -->
         <div class="text-center">
-            <button type="button" class="btn btn-primary btn-block mb-4">Anmelden</button>
-        </div>
-
-        <!-- Register buttons -->
-        <div class="text-center">
-            <a href="#!">Passwort vergessen?</a>
-            <p>Noch keinen Account? <a href="register.html">Registrieren</a></p>
+            <button type="button" class="btn btn-primary btn-block mb-4">Registrieren</button>
         </div>
     </form>
     <!--End login form-->
