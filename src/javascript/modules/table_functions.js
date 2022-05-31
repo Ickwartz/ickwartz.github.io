@@ -5,11 +5,15 @@ class Table_functions {
         return Object.keys(this).length
     }
 
-    getDate = function() {
+    getDate() {
         var today = new Date();
 
         var date = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
         return date
+    }
+
+    getValues() {
+        return Object.values(this)
     }
 }
 

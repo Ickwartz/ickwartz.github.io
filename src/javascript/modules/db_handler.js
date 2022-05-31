@@ -7,15 +7,17 @@ class Db_Handler {
 
     write_table(table_object) {
 
-        let values = Object.values(table_object);
+        let values = table_object.getValues();
         
         let query_string = table_object.getInsertSQL()
 
         let query = this.db.prepare(query_string)
-
+        
         query.run(values, (err) => {
             if (err) {
                 throw (err)
+            } else {
+                console.log("success")
             }
         })
     }
