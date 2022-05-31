@@ -8,11 +8,12 @@ class Db_Handler {
     write_table(table_object) {
 
         let values = Object.values(table_object);
-        let keys = Object.keys(table_object);
+        
+        let query_string = table_object.getInsertSQL()
 
-        let query = this.db.prepare("INSERT INTO ? (?) VALUES (?)");
+        let query = this.db.prepare(query_string)
 
-        this.db.run(query_string, (err) => {
+        query.run(values, (err) => {
             if (err) {
                 throw (err)
             }

@@ -6,6 +6,17 @@ class Exercises extends Table_functions{
         this.name = name;
         this.description = description;
     }
+
+    getInsertSQL() {
+        return `
+            INSERT INTO exercises (name, description)
+            VALUES (?,?)
+            ;`
+    }
+
+    getSelectSQL() {
+        return "SELECT * FROM exercises;"
+    }
 }
 
 module.exports = Exercises

@@ -7,7 +7,16 @@ class User_Accounts extends Table_functions{
         this.password = password;
     }
 
-    getColumnCount() { return 2}
+    getInsertSQL() {
+        return `
+            INSERT INTO user_accounts (email, password)
+            VALUES (?,?)
+            ;`
+    }
+
+    getSelectSQL() {
+        return "SELECT * FROM user_accounts;"
+    }
 }
 
 module.exports = User_Accounts

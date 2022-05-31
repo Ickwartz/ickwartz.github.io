@@ -1,11 +1,22 @@
 const Table_functions = require("../table_functions");
 
 class Users extends Table_functions{
-    constructor(firstname, surname) {
+    constructor(first_name, surname, email) {
         super();    // constructor for Table_functions
-        this.firstname = firstname;
+        this.first_name = first_name;
         this.surname = surname;
+        this.email = email;
+    }
 
+    getInsertSQL() {
+        return `
+            INSERT INTO users (first_name, surname, email, member_since)
+            VALUES (?,?,?,${this.getDate()})
+            ;`
+    }
+
+    getSelectSQL() {
+        return "SELECT * FROM users;"
     }
 }
 
