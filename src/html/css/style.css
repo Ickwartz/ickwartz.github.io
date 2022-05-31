@@ -35,7 +35,7 @@
 
 #index-content::before {
     content: "";
-    background-image: url("src/img/gym.jpg");
+    background-image: url("../../img/gym.jpg");
     background-size: contain;
     position: absolute;
     top: 0px;
@@ -57,7 +57,7 @@
     left: 0px;
     width: 16px;
     height: 16px;
-    background-image: url("src/img/mail.png");
+    background-image: url("../../img/mail.png");
     background-position: center;
     background-size: contain;
 }
@@ -75,7 +75,7 @@
     left: 0px;
     width: 16px;
     height: 16px;
-    background-image: url("src/img/phone.png");
+    background-image: url("../../img/phone.png");
     background-position: center;
     background-size: contain;
 }
