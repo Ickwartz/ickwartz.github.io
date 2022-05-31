@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Erikas Page</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erikas Page</title>
+
     <!--Bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
         rel="stylesheet" 
@@ -36,13 +48,14 @@
             </div>
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container-fluid">
+                    
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                            <a class="nav-link" aria-current="page" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="about.html">Über mich</a>
@@ -58,7 +71,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.html">Login</a>
+                            <a class="nav-link active" href="#">Login</a>
                         </li>
                         </ul>
                     </div>
@@ -68,17 +81,33 @@
     </header>
     <!--End Main Menu Navbar-->
 
-    <!--Note: img in css ::before-->
-    <div id="index-content" class="container-fluid">
-        <p>
-            Das ist Erikas Website und ich bin filler text bis die Ablösung kommt.
-        </p>
-        <br>
-        <p>
-            Lululu ich mag Äpfel mehr als du
-        </p>
-    </div>
-    
+    <!--login form-->
+    <form class="input-form">
+        <div id="inputs" class="offset-md-4 col-md-4 offset-sm-3 col-sm-6 col-10 offset-1 col-xl-2 offset-xl-5">
+            <!-- Email input -->
+            <div class="mb-4">
+                <input name="email" placeholder="Email Adresse" type="email" class="form-control" required/>
+            </div>
+            
+            <!-- Password input -->
+            <div class="mb-4">
+                <input name="password" type="password" placeholder="Passwort" class="form-control" required/>
+            </div>
+        </div>
+        
+        <!-- Submit button -->
+        <div class="text-center">
+            <button type="button" class="btn btn-primary btn-block mb-4">Anmelden</button>
+        </div>
+
+        <!-- Register buttons -->
+        <div class="text-center">
+            <a href="#!">Passwort vergessen?</a>
+            <p>Noch keinen Account? <a href="#!">Registrieren</a></p>
+        </div>
+    </form>
+    <!--End login form-->
+
     <!--Bootstrap-->
     <script 
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
