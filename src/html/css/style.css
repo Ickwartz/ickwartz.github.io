@@ -88,23 +88,3 @@
 .input-form {
     margin: 50px;
 }
-
-.collapse-cell {
-    border-collapse: separate;
-    border-spacing: 0 4em;
-    background: #ffffff;
-    border-bottom: 5px solid transparent;
-    background-clip: padding-box;
-    cursor: pointer;
-  }
-
-#collapse-info {
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s 0.1s ease-in-out;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .table-elipse {
-    cursor: pointer;
-  }
