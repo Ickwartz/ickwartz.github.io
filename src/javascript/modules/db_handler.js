@@ -21,6 +21,22 @@ class Db_Handler {
             }
         })
     }
+
+    read_table(table) {
+        this.db.serialize(() => {
+            let query_string = "SELECT * FROM " + table;
+            //let query = this.db.prepare(query_string);
+
+            this.db.all(query_string, (err, rows) => {
+                if (err) {
+                    throw(err)
+                } else {
+                    console.log(rows);
+                    //callback(rows);
+                }
+            })
+        })
+    }
 }
 
 module.exports = Db_Handler

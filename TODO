@@ -2,4 +2,6 @@
 - Klasse die DB Verbindung initiiert und dann exportiert
 --> Konstruktor Tabellen Klassen?
 
+- Wiederverwendetes HTML in Modell --> Menu, Contact Bar
+
 - check vor insert ob Eintrag schon vorhanden

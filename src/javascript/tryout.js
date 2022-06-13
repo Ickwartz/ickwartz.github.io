@@ -1,20 +1,34 @@
-const sqlite = require("aa-sqlite");
-const db = require("./modules/db_instance")
+//const sqlite = require("aa-sqlite");
+const exercises = require("./modules/table_classes/exercises");
 
-let dbstring = "C:/Users/Schiffke/Documents/Ausbildung/Praxis/HiDriveFE/WebsiteErika2/src/database/website_db.db";
-
+/*
 async function test() {
-    await sqlite.open(dbstring);
-
+    await sqlite.open()
     try {
         const rows = await sqlite.all("SELECT * FROM exercises;")
         console.log(rows)
     } catch (error) {
         return console.error(error)
     }
-    
-
-    sqlite.close()
 }
 
-test()
+
+const Db_Handler = require("./modules/db_handler")
+
+let db_handler = new Db_Handler();
+
+db_handler.read_table("exercises")
+
+
+
+*/
+
+
+async function blub() {
+    let exercise = new exercises("sad", "afgag")
+    exercise.write_table()
+    let stuff = await exercise.read_table();
+    console.log(stuff)
+}
+
+blub()

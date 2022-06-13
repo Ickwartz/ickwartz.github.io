@@ -31,24 +31,23 @@ class Exercises extends Table_functions{
             }
         });
     }
-    
+
     async read_table() {
         //let query = this.db.prepare(this.#readSQL)
 
-        let query = new Promise ((resolve, reject) => {
-            this.db.all(this.#readSQL, (err, rows) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(rows);
-                }
+        return new Promise ((resolve, reject) => {
+            this.db.serialize(() => {
+                this.db.all(this.#readSQL, [], (err, rows) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        console.log(rows)
+                        resolve(rows);
+                    }
+                });
             });
         })
-        .then(result => {return result})
-        .catch(err => {throw err});            
-
-        let data = await query;
-        return data
+        .catch(err => {throw err});
     }
 }
 
