@@ -14,6 +14,7 @@ app
     .use(morgan("dev"))
 
     .set("view engine", "pug")
+    // eslint-disable-next-line no-undef
     .set("views", path.join(__dirname, "views"))
 
     .use("/", routes)
