@@ -1,7 +1,13 @@
-- Db Handling in Tabellen Klassen
-- Klasse die DB Verbindung initiiert und dann exportiert
---> Konstruktor Tabellen Klassen?
-
 - Wiederverwendetes HTML in Modell --> Menu, Contact Bar
 
 - check vor insert ob Eintrag schon vorhanden
+
+
+- table functions droppen
+
+- get_one / get_all function für Klassen
+
+
+- Kalender für Trainingspläne --> Übungen für dieses Datum oder Meldung das keine Übungen für diesen Tag vorhanden
+
+- Login und Registrier System

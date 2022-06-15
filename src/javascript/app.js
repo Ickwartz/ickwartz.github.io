@@ -4,7 +4,10 @@ const routes = require("./modules/routes");
 
 const app = express();
 
+// arbeitslaptop
 const root = "C:/Users/Schiffke/Documents/Ausbildung/Praxis/HiDriveFE/WebsiteErika2/"
+// home laptop
+// const root = ""
 
 app
     .use(morgan("dev"))
@@ -13,13 +16,19 @@ app
     .use(
         "/css",
         express.static(root + "node_modules/bootstrap/dist/css")
-        )
+    )
         
     // own css
     .use(
         "/css",
         express.static(root + "src/html/css")
-        )
+    )
+
+    // own js
+    .use(
+        "/js",
+        express.static(root + "src/javascript/dom_manipulation")
+    )
 
     // bootstrap js
     .use(

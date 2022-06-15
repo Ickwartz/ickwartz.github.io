@@ -1,28 +1,5 @@
-//const sqlite = require("aa-sqlite");
-const exercises = require("./modules/table_classes/exercises");
-
 /*
-async function test() {
-    await sqlite.open()
-    try {
-        const rows = await sqlite.all("SELECT * FROM exercises;")
-        console.log(rows)
-    } catch (error) {
-        return console.error(error)
-    }
-}
-
-
-const Db_Handler = require("./modules/db_handler")
-
-let db_handler = new Db_Handler();
-
-db_handler.read_table("exercises")
-
-
-
-*/
-
+const exercises = require("./modules/table_classes/exercises");
 
 async function blub() {
     let exercise = new exercises("sad", "afgag")
@@ -32,3 +9,32 @@ async function blub() {
 }
 
 blub()
+
+*/
+const table_template = require("./modules/dom_manipulation/templates/table_row")
+
+const testdata = [
+    {
+        uebung: "Test Übung",
+        reps: "100",
+        sets: "10",
+        comment: "Keine",
+        description: "Eine Übung mit 2 Bergen und dem tiefen weiten Meer"
+    },
+    {
+        uebung: "Test Übung 2",
+        reps: "200",
+        sets: "1",
+        comment: "Mach ma erstma 200 davon",
+        description: "Nepumuk ist der beste Drache"
+    }
+]
+
+function fill_exercises_table(items) {
+    const table = document.getElementById("exercises_table");
+    let table_content = table.innerHTML;
+    items.forEach(item => {
+        let new_row = table_template(item.uebung, item.reps, item.sets, item.comment, item.description);
+        table_content += new_row;
+    });
+}
