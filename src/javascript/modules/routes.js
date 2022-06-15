@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router()
-
+/*
 const html_path = "./src/html"
 
 router.get("/", (req, res) => {
@@ -21,6 +21,13 @@ router.get("/login", (req, res) => {
 
 router.get("/register", (req, res) => {
     res.sendFile("register.html", {root: html_path})
+})
+*/
+
+router.get("/", (req, res) => {
+    res.render("index", {
+        //vars
+    })
 })
 
 module.exports = router

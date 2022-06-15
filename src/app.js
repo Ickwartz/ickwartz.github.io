@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
-const routes = require("./modules/routes");
+const path = require("path");
+const routes = require("./javascript/modules/routes");
 
 const app = express();
 
@@ -11,6 +12,10 @@ const root = "C:/Users/Schiffke/Documents/Ausbildung/Praxis/HiDriveFE/WebsiteEri
 
 app
     .use(morgan("dev"))
+
+    .set("view engine", "pug")
+    .set("views", path.join(__dirname, "views"))
+
     .use("/", routes)
     // bootstrap css
     .use(
@@ -23,11 +28,11 @@ app
         "/css",
         express.static(root + "src/html/css")
     )
-
-    // own js
+    
+    // images
     .use(
-        "/js",
-        express.static(root + "src/javascript/dom_manipulation")
+        "/img",
+        express.static(root + "src/img")
     )
 
     // bootstrap js
@@ -40,12 +45,6 @@ app
     .use(
         "/js",
         express.static(root + "node_modules/jquery/dist")
-    )
-
-    // images
-    .use(
-        "/img",
-        express.static(root + "src/img")
     )
 
 module.exports = app
