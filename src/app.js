@@ -18,22 +18,25 @@ app
     .set("views", path.join(__dirname, "views"))
 
     .use("/", routes)
-    // bootstrap css
-    .use(
-        "/css",
-        express.static(root + "node_modules/bootstrap/dist/css")
-    )
-        
+  
     // own css
     .use(
         "/css",
-        express.static(root + "src/html/css")
+        // eslint-disable-next-line no-undef
+        express.static(path.join(__dirname, "css"))
     )
     
     // images
     .use(
         "/img",
-        express.static(root + "src/img")
+        // eslint-disable-next-line no-undef
+        express.static(path.join(__dirname, "img"))
+    )
+
+    // bootstrap css
+    .use(
+        "/css",
+        express.static(root + "node_modules/bootstrap/dist/css")
     )
 
     // bootstrap js
