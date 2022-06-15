@@ -88,3 +88,7 @@
 .input-form {
     margin: 50px;
 }
+
+.table {
+    table-layout: fixed !important;
+}

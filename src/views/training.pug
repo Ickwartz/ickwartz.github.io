@@ -7,18 +7,18 @@ html
         // Main Menu Navbar & Contacts Bar
         include partials/_nav
 
-        // table
         button(onclick='#') Click me
+        // table
         .table-responsive
             table.table
                 thead
                     tr
-                        th
-                        th(scope='col') #
-                        th(scope='col') Übung
-                        th(scope='col') Wiederholungen
-                        th(scope='col') Sätze
-                        th(scope='col') Anmerkung
+                        th.col-1
+                        th.col-1(scope='col') #
+                        th.col-2(scope='col') Übung
+                        th.col-2(scope='col') Wdh
+                        th.col-2(scope='col') Sätze
+                        th.col-4(scope='col') Anmerkung
                 tbody#exercises_table
                     tr#accordion1.accordion-toggle.collapsed(data-bs-toggle='collapse' data-bs-parent='#accordion1' href='#collapseOne')
                         td.expand-button
@@ -29,9 +29,9 @@ html
                         td Auf Ellenbogen achten
                     tr.hide-table-padding
                         td
-                        td(colspan='3')
-                            #collapseOne.collapse.in.p-3
-                                p Push yourself up and then go down
+                        td(colspan='10')
+                            #collapseOne.collapse.in
+                                p Push yourself up and then go down aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                     tr#accordion2.accordion-toggle.collapsed(data-bs-toggle='collapse' data-bs-parent='#accordion2' href='#collapseTwo')
                         td.expand-button
                         th(scope='row') 2
@@ -42,7 +42,7 @@ html
                     tr.hide-table-padding
                         td
                         td(colspan='3')
-                            #collapseTwo.collapse.in.p-3
+                            #collapseTwo.collapse.in
                                 p Sit up and lie down
         // Bootstrap
         script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' crossorigin='anonymous')
