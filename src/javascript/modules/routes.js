@@ -31,5 +31,27 @@ router.get("/register", (req, res) => {
     })
 })
 
+// JUST TEST, REMOVE LATER 
+router.get("/test", (req, res) => {
+    res.render("test", {
+        items: [
+            {
+                uebung: "Test Übung",
+                reps: "100",
+                sets: "10",
+                comment: "Keine",
+                description: "Eine Übung mit 2 Bergen und dem tiefen weiten Meer"
+            },
+            {
+                uebung: "Test Übung 2",
+                reps: "200",
+                sets: "1",
+                comment: "Mach ma erstma 200 davon",
+                description: "Nepumuk ist der beste Drache"
+            }
+        ]
+    })
+})
+
 
 module.exports = router
