@@ -1,18 +1,18 @@
-/*
+
 const exercises = require("./modules/table_classes/exercises");
 
 async function blub() {
-    let exercise = new exercises("sad", "afgag")
-    exercise.write_table()
+    let exercise = new exercises("sad", "afgag");
+    //xercise.write_table()
     let stuff = await exercise.read_table();
-    console.log(stuff)
+    console.log(stuff);
 }
 
-blub()
-
-*/
+blub();
 
 
+
+/*
 function mockDB() {
     return [
         {
@@ -33,3 +33,4 @@ function mockDB() {
 }
 
 module.exports = mockDB()
+*/

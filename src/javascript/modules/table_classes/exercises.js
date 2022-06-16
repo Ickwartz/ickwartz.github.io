@@ -21,7 +21,7 @@ class Exercises extends Table_functions{
         //let values = this.getValues();
         let values = [this.name, this.description];
 
-        let query = this.db.prepare(this.#insertSQL)
+        let query = this.db.prepare(this.#insertSQL);
         
         query.run(values, (err) => {
             if (err) {
@@ -33,15 +33,14 @@ class Exercises extends Table_functions{
     }
 
     async read_table() {
-        //let query = this.db.prepare(this.#readSQL)
 
         return new Promise ((resolve, reject) => {
             this.db.serialize(() => {
-                this.db.all(this.#readSQL, [], (err, rows) => {
+                let query = this.db.prepare(this.#readSQL);
+                query.all((err, rows) => {
                     if (err) {
                         reject(err);
                     } else {
-                        console.log(rows)
                         resolve(rows);
                     }
                 });
@@ -51,4 +50,4 @@ class Exercises extends Table_functions{
     }
 }
 
-module.exports = Exercises
+module.exports = Exercises;

@@ -1,6 +1,10 @@
+- AM ENDE: Bootstrap local nutzen
+
 - Wiederverwendetes HTML in Modell --> Menu, Contact Bar
 
 - check vor insert ob Eintrag schon vorhanden
+
+- tests mit Jest
 
 
 - table functions droppen
