@@ -1,8 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
-//const routes = require("./javascript/modules/routes/routes");
-const test_route = require("./javascript/modules/routes/test_route");
+const routes = require("./javascript/modules/routes/routes");
 
 const app = express();
 
@@ -12,8 +11,7 @@ app
     .set("view engine", "pug")
     .set("views", path.join(__dirname, "views"))
 
-    //.use("/", routes)
-    .use("/", test_route)
+    .use("/", routes)
   
     .use(
         "/css",
@@ -23,6 +21,11 @@ app
     .use(
         "/img",
         express.static(path.join(__dirname, "img"))
+    )
+
+    .use(
+        "/js",
+        express.static(path.join(__dirname, "javascript/client-side"))
     );
 
 module.exports = app;

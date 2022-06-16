@@ -1,0 +1,37 @@
+SELECT pe.exercise_id, pe.reps, pe.sets, pe.comment, e.name, e.description
+FROM personalized_exercises AS pe
+INNER JOIN exercises AS e
+ON pe.exercise_id = e.exercise_id;
+
+CREATE TABLE personalized_exercises (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    exercise_id INT NOT NULL,
+    user_id INT NOT NULL,
+    reps int,
+    sets int,
+    comment VARCHAR(300),
+    training_id int NOT NULL,
+    FOREIGN KEY (exercise_id) REFERENCES exercises (exercise_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
+);
+
+router.get("/", (req, res) => {
+    res.render("test", {
+        items: [
+            {
+                uebung: "Test Übung",
+                reps: "100",
+                sets: "10",
+                comment: "Keine",
+                description: "Eine Übung mit 2 Bergen und dem tiefen weiten Meer"
+            },
+            {
+                uebung: "Test Übung 2",
+                reps: "200",
+                sets: "1",
+                comment: "Mach ma erstma 200 davon",
+                description: "Nepumuk ist der beste Drache"
+            }
+        ]
+    });
+});

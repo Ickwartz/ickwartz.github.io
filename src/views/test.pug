@@ -4,7 +4,7 @@ mixin table(items)
         tr.accordion-toggle.collapsed(id="accordion"+counter data-bs-toggle='collapse' data-bs-parent='#accordion'+counter href='#collapse'+counter)
             td.expand-button
             th(scope='row') #{counter}
-            td= item.uebung
+            td= item.name
             td= item.reps 
             td= item.sets
             td= item.comment

@@ -1,5 +1,5 @@
 
-const exercises = require("./modules/table_classes/exercises");
+/*const exercises = require("./modules/table_classes/exercises");
 
 async function blub() {
     let exercise = new exercises("sad", "afgag");
@@ -10,27 +10,14 @@ async function blub() {
 
 blub();
 
+*/
 
+const p_e = require("./modules/table_classes/personalized_exercises");
 
-/*
-function mockDB() {
-    return [
-        {
-            uebung: "Test Übung",
-            reps: "100",
-            sets: "10",
-            comment: "Keine",
-            description: "Eine Übung mit 2 Bergen und dem tiefen weiten Meer"
-        },
-        {
-            uebung: "Test Übung 2",
-            reps: "200",
-            sets: "1",
-            comment: "Mach ma erstma 200 davon",
-            description: "Nepumuk ist der beste Drache"
-        }
-    ]
+async function testInnerJoin() {
+    let pe_interface = new p_e();
+    let data = await pe_interface.innerJoinExercises();
+    console.log(data);
 }
 
-module.exports = mockDB()
-*/
+testInnerJoin();

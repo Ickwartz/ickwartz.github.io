@@ -8,7 +8,7 @@ class Exercises extends Table_functions{
         this.description = description;
     }
 
-    db = db_instance;
+    #db = db_instance;
     // # = private
     #insertSQL = `
     INSERT INTO exercises (name, description)
@@ -18,8 +18,7 @@ class Exercises extends Table_functions{
     #readSQL = "SELECT * FROM exercises;";
 
     write_table() {
-        //let values = this.getValues();
-        let values = [this.name, this.description];
+        let values = this.getValues();
 
         let query = this.db.prepare(this.#insertSQL);
         
@@ -35,8 +34,8 @@ class Exercises extends Table_functions{
     async read_table() {
 
         return new Promise ((resolve, reject) => {
-            this.db.serialize(() => {
-                let query = this.db.prepare(this.#readSQL);
+            this.#db.serialize(() => {
+                let query = this.#db.prepare(this.#readSQL);
                 query.all((err, rows) => {
                     if (err) {
                         reject(err);
