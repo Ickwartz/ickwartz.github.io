@@ -45,7 +45,7 @@ class Exercises extends Table_functions{
                 });
             });
         })
-        .catch(err => {throw err});
+        .catch(err => {throw err;});
     }
 }
 

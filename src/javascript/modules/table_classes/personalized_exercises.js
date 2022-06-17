@@ -55,8 +55,8 @@ class Personalized_Exercises extends Table_functions{
                 });
             });
         })
-        .catch(err => {throw err});
+        .catch(err => {throw err;});
     }
 }
 
-module.exports = Personalized_Exercises
+module.exports = Personalized_Exercises;

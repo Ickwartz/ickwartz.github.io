@@ -6,7 +6,7 @@ const router =  express.Router();
 router.get("/", (req, res) => {
     let p_e_instance = new p_e();
     p_e_instance.innerJoinExercises().then((data) => {
-        res.render("test", {
+        res.render("training_schedule", {
             items: data
         });
     });
