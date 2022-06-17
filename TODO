@@ -1,13 +1,9 @@
 - AM ENDE: Bootstrap local nutzen
 
-- Wiederverwendetes HTML in Modell --> Menu, Contact Bar
-
 - check vor insert ob Eintrag schon vorhanden
 
 - tests mit Jest
 
-
-- table functions droppen
 
 - get_one / get_all function für Klassen
 
@@ -15,3 +11,4 @@
 - Kalender für Trainingspläne --> Übungen für dieses Datum oder Meldung das keine Übungen für diesen Tag vorhanden
 
 - Login und Registrier System
+    - in login_route statt Email in Session Var Vorname

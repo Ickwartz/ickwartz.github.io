@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require('express-session');
 const morgan = require("morgan");
 const path = require("path");
 const routes = require("./javascript/modules/routes/routes");
@@ -11,6 +12,24 @@ app
     .set("view engine", "pug")
     .set("views", path.join(__dirname, "views"))
 
+    // test env
+    .use(session({
+        secret: "wubalubadubdub",
+        resave: true,   // reactivate old session
+        saveUninitialized: true // helps identify revisiting users
+    }))
+
+    .use(express.json())
+    .use(express.urlencoded({extended: true}))
+
+    //.use(express.cookieParser())
+    // enable pug to access session vars
+    .use(function(req,res,next){
+        res.locals.session = req.session;
+        next();
+    })
+
+    // test env
     .use("/", routes)
   
     .use(

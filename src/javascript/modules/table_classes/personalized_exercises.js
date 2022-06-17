@@ -11,6 +11,7 @@ class Personalized_Exercises extends Table_functions{
         this.comment = comment;
         this.training_id = training_id;
     }
+    
     #db = db_instance;
 
     #insertSQL = `

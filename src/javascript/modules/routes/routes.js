@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const training_schedule = require("./schedule_route");
+const login = require("./login_route");
 
 router.get("/", (req, res) => {
     res.render("index", {
@@ -23,11 +24,7 @@ router.get("/training", (req, res) => {
 
 router.use("/training/trainingsplan", training_schedule);
 
-router.get("/login", (req, res) => {
-    res.render("login", {
-        //vars
-    });
-});
+router.use("/login", login);
 
 router.get("/register", (req, res) => {
     res.render("register", {

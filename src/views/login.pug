@@ -7,7 +7,7 @@ html(lang='de')
     include partials/_nav
 
     // login form
-    form.input-form
+    form.input-form(action="/login/auth", method="post")
       #inputs.offset-md-4.col-md-4.offset-sm-3.col-sm-6.col-10.offset-1.col-xl-2.offset-xl-5
         // Email input
         .mb-4
@@ -17,7 +17,7 @@ html(lang='de')
           input.form-control(name='password' type='password' placeholder='Passwort' required='')
       // Submit button
       .text-center
-        button#submit_button.btn.btn-primary.btn-block.mb-4(type='button') Anmelden
+        button#submit_button.btn.btn-primary.btn-block.mb-4(type='submit') Anmelden
       // Register buttons
       .text-center
         a(href='#!') Passwort vergessen?
