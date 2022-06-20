@@ -18,7 +18,6 @@ class User_Accounts extends Table_functions{
             this.#db.serialize(() => {
                 let query = this.#db.prepare(this.#verifySQL);
                 query.all(login_data, (err, rows) => {
-                    console.log(err);
                     if (err) {
                         reject(err);
                     }
