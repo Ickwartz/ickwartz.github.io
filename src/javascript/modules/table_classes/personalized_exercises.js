@@ -1,4 +1,4 @@
-const Table_functions = require("../table_functions");
+const Table_functions = require("./table_functions");
 const db_instance = require("../db_instance");
 
 class Personalized_Exercises extends Table_functions{

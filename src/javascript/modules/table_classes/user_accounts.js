@@ -1,4 +1,4 @@
-const Table_functions = require("../table_functions");
+const Table_functions = require("./table_functions");
 const db_instance = require("../db_instance");
 
 class User_Accounts extends Table_functions{
@@ -18,6 +18,7 @@ class User_Accounts extends Table_functions{
             this.#db.serialize(() => {
                 let query = this.#db.prepare(this.#verifySQL);
                 query.all(login_data, (err, rows) => {
+                    console.log(err);
                     if (err) {
                         reject(err);
                     }

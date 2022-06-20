@@ -1,4 +1,4 @@
-const Table_functions = require("../table_functions");
+const Table_functions = require("./table_functions");
 
 class Users extends Table_functions{
     constructor(first_name, surname, email) {

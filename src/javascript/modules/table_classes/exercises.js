@@ -1,4 +1,4 @@
-const Table_functions = require("../table_functions");
+const Table_functions = require("./table_functions");
 const db_instance = require("../db_instance");
 
 class Exercises extends Table_functions{
@@ -9,6 +9,7 @@ class Exercises extends Table_functions{
     }
 
     #db = db_instance;
+
     // # = private
     #insertSQL = `
     INSERT INTO exercises (name, description)
@@ -20,7 +21,7 @@ class Exercises extends Table_functions{
     write_table() {
         let values = this.getValues();
 
-        let query = this.db.prepare(this.#insertSQL);
+        let query = this.#db.prepare(this.#insertSQL);
         
         query.run(values, (err) => {
             if (err) {
