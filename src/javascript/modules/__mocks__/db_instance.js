@@ -10,10 +10,7 @@ mock_db_instance.all
         callback(new Error("SQL Error"));
     })
     .mockImplementationOnce((data, callback) => {
-        callback(null, [{email: "bla", password:"blub"}]);
-    })
-    .mockImplementationOnce((data, callback) => {
-        callback(null, []);
+        callback(null, [{data: "data"}]);
     })
 
 

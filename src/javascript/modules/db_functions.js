@@ -5,7 +5,7 @@ class Db_Functions {
         this.db = db_instance;
     }
 
-    async SelectAll(sql, data){
+    async QueryAll(sql, data){
         return new Promise ((resolve, reject) => {
             this.db.serialize(() => {
                 let query = this.db.prepare(sql);

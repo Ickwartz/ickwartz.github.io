@@ -1,9 +1,9 @@
-const User_Account = require("../modules/table_classes/user_accounts");
+const User_Account = require("../src/javascript/modules/table_classes/user_accounts");
 
 jest.mock("../modules/db_instance")
 
 describe("user_accounts", () => {
-    afterEach(jest.clearAllMocks);       // reset mocks after each test to prevent errors when adding more tests
+    afterEach(jest.clearAllMocks());       // reset mocks after each test to prevent errors when adding more tests
 
 
     test("Reject promise when sql query returns error", async () => {
