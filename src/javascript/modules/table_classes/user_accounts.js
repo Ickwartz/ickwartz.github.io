@@ -1,5 +1,5 @@
 const Table_functions = require("./table_functions");
-const db_instance = require("../db_instance");
+const Db_Functions = require("../db_functions");
 
 class User_Accounts extends Table_functions{
     constructor(email, password) {
@@ -8,27 +8,21 @@ class User_Accounts extends Table_functions{
         this.password = password;
     }
 
-    #db = db_instance;
-
-    #verifySQL = "SELECT * FROM user_accounts WHERE email = ? AND password = ?;";
+    #db_functions = new Db_Functions();
 
     async verifyUser() {
-        return new Promise ((resolve, reject) => {
-            let login_data = this.getValues();
-            this.#db.serialize(() => {
-                let query = this.#db.prepare(this.#verifySQL);
-                query.all(login_data, (err, rows) => {
-                    if (err) {
-                        reject(err);
-                    }
-                    if (rows.length > 0) {
-                        resolve(true);
-                    }
-                    resolve(false);
-                });
-            });
+        let sql = "SELECT * FROM user_accounts WHERE email = ? AND password = ?;";
+        let login_data = this.getValues();
+
+        let result = await this.#db_functions.QueryAll(sql, login_data);
+        return new Promise((resolve, reject) => {
+            if (result.length > 0) {
+                resolve(true)
+            }
+            resolve(false)
         })
-        .catch(err => {throw err;});
+        .catch(err => {throw err})
+        
     }
 }
 
