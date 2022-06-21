@@ -1,4 +1,3 @@
-
 const mock_db_instance = jest.createMockFromModule("../db_instance")
 
 mock_db_instance.serialize.mockImplementation(callback => callback());
@@ -11,6 +10,9 @@ mock_db_instance.all
     })
     .mockImplementationOnce((data, callback) => {
         callback(null, [{data: "data"}]);
+    })
+    .mockImplementationOnce((data, callback) => {
+        callback(null, []);
     })
 
 

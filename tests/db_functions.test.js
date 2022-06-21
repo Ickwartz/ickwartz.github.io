@@ -4,12 +4,11 @@ jest.mock("../src/javascript/modules/db_instance");
 
 describe("Db_Functions", () => {
     afterEach(() => jest.clearAllMocks());
+    let db_functions = new Db_Functions();
 
     test("Reject promise when sql query returns error", async () => {
-        let db_functions = new Db_Functions();
-
         try {
-            await db_functions.QueryAll();
+            await db_functions.queryAll();
         } 
         catch (err) {
             expect(err).toEqual(new Error("SQL Error"));
@@ -17,9 +16,10 @@ describe("Db_Functions", () => {
     });
 
     test("Should resolve promise with data when query is successfull", async () => {
-        let db_functions = new Db_Functions();
-
-        expect(await db_functions.QueryAll()).toEqual([{data: "data"}])
+        expect(await db_functions.queryAll()).toEqual([{data: "data"}])
     });
 
+    test("Promise should resolve with empty data when query returns no matches", async () => {
+        expect(await db_functions.queryAll()).toEqual([]);
+    })
 });

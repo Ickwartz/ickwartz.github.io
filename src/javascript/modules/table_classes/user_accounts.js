@@ -14,7 +14,8 @@ class User_Accounts extends Table_functions{
         let sql = "SELECT * FROM user_accounts WHERE email = ? AND password = ?;";
         let login_data = this.getValues();
 
-        let result = await this.#db_functions.QueryAll(sql, login_data);
+        let result = await this.#db_functions.queryAll(sql, login_data);
+        console.log("i shouldnt run")
         return new Promise((resolve, reject) => {
             if (result.length > 0) {
                 resolve(true)
