@@ -7,26 +7,21 @@ html(lang='de')
     include partials/_nav
 
     // login form
-    form.input-form
+    form.input-form(action="/register/registrate", method="post")
       #inputs.offset-md-4.col-md-4.offset-sm-3.col-sm-6.col-10.offset-1.col-xl-2.offset-xl-5
-        // Email input
         .mb-4
           input.form-control(name='first_name' placeholder='Vorname' type='text' required='')
-        // Email input
         .mb-4
           input.form-control(name='surname' placeholder='Nachname' type='text' required='')
-        // Email input
         .mb-4
           input.form-control(name='email' placeholder='Email Adresse' type='email' required='')
-        // Password input
         .mb-4
           input.form-control(name='password' type='password' placeholder='Passwort' required='')
-        // Password confirm input
         .mb-4
           input.form-control(name='password_confirm' type='password' placeholder='Passwort Wiederholen' required='')
       // Submit button
       .text-center
-        button.btn.btn-primary.btn-block.mb-4(type='button') Registrieren
-    // End login form
+        button#submit_button.btn.btn-primary.btn-block.mb-4(type='submit') Registrieren
+
     // Bootstrap
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' crossorigin='anonymous')

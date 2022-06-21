@@ -1,8 +1,7 @@
 - AM ENDE: Bootstrap local nutzen
 
 - check vor insert ob Eintrag schon vorhanden
-
-- tests mit Jest
+t
 
 
 - get_one / get_all function für Klassen
@@ -12,3 +11,10 @@
 
 - Login und Registrier System
     - in login_route statt Email in Session Var Vorname
+    - Display des Usernamens auf Website schöner machen 
+    - Registrieren
+    - Hashen
+
+- DB Handling
+    - Query Functionen aus Tabellen Klassen into handler modul
+    --> übergeben nurnoch sql string
