@@ -1,5 +1,5 @@
 const Table_functions = require("./table_functions");
-const db_instance = require("../db_instance");
+const Db_Functions = require("../db_functions");
 
 class Exercises extends Table_functions{
     constructor(name, description) {
@@ -8,45 +8,20 @@ class Exercises extends Table_functions{
         this.description = description;
     }
 
-    #db = db_instance;
+    #db_functions = new Db_Functions();
 
-    // # = private
-    #insertSQL = `
-    INSERT INTO exercises (name, description)
-    VALUES (?,?)
-    ;`;
-
-    #readSQL = "SELECT * FROM exercises;";
-
-    write_table() {
-        let values = this.getValues();
-
-        let query = this.#db.prepare(this.#insertSQL);
-        
-        query.run(values, (err) => {
-            if (err) {
-                throw (err);
-            } else {
-                console.log("success");
-            }
-        });
+    getValues() {
+        return [this.name, this.description]
     }
 
-    async read_table() {
+    safeData() {
+        let sql = "INSERT INTO exercises (name, description) VALUES (?,?);";
+        this.#db_functions.runQuery(sql, this.getValues());
+    }
 
-        return new Promise ((resolve, reject) => {
-            this.#db.serialize(() => {
-                let query = this.#db.prepare(this.#readSQL);
-                query.all((err, rows) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(rows);
-                    }
-                });
-            });
-        })
-        .catch(err => {throw err;});
+    async readData() {
+        let sql = "SELECT * FROM exercises;";
+        return await this.#db_functions.queryAll(sql);
     }
 }
 

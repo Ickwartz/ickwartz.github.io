@@ -18,3 +18,9 @@ t
 - DB Handling
     - Query Functionen aus Tabellen Klassen into handler modul
     --> übergeben nurnoch sql string
+
+
+- READ
+    - decorators
+        --> maybe für generic table_functions
+    - SQL named placeholders

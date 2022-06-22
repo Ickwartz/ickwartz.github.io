@@ -5,11 +5,11 @@ class Db_Functions {
         this.db = db_instance;
     }
 
-    async queryAll(sql, data){
+    async queryAll(sql, placeholders){
         return new Promise ((resolve, reject) => {
             this.db.serialize(() => {
                 let query = this.db.prepare(sql);
-                query.all(data, (err, rows) => {
+                query.all(placeholders, (err, rows) => {
                     if (err) {
                         reject(err);
                     }
@@ -18,6 +18,16 @@ class Db_Functions {
             });
         })
         .catch(err => {throw err;});
+    }
+
+    runQuery(sql, data) {
+        let query = this.db.prepare(sql);
+        query.run(data, (err) => {
+            if (err) {
+                throw err
+            }
+            console.log("Query ran successfully")
+        })
     }
 }
 

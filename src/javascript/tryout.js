@@ -1,7 +1,7 @@
-const exercises = require("./modules/table_classes/exercises");
+const user_accounts = require("./modules/table_classes/user_accounts");
 
-let exercise = new exercises("Gurken", "Salat")
-
-exercise.write_table()
-
-module.exports = functions;
+async function blub() {
+    let ua = new user_accounts("test@test.de", "123456");
+    console.log(await ua.readData())
+}
+blub()

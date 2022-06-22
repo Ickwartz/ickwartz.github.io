@@ -6,6 +6,7 @@ mock_db_instance.prepare.mockReturnValue(mock_db_instance);
 // --> reihenfolge unabhängig
 mock_db_instance.all
     .mockImplementationOnce((data, callback) => {
+        console.log("Callback Log")
         callback(new Error("SQL Error"));
     })
     .mockImplementationOnce((data, callback) => {

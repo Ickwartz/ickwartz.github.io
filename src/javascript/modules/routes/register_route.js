@@ -23,6 +23,7 @@ router
         if (password === password_confirm) {
             let user = new User(first_name, surname, email);
             let user_account = new User_Accounts(email, password);
+            //user.
         } else {
             res.send("Passwort wiederholung stimmt nicht überein");
             //setTimeout(function(){}, 5000);
