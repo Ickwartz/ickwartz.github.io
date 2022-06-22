@@ -11,7 +11,10 @@ class User_Accounts extends Table_functions{
     #db_functions = new Db_Functions();
 
     getValues() {
-        return [this.email, this.password]
+        return {
+            $email: this.email, 
+            $password: this.password
+        }
     }
 
     async verifyUser() {
@@ -24,10 +27,11 @@ class User_Accounts extends Table_functions{
         }
         return (false);
     }
-
-    safeData() {
-        let sql = "INSERT INTO user_accounts (email, password) VALUES (?,?);";
-        this.#db_functions.runQuery(sql, this.getValues);
+    
+    async safeData() {
+        let sql = `INSERT INTO user_accounts (user_id, email, password) 
+                    VALUES ((SELECT user_id from users WHERE $email = users.email), $email ,$password);`;
+        await this.#db_functions.runQuery(sql, this.getValues());
     }
 
     async readData() {

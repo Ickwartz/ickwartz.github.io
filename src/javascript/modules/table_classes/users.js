@@ -16,9 +16,9 @@ class Users extends Table_functions{
         return [this.first_name, this.surname, this.email, this.member_since]
     }
 
-    safeData() {
+    async safeData() {
         let sql = "INSERT INTO users (first_name, surname, email, member_since) VALUES (?,?,?,?);";
-        this.#db_functions.runQuery(sql, this.getValues())
+        await this.#db_functions.runQuery(sql, this.getValues())
     }
 
     async readData() {

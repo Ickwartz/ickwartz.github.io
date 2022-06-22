@@ -20,9 +20,9 @@ class Db_Functions {
         .catch(err => {throw err;});
     }
 
-    runQuery(sql, data) {
+    async runQuery(sql, data) {
         let query = this.db.prepare(sql);
-        query.run(data, (err) => {
+        await query.run(data, (err) => {
             if (err) {
                 throw err
             }
