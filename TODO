@@ -3,16 +3,23 @@
 - check vor insert ob Eintrag schon vorhanden
 
 
-- Kalender für Trainingspläne --> Übungen für dieses Datum oder Meldung das keine Übungen für diesen Tag vorhanden
+- Funktionen
+    - Übungen erstellen
+    - Trainingsplan erstellen
+    - Trainingsplan mit User verknüpfen
+    - Kalender für Trainingspläne 
+        --> Übungen für dieses Datum oder Meldung das keine Übungen für diesen Tag vorhanden
+ 
 
-- Login und Registrier System
+
+- Account System
     - in login_route statt Email in Session Var Vorname
     - Display des Usernamens auf Website schöner machen 
-    - Hashen
+    - lose ends bei pw mismatch etc --> redirects
+    - Logout
 
 - DB Handling
     - umstellung placeholders to named placeholders
-
 
 - READ
     - decorators

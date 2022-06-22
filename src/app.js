@@ -12,11 +12,11 @@ app
     .set("view engine", "pug")
     .set("views", path.join(__dirname, "views"))
 
-    // test env
     .use(session({
         secret: "wubalubadubdub",
         resave: true,   // reactivate old session
-        saveUninitialized: true // helps identify revisiting users
+        saveUninitialized: true, // helps identify revisiting users
+        genId: (req) => {} 
     }))
 
     .use(express.json())

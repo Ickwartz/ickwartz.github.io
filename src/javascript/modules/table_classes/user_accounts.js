@@ -19,14 +19,25 @@ class User_Accounts extends Table_functions{
     }
 
     async verifyUser() {
-        let sql = "SELECT * FROM user_accounts WHERE email = $email;";  // AND password = $password;";
+        let sql = "SELECT * FROM user_accounts WHERE email = $email;";
         let login_data = this.getValues();
 
         let result = await this.#db_functions.queryAll(sql, login_data.$email);
         if (result.length > 0) {
             return await hashing.comparePasswords(login_data.$password, result[0].password);
         }
-        return (false);
+        return false;
+    }
+
+    async isAdmin() {
+        let sql = "SELECT * FROM admins WHERE email = $email;";
+        let email = this.getValues().$email;
+        let result = await this.#db_functions.queryAll(sql, email);
+
+        if (result.length > 0) {
+            return true
+        }
+        return false;
     }
     
     async safeData() {

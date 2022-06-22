@@ -1,6 +1,7 @@
-const hashing = require("./modules/helpers/hashing");
+let bool = true;
 
-let hashPw = "$2b$12$MEU.iTSnIBKdkgvDC4iyKOfZ2Xhwdsw1pfunnLU9L7D4gpTQIMIhO";
-let textPW = "nick123";
+console.log(typeof bool + " " + bool);
 
-hashing.comparePasswords(textPW, hashPw).then(res => console.log(res));
+bool = "" + bool;
+
+console.log(typeof bool + " " + bool);

@@ -20,17 +20,34 @@ section#contacts.d-flex.align-items-center
                         a.nav-link(aria-current='page' href='/') Home
                     li.nav-item
                         a.nav-link(href='about') Über mich
-                    li.nav-item.dropdown
-                        a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
-                            | Mein Bereich
-                        ul.dropdown-menu(aria-labelledby='navbarDropdown')
-                            li
-                                a.dropdown-item(href='training') Training
-                            li
-                                a.dropdown-item(href='#') Ernährung
-                            li
-                                a.dropdown-item(href='#') Tagebuch
-                    li.nav-item
-                        a.nav-link(href='login') Login
-                    li.nav-item 
-                        a.nav-link(href="#" style="color: blue") #{session.user}
+                    
+                    if (session.loggedin)
+                        li.nav-item.dropdown
+                            a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                | Mein Bereich
+                            ul.dropdown-menu(aria-labelledby='navbarDropdown')
+                                li
+                                    a.dropdown-item(href='training') Training
+                                li
+                                    a.dropdown-item(href='#') Ernährung
+                                li
+                                    a.dropdown-item(href='#') Tagebuch
+                        if (session.adminSession)
+                            li.nav-item.dropdown
+                                a#navbarDropdownAdmin.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                    | Admin
+                                ul.dropdown-menu(aria-labelledby='navbarDropdown')
+                                    li
+                                        a.dropdown-item(href='/newexercise') Übung hinzufügen
+                                    li
+                                        a.dropdown-item(href='#') Trainingsplan erstellen
+                                    li
+                                        a.dropdown-item(href='#') Mitglieder Übersicht
+                        
+                        li.nav-item 
+                            a.nav-link(href="#" style="color: blue") #{session.user}
+                        li.nav-item
+                            a.nav-link(href='logout') Logout
+                    else
+                        li.nav-item
+                            a.nav-link(href='login') Login

@@ -3,31 +3,39 @@ const router = express.Router();
 
 const training_schedule = require("./schedule_route");
 const login = require("./login_route");
+const logout = require("./logout_route");
 const register = require("./register_route");
+const new_exercise = require("./new_exercise");
 
-router.get("/", (req, res) => {
-    res.render("index", {
-        //vars
-    });
-});
+router
 
-router.get("/about", (req, res) => {
-    res.render("about", {
-        //vars
-    });
-});
+    .get("/", (req, res) => {
+        res.render("index", {
+            //vars
+        });
+    })
 
-router.get("/training", (req, res) => {
-    res.render("training", {
-        //vars
-    });
-});
+    .get("/about", (req, res) => {
+        res.render("about", {
+            //vars
+        });
+    })
 
-router.use("/training/trainingsplan", training_schedule);
+    .get("/training", (req, res) => {
+        res.render("training", {
+            //vars
+        });
+    })
 
-router.use("/login", login);
+    .use("/newexercise", new_exercise)
 
-router.use("/register", register);
+    .use("/training/trainingsplan", training_schedule)
+
+    .use("/login", login)
+
+    .use("/logout", logout)
+
+    .use("/register", register);
 
 
 module.exports = router;

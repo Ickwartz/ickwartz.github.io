@@ -11,24 +11,23 @@ router
     });
 })
 
-.post("/auth", (req, res) => {
+.post("/auth", async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
 
     if (email && password) {
         let user_account = new User_Account(email, password);
-        user_account.verifyUser().then((verified) => {
-            if (verified) {
-                req.session.loggedin = true;
-                req.session.user = email;   // hier maybe verknüpfung zu User --> Vorname
-                res.redirect("/");
-                //res.send("Hello");
-                
-            } else {
-                res.send("Falsche Email und/oder Passwort");
-            }
-            res.end(); 
-        });
+        let verified = await user_account.verifyUser()
+        if (verified) {
+            req.session.loggedin = true;
+            req.session.user = email;   // hier maybe verknüpfung zu User --> Vorname
+            req.session.adminSession = await user_account.isAdmin()
+            res.redirect("/");
+            
+        } else {
+            res.send("Falsche Email und/oder Passwort");
+        }
+        res.end(); 
     } else {
         res.send("Bitte Email und Passwort eingeben");
         res.end();
