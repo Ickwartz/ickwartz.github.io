@@ -1,10 +1,6 @@
 - AM ENDE: Bootstrap local nutzen
 
 - check vor insert ob Eintrag schon vorhanden
-t
-
-
-- get_one / get_all function für Klassen
 
 
 - Kalender für Trainingspläne --> Übungen für dieses Datum oder Meldung das keine Übungen für diesen Tag vorhanden
@@ -12,15 +8,12 @@ t
 - Login und Registrier System
     - in login_route statt Email in Session Var Vorname
     - Display des Usernamens auf Website schöner machen 
-    - Registrieren
     - Hashen
 
 - DB Handling
-    - Query Functionen aus Tabellen Klassen into handler modul
-    --> übergeben nurnoch sql string
+    - umstellung placeholders to named placeholders
 
 
 - READ
     - decorators
         --> maybe für generic table_functions
-    - SQL named placeholders

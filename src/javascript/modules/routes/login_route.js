@@ -1,5 +1,5 @@
 const express = require("express");
-const account = require("../table_classes/user_accounts");
+const User_Account = require("../table_classes/user_accounts");
 
 const router = express.Router();
 
@@ -16,8 +16,8 @@ router
     let password = req.body.password;
 
     if (email && password) {
-        let user = new account(email, password);
-        user.verifyUser().then((verified) => {
+        let user_account = new User_Account(email, password);
+        user_account.verifyUser().then((verified) => {
             if (verified) {
                 req.session.loggedin = true;
                 req.session.user = email;   // hier maybe verknüpfung zu User --> Vorname

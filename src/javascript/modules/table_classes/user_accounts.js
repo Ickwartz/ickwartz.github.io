@@ -1,5 +1,6 @@
 const Table_functions = require("./table_functions");
 const Db_Functions = require("../db_functions");
+const hashing = require("../helpers/hashing");
 
 class User_Accounts extends Table_functions{
     constructor(email, password) {
@@ -18,12 +19,12 @@ class User_Accounts extends Table_functions{
     }
 
     async verifyUser() {
-        let sql = "SELECT * FROM user_accounts WHERE email = ? AND password = ?;";
+        let sql = "SELECT * FROM user_accounts WHERE email = $email;";  // AND password = $password;";
         let login_data = this.getValues();
 
-        let result = await this.#db_functions.queryAll(sql, login_data);
+        let result = await this.#db_functions.queryAll(sql, login_data.$email);
         if (result.length > 0) {
-            return true
+            return await hashing.comparePasswords(login_data.$password, result[0].password);
         }
         return (false);
     }
