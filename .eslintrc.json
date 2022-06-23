@@ -12,5 +12,6 @@
     },
     "rules": {
         "semi": "warn"
-    }
+    },
+    "plugins": ["jest"]
 }
