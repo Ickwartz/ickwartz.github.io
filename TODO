@@ -17,7 +17,7 @@
     - in login_route statt Email in Session Var Vorname
     - Display des Usernamens auf Website schöner machen 
     - lose ends bei pw mismatch etc --> redirects
-    - Logout
+    - nur für admin sichtbare pages auch nur als Admin anzeigbar machen
 
 - DB Handling
     - umstellung placeholders to named placeholders

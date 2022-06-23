@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node ./src/start.js",
     "watch": "nodemon ./src/start.js",
+    "pretest": "lint",
     "test": "jest",
     "lint": "eslint **/*.js"
   },
