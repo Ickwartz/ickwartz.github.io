@@ -44,18 +44,18 @@ class TableHandler  {
 	}
 
 
-	safeTableData() {
+	getTableData() {
 		let data = [];
 		for (let i = 1; i <= this.rows; i++) {
 			let exercise = document.getElementById(`exInp${i}`);
 			let description = document.getElementById(`descInp${i}`);
 			data.push({name: exercise.value, description: description.value});
 		}
-		console.log(data);
+		return(data);
 	}
 
 	// TODO: change to fetch api
-	postData(url, data) {
+	ajaxPostData(url, data) {
 		let jsonData = JSON.stringify(data);
 		const xhttp = new XMLHttpRequest();
 		xhttp.open("POST", url);
@@ -64,6 +64,21 @@ class TableHandler  {
 	
 	}
 
+	async postData(url, data) {
+		await fetch(url, {
+			method: "POST",
+			mode: "cors",
+			cache: "no-cache",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(data)
+		});
+	}
+
+	async safeTableData() {
+		await this.postData("/newexercise/safe", this.getTableData());
+	}
 }
 
 window.onload = () => {

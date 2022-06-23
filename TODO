@@ -32,6 +32,8 @@
 - Fragen
     - Sollen Übungen wenn sie aktualisiert werden auch in alten Trainingsplänen angepasst werden?
         --> History?
+    
+    - protect post requests? z.B. bei Exercise Daten speichern
 
 - Refactor
     - Frontend und Backend in separate Folder
