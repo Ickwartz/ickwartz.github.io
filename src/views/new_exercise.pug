@@ -2,6 +2,24 @@ doctype html
 html(lang='en')
   head
     include partials/_head
+    script(type="text/javascript" src="/js/new_exercises.js") 
   body
     // Main Menu Navbar & Contacts Bar
     include partials/_nav
+
+    .table-responsive
+      table#input_table
+        thead 
+          tr 
+            th #
+            th#name Übung
+            th#description Beschreibung
+        tbody#input_body
+
+    button#doStuffButton(type="button") Engage
+    button#submitButton(type="button") Speichern
+
+                 
+    // Bootstrap
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' crossorigin='anonymous')
+       

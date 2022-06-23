@@ -11,7 +11,7 @@ class Exercises extends Table_functions{
     #db_functions = new Db_Functions();
 
     getValues() {
-        return [this.name, this.description]
+        return [this.name, this.description];
     }
 
     safeData() {

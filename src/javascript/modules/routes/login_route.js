@@ -17,11 +17,11 @@ router
 
     if (email && password) {
         let user_account = new User_Account(email, password);
-        let verified = await user_account.verifyUser()
+        let verified = await user_account.verifyUser();
         if (verified) {
             req.session.loggedin = true;
             req.session.user = email;   // hier maybe verknüpfung zu User --> Vorname
-            req.session.adminSession = await user_account.isAdmin()
+            req.session.adminSession = await user_account.isAdmin();
             res.redirect("/");
             
         } else {

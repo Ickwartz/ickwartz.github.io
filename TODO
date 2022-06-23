@@ -4,12 +4,13 @@
 
 
 - Funktionen
-    - Übungen erstellen
+    - Übungen erstellen, editieren und löschen(als veraltet markieren für "legacy content")
+        --> löschen nur wenn keine Verbindung zu Trainingsplan
     - Trainingsplan erstellen
     - Trainingsplan mit User verknüpfen
     - Kalender für Trainingspläne 
         --> Übungen für dieses Datum oder Meldung das keine Übungen für diesen Tag vorhanden
- 
+    - Registrieren nur wenn auf vorgefertigter Liste
 
 
 - Account System
@@ -24,3 +25,16 @@
 - READ
     - decorators
         --> maybe für generic table_functions
+
+- Tests
+    - für alle Table Klassen Read und Write
+
+- Fragen
+    - Sollen Übungen wenn sie aktualisiert werden auch in alten Trainingsplänen angepasst werden?
+        --> History?
+
+- Refactor
+    - Frontend und Backend in separate Folder
+
+
+Path Var für VS CODE Shell?

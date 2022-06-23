@@ -15,7 +15,7 @@ class User_Accounts extends Table_functions{
         return {
             $email: this.email, 
             $password: this.password
-        }
+        };
     }
 
     async verifyUser() {
@@ -35,7 +35,7 @@ class User_Accounts extends Table_functions{
         let result = await this.#db_functions.queryAll(sql, email);
 
         if (result.length > 0) {
-            return true
+            return true;
         }
         return false;
     }

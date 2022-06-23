@@ -16,7 +16,6 @@ app
         secret: "wubalubadubdub",
         resave: true,   // reactivate old session
         saveUninitialized: true, // helps identify revisiting users
-        genId: (req) => {} 
     }))
 
     .use(express.json())

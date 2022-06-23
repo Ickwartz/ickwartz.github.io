@@ -16,10 +16,10 @@ describe("Db_Functions", () => {
     });
 
     test("Should resolve promise with data when query is successfull", async () => {
-        expect(await db_functions.queryAll()).toEqual([{data: "data"}])
+        expect(await db_functions.queryAll()).toEqual([{data: "data"}]);
     });
 
     test("Promise should resolve with empty data when query returns no matches", async () => {
         expect(await db_functions.queryAll()).toEqual([]);
-    })
+    });
 });

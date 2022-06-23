@@ -14,13 +14,13 @@ class Personalized_Exercises extends Table_functions{
     #db_functions = new Db_Functions();
 
     getValues() {
-        return [this.user_id, this.reps, this.sets, this.comment, this.training_id]
+        return [this.user_id, this.reps, this.sets, this.comment, this.training_id];
     }
     
     safeData() {
         let sql = `INSERT INTO personalized_exercises (exercise_id, user_id, reps, sets, comment, training_id)
                     VALUES (?,?,?,?,?,?);`;
-        this.#db_functions.runQuery(sql, this.getValues())
+        this.#db_functions.runQuery(sql, this.getValues());
     }
 
     async readData() {

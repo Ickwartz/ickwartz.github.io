@@ -1,5 +1,5 @@
 const express = require("express");
-const hashing = require("../helpers/hashing")
+const hashing = require("../helpers/hashing");
 const User  = require("../table_classes/users");
 const User_Accounts = require("../table_classes/user_accounts");
 

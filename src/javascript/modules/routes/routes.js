@@ -5,7 +5,7 @@ const training_schedule = require("./schedule_route");
 const login = require("./login_route");
 const logout = require("./logout_route");
 const register = require("./register_route");
-const new_exercise = require("./new_exercise");
+const new_exercise = require("./new_exercise_route");
 
 router
 

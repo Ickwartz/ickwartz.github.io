@@ -24,10 +24,10 @@ class Db_Functions {
         let query = this.db.prepare(sql);
         await query.run(data, (err) => {
             if (err) {
-                throw err
+                throw err;
             }
-            console.log("Query ran successfully")
-        })
+            console.log("Query ran successfully");
+        });
     }
 }
 

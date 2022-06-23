@@ -6,7 +6,7 @@ router.get("/", (req, res) => {
     req.session.loggedin = false;
     req.session.user = "";
     req.session.adminSession = false;
-    res.redirect("/")
-})
+    res.redirect("/");
+});
 
 module.exports = router;
