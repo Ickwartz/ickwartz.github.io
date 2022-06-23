@@ -65,7 +65,7 @@ class TableHandler  {
 	}
 
 	async postData(url, data) {
-		await fetch(url, {
+		const response = await fetch(url, {
 			method: "POST",
 			mode: "cors",
 			cache: "no-cache",
@@ -74,10 +74,12 @@ class TableHandler  {
 			},
 			body: JSON.stringify(data)
 		});
+		return response.json();
 	}
 
 	async safeTableData() {
-		await this.postData("/newexercise/safe", this.getTableData());
+		let result = await this.postData("/newexercise/safe", this.getTableData());
+		console.log("message: " + result.message);
 	}
 }
 

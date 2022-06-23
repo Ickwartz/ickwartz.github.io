@@ -11,12 +11,31 @@ class Exercises extends Table_functions{
     #db_functions = new Db_Functions();
 
     getValues() {
-        return [this.name, this.description];
+        return {
+            $name: this.name,
+            $description: this.description
+        };
     }
 
-    safeData() {
-        let sql = "INSERT INTO exercises (name, description) VALUES (?,?);";
-        this.#db_functions.runQuery(sql, this.getValues());
+    async safeData() {
+        let values = this.getValues();
+        if (!(await this.existsInTable(values.$name))) {
+            let sql = "INSERT INTO exercises (name, description) VALUES ($name, $description);";
+            await this.#db_functions.runQuery(sql, values);
+            return {result: true, message: `${values.$name} erfolgreich gespeichert`};
+        } else {
+            return {result: false, message: `${values.$name} existiert schon in der Datenbank`};
+        }
+    }
+
+    async existsInTable() {
+        let sql = "SELECT * FROM exercises WHERE name = $name";
+        let result = await this.#db_functions.queryAll(sql, this.getValues().$name);
+        console.log(result);
+        if (result.length > 0) {    
+            return true;
+        }
+        return false;
     }
 
     async readData() {
