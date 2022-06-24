@@ -7,7 +7,7 @@ router
 
 .get("/", (req, res) => {
     res.render("new_exercise", {
-        
+        admin: req.session.adminSession ? true : false
     });
 })
 

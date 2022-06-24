@@ -23,7 +23,7 @@ router
 
     .get("/training", (req, res) => {
         res.render("training", {
-            //vars
+            loggedin: req.session.loggedin ? true : false
         });
     })
 
