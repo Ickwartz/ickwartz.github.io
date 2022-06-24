@@ -7,24 +7,21 @@ router
 
 .get("/", (req, res) => {
     res.render("new_exercise", {
-
+        
     });
 })
 
-.post("/safe", async (req, res) => {
+.post("/save", async (req, res) => {
     let data = req.body;
     let response_data = [];
-    await data.forEach(async element => {
+    for (const element of data) {
         let exercise = new Exercise(element.name, element.description);
-        let response = await exercise.safeData();
+        let response = await exercise.saveData();
         response_data.push(response);
-        console.log(response);
-    });
-
-    // why dis running before await
-    console.log("exercise route response_data: ");
-    console.log(response_data);
-    res.send(JSON.stringify(response_data));
+    }
+    res.set("Content-Type", "application/json");
+    res.json(response_data);
 });
+
 
 module.exports = router;

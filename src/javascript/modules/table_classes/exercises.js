@@ -17,7 +17,7 @@ class Exercises extends Table_functions{
         };
     }
 
-    async safeData() {
+    async saveData() {
         let values = this.getValues();
         if (!(await this.existsInTable(values.$name))) {
             let sql = "INSERT INTO exercises (name, description) VALUES ($name, $description);";
@@ -31,7 +31,6 @@ class Exercises extends Table_functions{
     async existsInTable() {
         let sql = "SELECT * FROM exercises WHERE name = $name";
         let result = await this.#db_functions.queryAll(sql, this.getValues().$name);
-        console.log(result);
         if (result.length > 0) {    
             return true;
         }

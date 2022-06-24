@@ -2,7 +2,8 @@ doctype html
 html(lang='en')
   head
     include partials/_head
-    script(type="text/javascript" src="/js/new_exercises.js") 
+    script(type="text/javascript" src="/js/new_exercises.js")
+    link(rel='stylesheet' href='../css/snackbar.css' type='text/css')
   body
     // Main Menu Navbar & Contacts Bar
     include partials/_nav
@@ -18,6 +19,9 @@ html(lang='en')
 
     button#addRowButton(type="button") Neue Übung
     button#submitButton(type="button") Speichern
+
+    div#snackbar
+      p#snackbar-content
 
                  
     // Bootstrap

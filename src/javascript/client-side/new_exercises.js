@@ -65,7 +65,7 @@ class TableHandler  {
 	}
 
 	async postData(url, data) {
-		const response = await fetch(url, {
+		return fetch(url, {
 			method: "POST",
 			mode: "cors",
 			cache: "no-cache",
@@ -73,13 +73,43 @@ class TableHandler  {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify(data)
+		})
+		.then(response => response.json())
+		.then(data => {
+			return data;
 		});
-		return response.json();
 	}
 
-	async safeTableData() {
-		let result = await this.postData("/newexercise/safe", this.getTableData());
-		console.log("message: " + result.message);
+	async saveTableData() {
+		this.postData("/newexercise/save", this.getTableData()).then(result => {
+			this.showResultMessage(result);
+		});
+	}
+
+	showResultMessage(resultArr) {
+		console.log(resultArr);
+		let success = false;
+		let text = "";
+
+		resultArr.forEach(element => {
+			if (element.result && !success) {
+				success = true;
+				text = "Erfolgreich in der Datenbank gespeichert!" + text;
+			} else {
+				text += "<br>" + element.message;
+			}
+		});
+		this.displayOnSnackbar(text);
+	}
+
+	displayOnSnackbar(text) {
+		// Show fading popup message on bottom of screen
+		const snackbar = document.getElementById("snackbar");
+		const snackbarContent = document.getElementById("snackbar-content");
+		snackbarContent.innerHTML = text;
+		snackbar.className = "show";
+		// make it fade after 5s
+		setTimeout(() => {snackbar.className = "";}, 5000);
 	}
 }
 
@@ -90,6 +120,6 @@ window.onload = () => {
 		tableHandler.createRow();
 	});
 
-	document.getElementById("submitButton").addEventListener("click", () => (tableHandler.safeTableData()));
+	document.getElementById("submitButton").addEventListener("click", () => (tableHandler.saveTableData()));
 
 };
