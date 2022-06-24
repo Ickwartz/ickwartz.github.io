@@ -29,9 +29,9 @@ class TableHandler  {
 		td_name.appendChild(ti_name);
 
 		let td_description = document.createElement("td");
-		let ti_description = document.createElement("input");
+		let ti_description = document.createElement("textarea");
 		ti_description.setAttribute("id", `descInp${this.rows}`);
-		ti_description.setAttribute("type", "text");
+		ti_description.setAttribute("style", "width: 100%");
 		ti_description.setAttribute("placeholder", "Beschreibung");
 		ti_description.setAttribute("class", "TableInput");
 		td_description.appendChild(ti_description);
@@ -49,7 +49,9 @@ class TableHandler  {
 		for (let i = 1; i <= this.rows; i++) {
 			let exercise = document.getElementById(`exInp${i}`);
 			let description = document.getElementById(`descInp${i}`);
-			data.push({name: exercise.value, description: description.value});
+			if (exercise != "") {
+				data.push({name: exercise.value, description: description.value});
+			}
 		}
 		return(data);
 	}

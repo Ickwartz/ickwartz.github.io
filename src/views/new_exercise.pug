@@ -11,12 +11,12 @@ html(lang='en')
     if (admin)
 
       .table-responsive
-        table#input_table
+        table#input_table.table
           thead 
             tr 
-              th #
-              th#name Übung
-              th#description Beschreibung
+              th.col-1 #
+              th.col-2 Übung
+              th.col-9 Beschreibung
           tbody#input_body
 
       button#addRowButton(type="button") Neue Übung
