@@ -32,6 +32,8 @@
 - Fragen
     - Sollen Übungen wenn sie aktualisiert werden auch in alten Trainingsplänen angepasst werden?
         --> History?
+            --> Nope
+            
 
 - Refactor
     - Frontend und Backend in separate Folder
@@ -47,3 +49,8 @@
 
 
 Path Var für VS CODE Shell?
+
+
+Snackbar Message double
+
+Trainingsplan drucken

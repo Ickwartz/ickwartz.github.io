@@ -27,7 +27,7 @@ section#contacts.d-flex.align-items-center
                                 | Mein Bereich
                             ul.dropdown-menu(aria-labelledby='navbarDropdown')
                                 li
-                                    a.dropdown-item(href='training') Training
+                                    a.dropdown-item(href='/training') Training
                                 li
                                     a.dropdown-item(href='#') Ernährung
                                 li
@@ -47,7 +47,7 @@ section#contacts.d-flex.align-items-center
                         li.nav-item 
                             a.nav-link(href="#" style="color: blue") #{session.user}
                         li.nav-item
-                            a.nav-link(href='logout') Logout
+                            a.nav-link(href='/logout') Logout
                     else
                         li.nav-item
-                            a.nav-link(href='login') Login
+                            a.nav-link(href='/login') Login
