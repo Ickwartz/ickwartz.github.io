@@ -10,11 +10,11 @@ class NavButtons extends HTMLElement {
     connectedCallback() {
         this.className = "button-container-calendar";
         let buttonPrev = document.createElement("button");
-        buttonPrev.innerHTML = "‹"
+        buttonPrev.innerHTML = "‹";
         buttonPrev.addEventListener("click", () => calendarFunctions.previous());
         buttonPrev.style.float = "left";    // ---------------------- ok ??
         let buttonNext = document.createElement("button");
-        buttonNext.innerHTML = "›"
+        buttonNext.innerHTML = "›";
         buttonNext.style.float = "right";   // ---------------------- ok ??
         buttonNext.addEventListener("click", () => calendarFunctions.next());
 
@@ -33,8 +33,18 @@ class CalendarTable extends HTMLTableElement {
         this.className = "table-calendar";
         let thead = document.createElement("thead");
         let tbody = document.createElement("tbody");
-        console.log("Connected Table Callback");
+
         thead.id = "thead-month";
+        //create tablehead with weekdays
+        let days = ["M", "D", "M", "D", "F", "S", "S"];
+        let tableHead = document.createElement("tr");
+        for (let day in days) {
+            let col = document.createElement("th");
+            col.innerHTML = day;
+            tableHead.appendChild(col);
+        }
+
+
         tbody.id = "calendar-body";
 
         this.appendChild(thead);
@@ -53,23 +63,31 @@ class QuickNav extends HTMLElement {
         let label = document.createElement("label");
         label.setAttribute("for", "month");
         label.textContent = "Springen zu: ";
+
         let monthSelector = document.createElement("select");
         monthSelector.id = "month";
         monthSelector.onchange = () => calendarFunctions.jump();
         
+        // populate quick jump options months
         let months = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
         for (let i = 0; i < 12; i++) {
             let option = document.createElement("option");
             option.value = i;
             option.innerHTML = months[i];
             monthSelector.appendChild(option);
-        }
+        }    
 
         let yearSelector = document.createElement("select");
         yearSelector.id = "year";
         yearSelector.onchange = () => calendarFunctions.jump();
+        // populate quick jump options years
+        for (let year = 1970; year <= 2050; year++) {
+            let option = document.createElement("option");
+            option.value = year;
+            option.innerHTML = year;
+            yearSelector.appendChild(option);
+        }
         
-        console.log("Connected QuickNav Callback");
 
         this.appendChild(label);
         this.appendChild(monthSelector);
@@ -108,8 +126,7 @@ class ScheduleCalendar extends HTMLElement {
         let navButtons =  document.createElement("navigation-buttons");
 
         //let calendarTable = document.createElement("calendar-table");
-        let calendarTable = document.createElement("table");
-        calendarTable.setAttribute("is", "calendar-table");
+        let calendarTable = document.createElement("table", {is: "calendar-table"});
         
         let quickNav = document.createElement("quick-navigation");
         let scheduleDisplay = document.createElement("schedule-display");
