@@ -15,29 +15,7 @@ class CalendarFunctions {
     selectMonth = document.getElementById("month");
 
     genCalendar() {        
-        let createYear = this.generate_year_range(1970, 2050);
-        
-        document.getElementById("year").innerHTML = createYear;
-           
-        
-        let dataHead = "<tr>";
-        for (let dhead in this.days) {
-            dataHead += "<th data-days='" + this.days[dhead] + "'>" + this.days[dhead] + "</th>";
-        }
-        dataHead += "</tr>";
-        
-        console.log("Zugriff auf thead Element");
-        document.getElementById("thead-month").innerHTML = dataHead;
-        
         this.showCalendar(this.currentMonth, this.currentYear);
-    }
-
-    generate_year_range(start, end) {
-        let years = "";
-        for (let year = start; year <= end; year++) {
-            years += "<option value='" + year + "'>" + year + "</option>";
-        }
-        return years;
     }
     
     next() {
