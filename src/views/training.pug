@@ -3,25 +3,26 @@ html
     head
         include partials/_head
         link(rel='stylesheet' href='../css/training_calendar.css' type='text/css')
-        script(type="text/javascript" src="js/training_calendar.js")
+        script(type="module" src="js/training_calendar.js")
     body
         // Main Menu Navbar & Contacts Bar
         include partials/_nav
         if (loggedin)
             button#button1 Click me
 
+            // Calendar
             .wrapper
                 .container-calendar
                     h3#monthAndYear
                     .button-container-calendar
-                        button#previous(onclick='previous()') ‹
-                        button#next(onclick='next()') ›
+                        button#previous(onclick='calendarFunctions.previous()') ‹
+                        button#next(onclick='calendarFunctions.next()') ›
                     table#calendar.table-calendar(data-lang='en')
                         thead#thead-month
                         tbody#calendar-body
                     .footer-container-calendar
                         label(for='month') Springen zu: 
-                        select#month(onchange='jump()')
+                        select#month(onchange='calendarFunctions.jump()')
                             option(value='0') Jan
                             option(value='1') Feb
                             option(value='2') Mär
@@ -34,11 +35,11 @@ html
                             option(value='9') Okt
                             option(value='10') Nov
                             option(value='11') Dez
-                        select#year(onchange='jump()')
+                        select#year(onchange='calendarFunctions.jump()')
+                    // Appointments of a day display
                     .container-schedule-display
                         h4 Termine:
                         #schedule-display
-
 
         else
             include partials/_no-access
