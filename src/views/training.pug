@@ -3,44 +3,17 @@ html
     head
         include partials/_head
         link(rel='stylesheet' href='../css/training_calendar.css' type='text/css')
+        script(type="module" src="js/modules/calendarWebComponents.js")
         script(type="module" src="js/training_calendar.js")
     body
         // Main Menu Navbar & Contacts Bar
         include partials/_nav
-        if (true)//(loggedin)
+        //(loggedin)
+        if (true)   
             button#button1 Click me
 
             // Calendar
-            .wrapper
-                .container-calendar
-                    h3#monthAndYear
-                    .button-container-calendar
-                        button#previous(onclick='calendarFunctions.previous()') ‹
-                        button#next(onclick='calendarFunctions.next()') ›
-                    table#calendar.table-calendar(data-lang='en')
-                        thead#thead-month
-                        tbody#calendar-body
-                    .footer-container-calendar
-                        label(for='month') Springen zu: 
-                        select#month(onchange='calendarFunctions.jump()')
-                            option(value='0') Jan
-                            option(value='1') Feb
-                            option(value='2') Mär
-                            option(value='3') Apr
-                            option(value='4') Mai
-                            option(value='5') Jun
-                            option(value='6') Jul
-                            option(value='7') Aug
-                            option(value='8') Sep
-                            option(value='9') Okt
-                            option(value='10') Nov
-                            option(value='11') Dez
-                        select#year(onchange='calendarFunctions.jump()')
-                    // Appointments of a day display
-                    .container-schedule-display
-                        h4 Termine:
-                        #schedule-display
-
+            schedule-calendar
         else
             include partials/_no-access
         

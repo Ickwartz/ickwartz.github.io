@@ -26,6 +26,7 @@ class CalendarFunctions {
         }
         dataHead += "</tr>";
         
+        console.log("Zugriff auf thead Element");
         document.getElementById("thead-month").innerHTML = dataHead;
         
         this.showCalendar(this.currentMonth, this.currentYear);
