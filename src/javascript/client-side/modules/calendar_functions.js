@@ -151,8 +151,6 @@ class CalendarFunctions {
                     cell.setAttribute("data-month", month + 1);
                     cell.setAttribute("data-year", year);
                     cell.setAttribute("data-month_name", this.months[month]);
-                    cell.setAttribute("onclick", "calendarFunctions.showAppointments(this)");
-                    //cell.addEventListener("click", console.log("click")); //this.showAppointments(cell))
                     cell.className = "date-picker";
                     cell.innerHTML = "<span>" + date + "</span>";
 
@@ -161,6 +159,7 @@ class CalendarFunctions {
                     }
                     if (appointmentDays.includes(date)) {
                         cell.className += " appointment-day";
+                        cell.addEventListener("click", () => this.showAppointments(cell));
                     }
                     row.appendChild(cell);
                     date++;
