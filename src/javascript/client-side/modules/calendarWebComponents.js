@@ -64,8 +64,6 @@ class CalendarTable extends HTMLTableElement {
 
         let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-        //let appointmentDays = this.getMonthEventDays(month+1, year, getAppointments());
-
         // creating all cells
         let date = 1;
         for ( let i = 0; i < 6; i++ ) {        
@@ -192,28 +190,39 @@ class ScheduleDisplay extends HTMLElement {
         super();
     }
 
-    displaySchedule(scheduleObject) {
-        let container = document.getElementById("schedule-display");
-        let wrapper = document.createElement("div");
-    
-        let entry = document.createElement("p");
-        entry.className = "display-entry";
-        entry.textContent = `${scheduleObject.date}  |  ${scheduleObject.name}: ${scheduleObject.description}`;
-    
-        let details = document.createElement("a");
-        details.className = "details-link";
-        details.href = "/details";
-        details.textContent = "Details";
-    
-        wrapper.appendChild(entry);
-        wrapper.appendChild(details);
-        container.appendChild(wrapper);
+    displaySchedule(scheduleObjects) {
+        let wrapper = document.getElementById("display-wrapper");
+        if (wrapper) {
+            wrapper.innerHTML="";
+        } else {        
+            wrapper = document.createElement("div");
+            wrapper.id = "display-wrapper";
+        }
+        for (let scheduleObject of scheduleObjects) {
+            let entry = document.createElement("div");
+            entry.className = "container d-flex justify-content-between";
+            let description = document.createElement("p");
+            description.className = "display-description";
+            description.textContent = `${scheduleObject.date}  |  ${scheduleObject.name}: ${scheduleObject.description}`;
+        
+            let details = document.createElement("a");
+            details.className = "details-link";
+            details.href = "/details";
+            details.textContent = "Details";
+            details.style.color = "black";
+        
+            entry.appendChild(description);
+            entry.appendChild(details);
+            wrapper.appendChild(entry);
+        }
+        this.appendChild(wrapper);
     }
 
     connectedCallback() {
-        this.innerHTML = `
-        <h4>Termine: </h4>
-        <div id="schedule-display"></div>`;
+        this.id = "schedule-display";
+        let header = document.createElement("h4");
+        header.innerHTML = "Termine: ";
+        this.appendChild(header);
     }
 }
 window.customElements.define("schedule-display", ScheduleDisplay);
