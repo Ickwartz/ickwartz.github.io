@@ -192,6 +192,24 @@ class ScheduleDisplay extends HTMLElement {
         super();
     }
 
+    displaySchedule(scheduleObject) {
+        let container = document.getElementById("schedule-display");
+        let wrapper = document.createElement("div");
+    
+        let entry = document.createElement("p");
+        entry.className = "display-entry";
+        entry.textContent = `${scheduleObject.date}  |  ${scheduleObject.name}: ${scheduleObject.description}`;
+    
+        let details = document.createElement("a");
+        details.className = "details-link";
+        details.href = "/details";
+        details.textContent = "Details";
+    
+        wrapper.appendChild(entry);
+        wrapper.appendChild(details);
+        container.appendChild(wrapper);
+    }
+
     connectedCallback() {
         this.innerHTML = `
         <h4>Termine: </h4>
@@ -206,7 +224,6 @@ class ScheduleCalendar extends HTMLElement {
     }
 
     connectedCallback() {
-        //let wrapper = document.createElement("div"); 
         this.className = "wrapper";
         let container = document.createElement("div");
         container.className = "container-calendar";
@@ -216,14 +233,12 @@ class ScheduleCalendar extends HTMLElement {
 
         let navButtons =  document.createElement("navigation-buttons");
 
-        //let calendarTable = document.createElement("calendar-table");
         let calendarTable = document.createElement("table", {is: "calendar-table"});
         
         let quickNav = document.createElement("quick-navigation");
         let scheduleDisplay = document.createElement("schedule-display");
 
         container.append(header, navButtons, calendarTable, quickNav, scheduleDisplay);
-        //wrapper.appendChild(container);
         this.appendChild(container);
     }
 }
