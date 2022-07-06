@@ -1,6 +1,3 @@
-import {CalendarFunctions} from "./calendar_functions.js";
-
-let calendarFunctions = new CalendarFunctions();
 let months = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
 let days = ["M", "D", "M", "D", "F", "S", "S"];
 let today = new Date();
@@ -14,12 +11,34 @@ class NavButtons extends HTMLElement {
         this.className = "button-container-calendar";
         let buttonPrev = document.createElement("button");
         buttonPrev.innerHTML = "‹";
-        buttonPrev.addEventListener("click", () => calendarFunctions.previous());
+        buttonPrev.addEventListener("click", () => {
+            let monthAndYear_el = document.getElementById("monthAndYear");
+            let monthAndYear = monthAndYear_el.innerHTML.split(" ");
+
+            let month = months.indexOf(monthAndYear[0]);
+            let year = monthAndYear[1] ;
+            year = (month === 0) ? year - 1 : year;
+            month = (month === 0) ? 11 : month - 1;
+
+            let table = document.getElementsByClassName("table-calendar")[0];
+            table.showCalendar(month,year);
+        });
         buttonPrev.style.float = "left";    // ---------------------- ok ??
         let buttonNext = document.createElement("button");
         buttonNext.innerHTML = "›";
         buttonNext.style.float = "right";   // ---------------------- ok ??
-        buttonNext.addEventListener("click", () => calendarFunctions.next());
+        buttonNext.addEventListener("click", () => {
+            let monthAndYear_el = document.getElementById("monthAndYear");
+            let monthAndYear = monthAndYear_el.innerHTML.split(" ");
+            
+            let month = months.indexOf(monthAndYear[0]);
+            let year = parseInt(monthAndYear[1]) ;
+            year = (month === 11) ? year + 1 : year;
+            month = (month === 11) ? 0 : month + 1;
+
+            let table = document.getElementsByClassName("table-calendar")[0];
+            table.showCalendar(month,year);
+        });
 
         this.appendChild(buttonPrev);
         this.appendChild(buttonNext);
@@ -124,8 +143,6 @@ class QuickNav extends HTMLElement {
 
         let monthSelector = document.createElement("select");
         monthSelector.id = "month";
-        monthSelector.onchange = () => calendarFunctions.jump();
-        
         // populate quick jump options months
         for (let i = 0; i < 12; i++) {
             let option = document.createElement("option");
@@ -139,7 +156,6 @@ class QuickNav extends HTMLElement {
 
         let yearSelector = document.createElement("select");
         yearSelector.id = "year";
-        yearSelector.onchange = () => calendarFunctions.jump();
         // populate quick jump options years
         for (let year = 1970; year <= 2050; year++) {
             let option = document.createElement("option");
@@ -150,6 +166,19 @@ class QuickNav extends HTMLElement {
             }
             yearSelector.appendChild(option);
         }
+        
+        monthSelector.addEventListener("change", () => {
+            let month = monthSelector.value;
+            let year = yearSelector.value;
+            let table = document.getElementsByClassName("table-calendar")[0];
+            table.showCalendar(month, year);
+        });
+        yearSelector.addEventListener("change", () => {
+            let month = monthSelector.value;
+            let year = yearSelector.value;
+            let table = document.getElementsByClassName("table-calendar")[0];
+            table.showCalendar(month, year);
+        });
 
         this.appendChild(label);
         this.appendChild(monthSelector);
