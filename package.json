@@ -9,7 +9,6 @@
   "scripts": {
     "start": "node ./src/start.js",
     "watch": "nodemon ./src/start.js",
-    "pretest": "lint",
     "test": "jest",
     "lint": "eslint **/*.js"
   },
@@ -39,6 +38,9 @@
     "sqlite3": "^5.0.8"
   },
   "devDependencies": {
+    "@testing-library/dom": "^8.14.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "jest-environment-jsdom": "^28.1.2",
     "nodemon": "^2.0.16"
   }
 }

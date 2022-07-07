@@ -1,5 +1,7 @@
-test/
 node_modules/
-notes
-./src/database/SQLite/
+src/
+tests/
 dump
+notes
+TODO
+.eslintrc.json
