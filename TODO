@@ -49,12 +49,7 @@
 
 
 - Calendar
-    - fix missing Tag in Head 
-    - Appointments in Component taggen
-        - nur Tage übergeben 
     - slots angucken
-    - Daten der DB für jeden Monat speichern und nur neu laden bei switch
-    - get request statt post
     - naming
 
 

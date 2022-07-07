@@ -126,7 +126,7 @@ class CalendarTable extends HTMLTableElement {
         thead.id = "thead-month";
         //create tablehead with weekdays
         let tableHead = document.createElement("tr");
-        for (let day in days) {
+        for (let day of days) {
             let col = document.createElement("th");
             col.innerHTML = day;
             tableHead.appendChild(col);
@@ -134,7 +134,7 @@ class CalendarTable extends HTMLTableElement {
 
         let tbody = document.createElement("tbody");
         tbody.id = "calendar-body";
-
+        thead.appendChild(tableHead);
         this.appendChild(thead);
         this.appendChild(tbody);
 
