@@ -1,9 +1,11 @@
-import {CalendarBackendCommunicator} from "./backendCommunication.js";
+import {CalendarBackend} from "./backendCommunication.js";
 
 class CalendarFunctions {
     constructor() {}
 
-    cbc = new CalendarBackendCommunicator();
+    calendarBackend = new CalendarBackend();
+
+    monthsAppointments = [];
 
     getDateInfoFromDay(day_el) {
         let day = this.formatNumeral(day_el.attributes["data-date"].value);
@@ -24,16 +26,25 @@ class CalendarFunctions {
         return num;
     }
 
-    tagAppointmentDays() {
+    async initAppointments() {
         let days_el = document.getElementsByClassName("date-picker");
         let dateInfo = this.getDateInfoFromDay(days_el[0]);
-        let appointments = this.cbc.getAppointmentDates(dateInfo.month, dateInfo.year);
-        for (let day_el of days_el) {
-            let dayDateInfo = this.getDateInfoFromDay(day_el);
-            if (appointments.includes(dayDateInfo.date)) {
-                day_el.className += " appointment-day";
-            }
-        }
+        this.monthsAppointments = await this.calendarBackend.getMonthsAppointments(dateInfo.month, dateInfo.year);
+    }
+
+    getAppointmentDates() {
+        let appointments = this.monthsAppointments;
+        let dates = appointments.map(appointment => {
+            let date = new Date(appointment.date);
+            return date.getDate();
+        });
+        return dates;
+    }
+
+    tagAppointmentDays() {
+        let days = this.getAppointmentDates();
+        let table = document.getElementsByClassName("table-calendar")[0];
+        table.tagAppointmentDates(days);
     }
 
     setAppointmentEventListener() {
@@ -46,15 +57,14 @@ class CalendarFunctions {
     displayAppointments(day) {
         let scheduleDisplay = document.getElementById("schedule-display");
         let date = this.getDateInfoFromDay(day).date;
-        let appointments = this.cbc.getAppointments();
-        let schedule = [];        
+        let appointments = this.monthsAppointments;
+        let schedule = [];
         for (let appointment of appointments) {
             if (date === appointment.date) {
                 schedule.push(appointment);
             }
         }
         scheduleDisplay.displaySchedule(schedule);
-
     }
 }
 

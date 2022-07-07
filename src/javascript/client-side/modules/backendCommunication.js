@@ -1,47 +1,21 @@
-const fakeSchedule = [
-    {
-        date: "2022-06-30",
-        name: "Workout",
-        description: "Workout im Juni"
-    },
-    {
-        date: "2022-07-04",
-        name: "Geburtstag",
-        description: "Ein Geburtstag"
-    },
-    {
-        date: "2022-07-10",
-        name: "Workout",
-        description: "Workout im Juli"
-    },
-    {
-        date: "2022-07-10",
-        name: "Gassi",
-        description: "Good doggo"
-    }
-];
+import { Fetch_api } from "./fetch_api.js"; 
 
-const fakeDates = ["2022-06-30", "2022-07-04", "2022-07-10"];
-
-class CalendarBackendCommunicator {
+class CalendarBackend {
     constructor() {}
 
-    getAppointments() {
-        return fakeSchedule;
-    }
+    fetch_api = new Fetch_api();
 
-    getAppointmentDates(month, year) {
-        let appointmentDates = [];
-        for (let date of fakeDates) {
-            let parts = date.split("-");
-            let m = parts[1];
-            let y = parts[0];
-            if (m === month && y === year) {
-                appointmentDates.push(date);
-            }
-        }
-        return appointmentDates;
+    async getMonthsAppointments(month, year) {
+        let data = {
+            user_id: 22,
+            func: "getAllUserTrainingMonth",
+            params: {
+                month: month,
+                year: year
+            } 
+        };
+        return await this.fetch_api.postData("/training/get_user_trainings", data);
     }
 }
 
-export { CalendarBackendCommunicator };
+export { CalendarBackend };

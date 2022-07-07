@@ -1,7 +1,9 @@
-let bool = true;
+let dates = ["2022-07-05", "2022-07-10", "2022-07-20"];
 
-console.log(typeof bool + " " + bool);
+let blub = dates.map(x => {
+    let date = new Date(x);
+    return date.getDate();
+});
 
-bool = "" + bool;
 
-console.log(typeof bool + " " + bool);
+console.log(blub);

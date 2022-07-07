@@ -51,6 +51,23 @@ class CalendarTable extends HTMLTableElement {
         super();
     }
 
+    cleanupTags() {
+        let elements = this.getElementsByClassName("appointment-day");
+        for (let element of elements) {
+            element.classList.remove("appointment-day");
+        }
+    }
+
+    tagAppointmentDates(days) {
+        this.cleanupTags();
+        for (const day of days) {
+            let day_el = this.querySelector(`[data-date="${day}"]`);
+            day_el.classList.add("appointment-day");
+        }
+        // this -> div.container-calendar(0) -> table.table-calendar(1) -> tbody#calendar-body(1)
+        // el.tagDate([5, 12, ...])
+    }
+
     showCalendar(month, year) {
         // -1 because default is week starting with sunday but i want it to start with monday
         let firstDay = ( new Date( year, month ) ).getDay() -1;
@@ -203,7 +220,7 @@ class ScheduleDisplay extends HTMLElement {
             entry.className = "container d-flex justify-content-between";
             let description = document.createElement("p");
             description.className = "display-description";
-            description.textContent = `${scheduleObject.date}  |  ${scheduleObject.name}: ${scheduleObject.description}`;
+            description.textContent = `${scheduleObject.date}  |  ${scheduleObject.name}`;
         
             let details = document.createElement("a");
             details.className = "details-link";

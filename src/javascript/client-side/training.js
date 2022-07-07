@@ -1,8 +1,20 @@
-window.onload = () => {
+import {CalendarFunctions} from "./modules/calendar_functions.js"; 
 
-    const button = document.getElementById("button1");
 
-    button.addEventListener("click", () => {
-        document.location.href = document.location.href + "/trainingsplan";
+window.onload = async () => {
+    let calendarFunctions = window.calendarFunctions = new CalendarFunctions();
+
+    calendarFunctions.initAppointments().then(() => {  
+        calendarFunctions.tagAppointmentDays();
+        calendarFunctions.setAppointmentEventListener();
     });
+    // Mutation Observer to tag Appointment Days on Calendar change
+    const calendar = document.getElementById("calendar-body");
+    const observer = new MutationObserver(async () => {
+        calendarFunctions.initAppointments().then(() => {  
+            calendarFunctions.tagAppointmentDays();
+            calendarFunctions.setAppointmentEventListener();
+        });
+    });
+    observer.observe(calendar, {childList: true});
 };

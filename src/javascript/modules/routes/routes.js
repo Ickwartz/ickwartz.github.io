@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const training_schedule = require("./schedule_route");
 const login = require("./login_route");
 const logout = require("./logout_route");
 const register = require("./register_route");
 const new_exercise = require("./new_exercise_route");
+const training = require("./training_route");
 
 router
 
@@ -21,15 +21,9 @@ router
         });
     })
 
-    .get("/training", (req, res) => {
-        res.render("training", {
-            loggedin: req.session.loggedin ? true : false
-        });
-    })
-
     .use("/newexercise", new_exercise)
 
-    .use("/training/trainingsplan", training_schedule)
+    .use("/training", training)
 
     .use("/login", login)
 
