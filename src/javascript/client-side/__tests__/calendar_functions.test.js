@@ -1,7 +1,7 @@
 import {CalendarFunctions} from "../modules/calendar_functions";
 require("../modules/calendarWebComponents");
 
-jest.mock("../modules/backendCommunication");
+//jest.mock("../modules/backendCommunication");
 
 describe("CalendarFunctions", () => {
     document.body.innerHTML = "<schedule-calendar></schedule-calendar>";
