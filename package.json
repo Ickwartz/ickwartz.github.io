@@ -44,7 +44,6 @@
     "@testing-library/jest-dom": "^5.16.4",
     "babel-jest": "^28.1.2",
     "jest-environment-jsdom": "^28.1.2",
-    "nodemon": "^2.0.16",
-    "rewire": "^6.0.0"
+    "nodemon": "^2.0.16"
   }
 }
