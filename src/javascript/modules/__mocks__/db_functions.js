@@ -10,4 +10,4 @@ mock_Db_Functions.mockImplementation(() => {
     };
   });
 
-module.exports = mock_Db_Functions;
+export {mock_Db_Functions};
