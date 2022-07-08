@@ -11,4 +11,4 @@ mock_backendComm.mockImplementation(() => {
     };
   });
 
-module.exports = mock_backendComm;
+export {mock_backendComm};

@@ -1,4 +1,4 @@
-const Fetch_api = require("./fetch_api"); 
+import {Fetch_api} from "./fetch_api.js"; 
 
 class CalendarBackend {
     constructor() {}
@@ -18,4 +18,4 @@ class CalendarBackend {
     }
 }
 
-module.exports = CalendarBackend;
+export {CalendarBackend};

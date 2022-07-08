@@ -18,4 +18,4 @@ class Fetch_api {
 	}
 }
 
-module.exports = Fetch_api;
+export {Fetch_api};

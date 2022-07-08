@@ -1,4 +1,4 @@
-const CalendarBackend = require("./backendCommunication");
+import {CalendarBackend} from "./backendCommunication.js";
 
 class CalendarFunctions {
     constructor() {}
@@ -68,4 +68,4 @@ class CalendarFunctions {
     }
 }
 
-module.exports = CalendarFunctions;
+export {CalendarFunctions};
