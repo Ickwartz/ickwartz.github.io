@@ -1,4 +1,4 @@
-export class Fetch_api {
+class Fetch_api {
     constructor() {}
 
     async postData(url, data) {
@@ -17,3 +17,5 @@ export class Fetch_api {
 		});
 	}
 }
+
+module.exports = Fetch_api;

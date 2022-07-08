@@ -1,4 +1,4 @@
-import {CalendarFunctions} from "./modules/calendar_functions.js"; 
+const CalendarFunctions = require("./modules/calendar_functions.js"); 
 
 
 window.onload = async () => {
