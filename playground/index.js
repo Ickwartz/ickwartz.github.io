@@ -1,4 +1,4 @@
-import {createElements} from "./module.mjs";
+const createElements = require("./module.js");
 
 
 window.onload = () => {

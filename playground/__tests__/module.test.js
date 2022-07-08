@@ -1,16 +1,20 @@
 const {screen} = require("@testing-library/dom");
-import {createElements} from "../module.mjs";
+const createElements = require("../module.js");
 
-test("things being in place", () => {
-    let dom = document.body.innerHTML = '<div id="container"></div>';
-
+describe("things being in place", () => {
+    document.body.innerHTML = '<div id="container"></div>';
     createElements();
 
-    expect(screen.getByText(/hello this is default text/i)).toBeTruthy();
+    test("elements created correctly", () => {
+        expect(screen.getByText(/hello this is default text/i)).toBeTruthy();
+        expect(screen.getByRole("button", {name: /click me/i})).toBeTruthy();
+    });
 
-    const button = dom.getByRole("button", {name: /click me/i});
-    button.click();
-
-    expect(dom.getByText(/hello this is default text/i)).toBeFalsy();
-    expect(dom.getByText(/I changed/i)).toBeTruthy();
+    test("button click changes text", () => {
+        const button = screen.getByRole("button", {name: /click me/i});
+        button.click();
+    
+        expect(screen.queryByText(/hello this is default text/i)).not.toBeInTheDocument();
+        expect(screen.getByText(/I changed/i)).toBeTruthy();
+    });
 });
