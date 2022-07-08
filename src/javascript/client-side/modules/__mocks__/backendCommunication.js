@@ -1,14 +1,10 @@
-const mock_backendComm = jest.createMockFromModule("../backendCommunication");
+class CalendarBackend {
+    constructor() {}
+    getMonthsAppointments = jest.fn(async () => {
+        return new Promise((res) => {
+            res([{training_id: 1, name: 'test', date: '2022-02-01', user_id: 1}]);
+        });
+    });
+}
 
-
-mock_backendComm.mockImplementation(() => {
-    const getMonthsAppointments = jest.fn()
-        .mockResolvedValue([
-            {training_id: 1, name: 'test', date: '2022-07-10', user_id: 1}
-        ]);
-    return {
-        getMonthsAppointments
-    };
-  });
-
-export {mock_backendComm};
+export {CalendarBackend};

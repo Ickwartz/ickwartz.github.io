@@ -21,7 +21,10 @@ class CalendarFunctions {
     }
 
     formatNumeral(num) {
-        // adds 0 to one digit numeral string:  6 ==> 06
+        // adds 0 to one digit numeral:  6 ==> 06
+        if (typeof num === "number") {
+            num = num.toString();
+        }
         num.length === 1 ? num = "0"+num : num;
         return num;
     }
