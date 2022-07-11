@@ -7,6 +7,8 @@ class NavButtons extends HTMLElement {
 
     connectedCallback() {
         this.className = "button-container-calendar";
+
+        // button Previous Month
         let buttonPrev = document.createElement("button");
         buttonPrev.innerHTML = "‹";
         buttonPrev.addEventListener("click", () => {
@@ -21,10 +23,12 @@ class NavButtons extends HTMLElement {
             let table = document.getElementsByClassName("table-calendar")[0];
             table.showCalendar(month,year);
         });
-        buttonPrev.style.float = "left";    // ---------------------- ok ??
+        buttonPrev.style.float = "left";
+        
+        // button Next Month
         let buttonNext = document.createElement("button");
         buttonNext.innerHTML = "›";
-        buttonNext.style.float = "right";   // ---------------------- ok ??
+        buttonNext.style.float = "right";
         buttonNext.addEventListener("click", () => {
             let monthAndYear_el = document.getElementById("monthAndYear");
             let monthAndYear = monthAndYear_el.innerHTML.split(" ");

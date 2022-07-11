@@ -30,9 +30,9 @@ class CalendarFunctions {
     }
 
     async initAppointments() {
-        let days_el = document.getElementsByClassName("date-picker");
-        let dateInfo = this.getDateInfoFromDay(days_el[0]);
-        this.monthsAppointments = await this.calendarBackend.getMonthsAppointments(dateInfo.month, dateInfo.year);
+        let table = document.getElementsByClassName("table-calendar")[0];
+        let dateInfo = table.currentMonthAndYear;
+        this.monthsAppointments = await this.calendarBackend.getMonthsAppointments(this.formatNumeral(dateInfo.month), this.formatNumeral(dateInfo.year));
     }
 
     getAppointmentDates() {
@@ -51,8 +51,10 @@ class CalendarFunctions {
     }
 
     setAppointmentEventListener() {
-        let days_el = document.getElementsByClassName("appointment-day");
+        let table = document.getElementsByClassName("table-calendar")[0];
+        let days_el = table.getAppointmentDayElements();
         for (let day_el of days_el) {
+            console.log("loop loop lopp");
             day_el.addEventListener("click", () => this.displayAppointments(day_el));
         }
     }

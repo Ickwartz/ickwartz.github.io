@@ -5,6 +5,11 @@ class CalendarTable extends HTMLTableElement {
         super();
     }
 
+    currentMonthAndYear = {
+        month: 0,
+        year: 0
+    };
+
     cleanupTags() {
         let elements = this.getElementsByClassName("appointment-day");
         for (let element of elements) {
@@ -22,7 +27,13 @@ class CalendarTable extends HTMLTableElement {
         // el.tagDate([5, 12, ...])
     }
 
+    getAppointmentDayElements() {
+        return this.getElementsByClassName("appointment-day");
+    }
+
     showCalendar(month, year) {
+        this.currentMonthAndYear.month = month + 1;
+        this.currentMonthAndYear.year = year;
         // -1 because default is week starting with sunday but i want it to start with monday
         let firstDay = ( new Date( year, month ) ).getDay() -1;
         firstDay = firstDay === -1 ? 6 : firstDay;

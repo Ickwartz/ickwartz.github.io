@@ -1,12 +1,21 @@
 import {CalendarFunctions} from "../modules/calendar_functions";
-require("../modules/initWebComponents");
+import {CalendarTable} from "../webComponents/calendarTable";
+import {ScheduleDisplay} from "../webComponents/scheduleDisplay";
 
 jest.mock("../modules/backendCommunication");
+jest.mock("../webComponents/calendarTable");
+jest.mock("../webComponents/scheduleDisplay");
+require("../modules/initWebComponents");
+
 
 describe("CalendarFunctions", () => {
     document.body.innerHTML = "<schedule-calendar></schedule-calendar>";
     let calendar_functions = new CalendarFunctions;
     let mockedAppointments = [{training_id: 1, name: 'test', date: '2022-02-01', user_id: 1}]; // defined in backendCommunication mock
+
+    afterEach(() => {
+        jest.clearAllMocks();
+      });
 
     test("Dom Tree built successfully", () => {
         expect(document.getElementById("monthAndYear")).toBeTruthy();
@@ -51,14 +60,27 @@ describe("CalendarFunctions", () => {
     });
 
     test("tagAppointmentDays should call web component function", () => {
-        expect(1).toBe(1);
+        calendar_functions.tagAppointmentDays();
+        expect(CalendarTable.prototype.tagAppointmentDates).toHaveBeenCalled();
+    });
+
+    test("setAppointmentEventListener should add event listener to day with appointment", () => {
+        //this day gets returned by mock function in setAppointmentEventListener
+        let day = document.createElement("div");
+        day.id = "test-day";
+        document.body.appendChild(day);
+
+        const eventSpy = jest.spyOn(day, "addEventListener");
+        calendar_functions.setAppointmentEventListener();
+        expect(eventSpy).toHaveBeenCalled();
+    });
+
+    test("displayAppointments should call scheduleDisplay.displaySchedule method", () => {
+        let day = document.createElement("div");
+        day.setAttribute("data-date", 1);
+        day.setAttribute("data-month", 2);
+        day.setAttribute("data-year", 2022);
+        calendar_functions.displayAppointments(day);
+        expect(ScheduleDisplay.prototype.displaySchedule).toHaveBeenCalled();
     });
 });
-
-
-/* NOTES
-
-- Mock web component functions -> dont exec.
-- monitor calls
-
-*/
