@@ -22,7 +22,6 @@ router
         --> query name um TRAINING_ID zu bekommen
     - exercise_id, user_id, reps, sets, comment, training_id
         - save
-
 */
 
 .post("/save", async (req, res) => {

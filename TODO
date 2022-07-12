@@ -49,7 +49,9 @@
             - Datum 
         - Training ID generieren und an personalized_exercises hängen
         - Datum mit Training ID verknüpfen
-
+    - swap der Felder per Enter Taste
+    https://www.tutorialspoint.com/enter-key-press-event-in-javascript
+    
 - Calendar
     - slots angucken
     - naming

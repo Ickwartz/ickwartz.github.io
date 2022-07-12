@@ -7,9 +7,14 @@ class User_Accounts extends Table_functions{
         super();
         this.email = email;
         this.password = password;
+        this.#formatInput();
     }
 
     #db_functions = new Db_Functions();
+
+    #formatInput() {
+        this.email = this.email.trim().toLowerCase();
+    }
 
     getValues() {
         return {

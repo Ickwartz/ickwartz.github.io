@@ -8,17 +8,33 @@ class Users extends Table_functions{
         this.surname = surname;
         this.email = email;
         this.member_since = this.getDate();
+        this.#formatInputs();
     }
 
     #db_functions = new Db_Functions();
 
+    #formatInputs() {
+        this.first_name = this.first_name.trim().toLowerCase();
+        this.surname = this.surname.trim().toLowerCase();
+        this.email = this.email.trim().toLowerCase();
+    }
+
     getValues() {
-        return [this.first_name, this.surname, this.email, this.member_since];
+        return {
+            first_name: this.first_name,
+            surname: this.surname,
+            email: this.email,
+            member_since: this.member_since
+        };
+    }
+
+    async verifyUserByName() {
+
     }
 
     async safeData() {
-        let sql = "INSERT INTO users (first_name, surname, email, member_since) VALUES (?,?,?,?);";
-        await this.#db_functions.runQuery(sql, this.getValues());
+        let sql = "INSERT INTO users (first_name, surname, email, member_since) VALUES ($first_name, $surname, $email, $member_since);";
+        await this.#db_functions.runQuery(sql, this.getValues()); 
     }
 
     async readData() {
