@@ -4,6 +4,7 @@ const Db_Functions = require("../db_functions");
 class Personalized_Exercises extends Table_functions{
     constructor(exercise_id, user_id, reps, sets, comment, training_id) {
         super();
+        this.exercise_id = exercise_id;
         this.user_id = user_id;
         this.reps = reps;
         this.sets = sets;
@@ -14,12 +15,19 @@ class Personalized_Exercises extends Table_functions{
     #db_functions = new Db_Functions();
 
     getValues() {
-        return [this.user_id, this.reps, this.sets, this.comment, this.training_id];
+        return {
+            exercise_id: this.exercise_id,
+            user_id: this.user_id,
+            reps: this.reps,
+            sets: this.sets,
+            comment: this.comment,
+            training_id: this.training_id
+        };
     }
     
     safeData() {
         let sql = `INSERT INTO personalized_exercises (exercise_id, user_id, reps, sets, comment, training_id)
-                    VALUES (?,?,?,?,?,?);`;
+                    VALUES ($exercise_id, $user_id, $reps, $sets, $comment, $training_id);`;
         this.#db_functions.runQuery(sql, this.getValues());
     }
 
