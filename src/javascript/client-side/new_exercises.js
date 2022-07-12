@@ -1,5 +1,9 @@
+import {Fetch_api} from "./modules/fetch_api.js";
+
 class NewExerciseTableHandler  {
 	constructor(){}
+
+	fetch_api = new Fetch_api();
 	rows = 0;
 
 	tableBody = document.getElementById("input_body");
@@ -48,34 +52,8 @@ class NewExerciseTableHandler  {
 		return(data);
 	}
 
-	// TODO: change to fetch api
-	ajaxPostData(url, data) {
-		let jsonData = JSON.stringify(data);
-		const xhttp = new XMLHttpRequest();
-		xhttp.open("POST", url);
-		xhttp.setRequestHeader("Content-type", "application/json");
-		xhttp.send(jsonData);
-	
-	}
-
-	async postData(url, data) {
-		return fetch(url, {
-			method: "POST",
-			mode: "cors",
-			cache: "no-cache",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(data)
-		})
-		.then(response => response.json())
-		.then(data => {
-			return data;
-		});
-	}
-
 	async saveTableData() {
-		this.postData("/newexercise/save", this.getTableData()).then(result => {
+		this.Fetch_api.postData("/newexercise/save", this.getTableData()).then(result => {
 			this.showResultMessage(result);
 		});
 	}
