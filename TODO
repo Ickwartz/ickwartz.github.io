@@ -19,13 +19,6 @@
     - lose ends bei pw mismatch etc --> redirects
     - nur für admin sichtbare pages auch nur als Admin anzeigbar machen
 
-- DB Handling
-    - umstellung placeholders to named placeholders
-
-- READ
-    - decorators
-        --> maybe für generic table_functions
-
 - Tests
     - für alle Table Klassen Read und Write
 
@@ -46,7 +39,16 @@
     --> id 
     --> Anzeige: SELECT * FROM pe WHERE training_id = $training_id;
         --> coole join magic machen
-
+    - ERSTELLUNG
+        - Tabelle 
+            - User --> Input name, work with id
+            - Übung --> ID
+            - Reps
+            - Sets
+            - Comment
+            - Datum 
+        - Training ID generieren und an personalized_exercises hängen
+        - Datum mit Training ID verknüpfen
 
 - Calendar
     - slots angucken

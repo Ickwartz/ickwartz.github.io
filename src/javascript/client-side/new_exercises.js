@@ -1,4 +1,4 @@
-class TableHandler  {
+class NewExerciseTableHandler  {
 	constructor(){}
 	rows = 0;
 
@@ -116,7 +116,7 @@ class TableHandler  {
 }
 
 window.onload = () => {
-	let tableHandler =  new TableHandler();
+	let tableHandler =  new NewExerciseTableHandler();
 
 	document.getElementById("addRowButton").addEventListener("click",() => {
 		tableHandler.createRow();

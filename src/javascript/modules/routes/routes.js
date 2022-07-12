@@ -6,6 +6,7 @@ const logout = require("./logout_route");
 const register = require("./register_route");
 const new_exercise = require("./new_exercise_route");
 const training = require("./training_route");
+const new_schedule = require("./new_schedule_route");
 
 router
 
@@ -22,6 +23,8 @@ router
     })
 
     .use("/newexercise", new_exercise)
+
+    .use("/newschedule", new_schedule)
 
     .use("/training", training)
 
