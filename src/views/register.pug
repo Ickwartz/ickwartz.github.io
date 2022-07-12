@@ -5,6 +5,9 @@ html(lang='de')
   body
     // Main Menu Navbar & Contacts Bar
     include partials/_nav
+    
+    center
+      h4(style="color:red")= registerMessage
 
     // login form
     form.input-form(action="/register/registrate", method="post")

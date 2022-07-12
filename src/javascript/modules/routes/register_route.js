@@ -9,7 +9,7 @@ router
 
 .get("/", (req, res) => {
     res.render("register", {
-
+        registerMessage: req.session.registerMessage
     });
 })
 
@@ -27,15 +27,15 @@ router
             let user_account = new User_Accounts(email, password);
             user.safeData();
             user_account.safeData();
+            req.session.loggedin = true;
+            req.session.user = email;
             res.redirect("/");
         } else {
-            res.send("Passwort wiederholung stimmt nicht überein");
-            //setTimeout(function(){}, 5000);
-            //res.redirect("/register");
+            req.session.registerMessage = "Passwort wiederholung stimmt nicht überein";
+            res.redirect("/register");
         }
     } else {
-        res.send("Bitte alle Felder ausfüllen");
-        setTimeout("", 5000);
+        req.session.registerMessage = "Bitte alle Felder ausfüllen";
         res.redirect("/register");
     }
 });

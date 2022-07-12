@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS user_accounts (
     user_id INT NOT NULL PRIMARY KEY,
     email VARCHAR(120) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE,
-    FOREIGN KEY (email) REFERENCES users (email) ON UPDATE CASCADE
+    FOREIGN KEY (email) REFERENCES users (email) ON UPDATE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS exercises (

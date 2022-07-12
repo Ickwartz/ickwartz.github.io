@@ -21,14 +21,14 @@ class Users extends Table_functions{
 
     getValues() {
         return {
-            first_name: this.first_name,
-            surname: this.surname,
-            email: this.email,
-            member_since: this.member_since
+            $first_name: this.first_name,
+            $surname: this.surname,
+            $email: this.email,
+            $member_since: this.member_since
         };
     }
 
-    async verifyUserByName() {
+    async verifyUserExists() {
 
     }
 
