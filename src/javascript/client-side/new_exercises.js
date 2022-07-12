@@ -21,7 +21,7 @@ class NewExerciseTableHandler  {
 		ti_name.setAttribute("id", `exInp${this.rows}`);
 		ti_name.setAttribute("type", "text");
 		ti_name.setAttribute("placeholder", "Übung");
-		ti_name.setAttribute("class", "TableInput");
+		ti_name.setAttribute("class", "table-input");
 		td_name.appendChild(ti_name);
 
 		let td_description = document.createElement("td");
@@ -29,7 +29,7 @@ class NewExerciseTableHandler  {
 		ti_description.setAttribute("id", `descInp${this.rows}`);
 		ti_description.setAttribute("style", "width: 100%");
 		ti_description.setAttribute("placeholder", "Beschreibung");
-		ti_description.setAttribute("class", "TableInput");
+		ti_description.setAttribute("class", "table-input");
 		td_description.appendChild(ti_description);
 
 		tr.appendChild(td_index);
@@ -53,13 +53,12 @@ class NewExerciseTableHandler  {
 	}
 
 	async saveTableData() {
-		this.Fetch_api.postData("/newexercise/save", this.getTableData()).then(result => {
+		this.fetch_api.postData("/newexercise/save", this.getTableData()).then(result => {
 			this.showResultMessage(result);
 		});
 	}
 
 	showResultMessage(resultArr) {
-		console.log(resultArr);
 		let success = false;
 		let text = "";
 

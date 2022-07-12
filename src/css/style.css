@@ -92,3 +92,11 @@
 .table {
     table-layout: fixed !important;
 }
+
+.table-input {
+    width: 100%;
+}
+
+.table-button {
+    margin: 2px;
+}
