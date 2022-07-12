@@ -16,19 +16,19 @@ class Personalized_Exercises extends Table_functions{
 
     getValues() {
         return {
-            exercise_id: this.exercise_id,
-            user_id: this.user_id,
-            reps: this.reps,
-            sets: this.sets,
-            comment: this.comment,
-            training_id: this.training_id
+            $exercise_id: this.exercise_id,
+            $user_id: this.user_id,
+            $reps: this.reps,
+            $sets: this.sets,
+            $comment: this.comment,
+            $training_id: this.training_id
         };
     }
     
-    safeData() {
+    async safeData() {
         let sql = `INSERT INTO personalized_exercises (exercise_id, user_id, reps, sets, comment, training_id)
                     VALUES ($exercise_id, $user_id, $reps, $sets, $comment, $training_id);`;
-        this.#db_functions.runQuery(sql, this.getValues());
+        await this.#db_functions.runQuery(sql, this.getValues());
     }
 
     async readData() {

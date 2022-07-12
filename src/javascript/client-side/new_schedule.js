@@ -56,41 +56,62 @@ class NewScheduleTableHandler  {
         
         let user = document.getElementById("user-input").value;
         let date_val = document.getElementById("date-input").value;
-        let trainingName = document.getElementById("date-input").value;
+        let trainingName = document.getElementById("training-name-input").value;
         if (user == "" || date_val == "" || trainingName == "") {
             alert("Bitte User, Datum und Namen des Trainings angeben");
         } else {    
-            let data = [];
+            let data = {};
             let dateObj = new Date(date_val);
             let date = dateObj.toISOString().split('T')[0]; // yyyy-mm-dd
+
+			data.user = user;
+			data.date = date;
+			data.trainingName = trainingName;
+			let exerciseData = []; 
             
             for (let i = 1; i <= this.rows; i++) {
-                let exercise = document.getElementById(`exerciseInp${i}`);
-                let reps = document.getElementById(`repsInp${i}`);
-                let sets = document.getElementById(`setsInp${i}`);
-                let comment = document.getElementById(`commentInp${i}`);
+                let exercise = document.getElementById(`exerciseInp${i}`).value;
+                let reps = document.getElementById(`repsInp${i}`).value;
+				reps == "" ? reps = 0 : reps;
+                let sets = document.getElementById(`setsInp${i}`).value;
+				sets == "" ? sets = 0 : sets;
+                let comment = document.getElementById(`commentInp${i}`).value;
                 if (exercise == "") {
                     alert("Bitte alle Felder für Übungsnamen ausfüllen");
+					return null;
                 } else {
-                    data.push({
-                        user,
-						trainingName,
-                        exercise: exercise.value,
-                        reps: reps.value,
-                        sets: sets.value,
-                        comment: comment.value,
-                        date
+                    exerciseData.push({
+                        exercise: exercise,
+                        reps: reps,
+                        sets: sets,
+                        comment: comment,
                     });
                 }
             }
+			data.exerciseData = exerciseData;
             return data;
         }
     }
     
 	async saveTableData() {
-		this.fetch_api.postData("/newschedule/save", this.getTableData()).then(result => {
-			this.showResultMessage(result);
-		});
+		let tableData = this.getTableData();
+		if (tableData) {
+			this.fetch_api.postData("/newschedule/save", tableData).then(result => {
+				this.showResultMessage(result);
+			});
+		}
+		
+	}
+
+	showResultMessage(resultData) {
+		if (!resultData.result) {
+			alert(`Trainingsplan konnte nicht gespeichert werden, der User ${resultData.user} existiert nicht in der Datenbank!`);
+		} else if (resultData.missingExercises > 0) {
+			alert("Trainingsplan konnte nur teilweise gespeichert werden, folgende Übungen sind nicht in der Datenbank gespeichert: ", resultData.missingExercises);
+		} else {
+			this.displayOnSnackbar("Trainingsplan erfolgreich gespeichert.");
+		}
+
 	}
 
     displayOnSnackbar(text) {
@@ -117,7 +138,7 @@ window.onload = () => {
 	});
 
 	document.getElementById("submitButton").addEventListener("click", () => {
-        tableHandler.test(); //(tableHandler.saveTableData());
+        tableHandler.saveTableData();
     }); 
 
 };

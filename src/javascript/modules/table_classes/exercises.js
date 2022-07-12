@@ -6,15 +6,26 @@ class Exercises extends Table_functions{
         super();
         this.name = name;
         this.description = description;
+        this.#formatInputs();
     }
 
     #db_functions = new Db_Functions();
+
+    #formatInputs() {
+        this.name = this.name.trim().toLowerCase();
+    }
 
     getValues() {
         return {
             $name: this.name,
             $description: this.description
         };
+    }
+
+    async getExerciseIdFromName() {
+        let sql = "SELECT exercise_id FROM exercises WHERE name=$name";
+        let params = {$name: this.name};
+        return await this.#db_functions.queryAll(sql, params);
     }
 
     async saveData() {

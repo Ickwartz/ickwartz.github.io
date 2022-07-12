@@ -22,11 +22,11 @@ class Db_Functions {
 
     async runQuery(sql, data) {
         let query = this.db.prepare(sql);
-        await query.run(data, (err) => {
+        await query.run(data, function (err) {
             if (err) {
                 throw err;
             }
-            console.log("Query ran successfully");
+            console.log("Query ran successfully", this.lastID);
         });
     }
 }

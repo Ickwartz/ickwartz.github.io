@@ -16,8 +16,6 @@
 - Account System
     - in login_route statt Email in Session Var Vorname
     - Display des Usernamens auf Website schöner machen 
-    - lose ends bei pw mismatch etc --> redirects
-    - nur für admin sichtbare pages auch nur als Admin anzeigbar machen
 
 - Tests
     - für alle Table Klassen Read und Write
@@ -51,7 +49,8 @@
         - Datum mit Training ID verknüpfen
     - swap der Felder per Enter Taste
     https://www.tutorialspoint.com/enter-key-press-event-in-javascript
-    
+
+
 - Calendar
     - slots angucken
     - naming

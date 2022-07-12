@@ -14,9 +14,9 @@ class Users extends Table_functions{
     #db_functions = new Db_Functions();
 
     #formatInputs() {
-        this.first_name = this.first_name.trim().toLowerCase();
-        this.surname = this.surname.trim().toLowerCase();
-        this.email = this.email.trim().toLowerCase();
+        this.first_name ? this.first_name = this.first_name.trim().toLowerCase() : this.first_name;
+        this.surname ? this.surname = this.surname.trim().toLowerCase() : this.surname;
+        this.email ? this.email = this.email.trim().toLowerCase() : this.email;
     }
 
     getValues() {
@@ -28,8 +28,10 @@ class Users extends Table_functions{
         };
     }
 
-    async verifyUserExists() {
-
+    async getUserIDFromName() {
+        let sql = "SELECT user_id FROM users WHERE first_name=$first_name AND surname=$surname";
+        let params = {$first_name: this.first_name, $surname: this.surname};
+        return await this.#db_functions.queryAll(sql, params);
     }
 
     async safeData() {

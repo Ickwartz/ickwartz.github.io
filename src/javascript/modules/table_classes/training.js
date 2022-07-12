@@ -13,9 +13,9 @@ class Training extends Table_functions{
 
     getValues() {
         return {
-            name: this.name, 
-            date: this.date, 
-            user_id: this.user_id};
+            $name: this.name, 
+            $date: this.date, 
+            $user_id: this.user_id};
     }
 
     async safeData() {
@@ -26,6 +26,11 @@ class Training extends Table_functions{
     async readData() {
         let sql = "SELECT * FROM training;";
         return await this.#db_functions.queryAll(sql);
+    }
+
+    async getTrainingId() {
+        let sql = "SELECT training_id FROM training WHERE name=$name AND date=$date and user_id=$user_id";
+        return await this.#db_functions.queryAll(sql, this.getValues());
     }
 
     async getAllUserTrainings() {

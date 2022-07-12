@@ -54,7 +54,6 @@ class CalendarFunctions {
         let table = document.getElementsByClassName("table-calendar")[0];
         let days_el = table.getAppointmentDayElements();
         for (let day_el of days_el) {
-            console.log("loop loop lopp");
             day_el.addEventListener("click", () => this.displayAppointments(day_el));
         }
     }
