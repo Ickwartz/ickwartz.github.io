@@ -3,14 +3,6 @@ class NewExerciseTableHandler  {
 	rows = 0;
 
 	tableBody = document.getElementById("input_body");
-	getTableRowHtml() {
-		return `
-		<tr>
-			<td>${this.rows}</td>
-			<td><input id="exInp${this.rows}" type="text" placeholder="Übung" class="TableInput"/></td>
-			<td><input id="descInp${this.rows}" type="text" placeholder="Beschreibung" class="TableInput"/></td>
-		</tr>`;
-	}
 
 	createRow() {
 		// Create Rows like this to keep values when adding new Rows
