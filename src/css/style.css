@@ -100,3 +100,8 @@
 .table-button {
     margin: 2px;
 }
+
+.input-table-container {
+    border: 2px solid grey;
+    border-radius: 5px
+}

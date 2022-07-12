@@ -9,21 +9,21 @@ html(lang='en')
     include partials/_nav
 
     if (admin)
+      div.container.input-table-container
+        .table-responsive
+          table#input_table.table
+            thead 
+              tr 
+                th.col-1 #
+                th.col-2 Übung
+                th.col-9 Beschreibung
+            tbody#input_body
 
-      .table-responsive
-        table#input_table.table
-          thead 
-            tr 
-              th.col-1 #
-              th.col-2 Übung
-              th.col-9 Beschreibung
-          tbody#input_body
+        button#addRowButton.btn.btn-primary.table-button(type="button") Neue Übung
+        button#submitButton.btn.btn-primary.table-button(type="button") Speichern
 
-      button#addRowButton.btn.btn-primary.table-button(type="button") Neue Übung
-      button#submitButton.btn.btn-primary.table-button(type="button") Speichern
-
-      div#snackbar
-        p#snackbar-content
+        div#snackbar
+          p#snackbar-content
 
     else
       center

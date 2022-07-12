@@ -9,17 +9,8 @@ class NewScheduleTableHandler  {
 	tableBody = document.getElementById("input_body");
 
 	createRow() {
-		// Create Rows like this to keep values when adding new Rows
 		this.rows++;
 		const tr = document.createElement("tr");
-
-		let td_user = document.createElement("td");
-		let ti_user = document.createElement("input");
-		ti_user.setAttribute("id", `userInp${this.rows}`);
-		ti_user.setAttribute("type", "text");
-		ti_user.setAttribute("placeholder", "User");
-		ti_user.setAttribute("class", "table-input");
-		td_user.appendChild(ti_user);
 
         let td_exercise = document.createElement("td");
 		let ti_exercise = document.createElement("input");
@@ -47,29 +38,75 @@ class NewScheduleTableHandler  {
 
 		let td_description = document.createElement("td");
 		let ti_description = document.createElement("textarea");
-		ti_description.setAttribute("id", `descInp${this.rows}`);
+		ti_description.setAttribute("id", `commentInp${this.rows}`);
 		ti_description.setAttribute("style", "width: 100%");
 		ti_description.setAttribute("placeholder", "Beschreibung");
 		ti_description.setAttribute("class", "table-input");
 		td_description.appendChild(ti_description);
 
-        let td_date = document.createElement("td");
-		let ti_date = document.createElement("input");
-		ti_date.setAttribute("id", `dateInp${this.rows}`);
-		ti_date.setAttribute("type", "text");
-		ti_date.setAttribute("placeholder", "User");
-		ti_date.setAttribute("class", "table-input");
-		td_date.appendChild(ti_date);
-
-        tr.appendChild(td_user);
 		tr.appendChild(td_exercise);
 		tr.appendChild(td_reps);
 		tr.appendChild(td_sets);
 		tr.appendChild(td_description);
-		tr.appendChild(td_date);
 
 		this.tableBody.appendChild(tr);
 	}
+
+    getTableData() {
+        
+        let user = document.getElementById("user-input").value;
+        let date_val = document.getElementById("date-input").value;
+        let trainingName = document.getElementById("date-input").value;
+        if (user == "" || date_val == "" || trainingName == "") {
+            alert("Bitte User, Datum und Namen des Trainings angeben");
+        } else {    
+            let data = [];
+            let dateObj = new Date(date_val);
+            let date = dateObj.toISOString().split('T')[0]; // yyyy-mm-dd
+            
+            for (let i = 1; i <= this.rows; i++) {
+                let exercise = document.getElementById(`exerciseInp${i}`);
+                let reps = document.getElementById(`repsInp${i}`);
+                let sets = document.getElementById(`setsInp${i}`);
+                let comment = document.getElementById(`commentInp${i}`);
+                if (exercise == "") {
+                    alert("Bitte alle Felder für Übungsnamen ausfüllen");
+                } else {
+                    data.push({
+                        user,
+						trainingName,
+                        exercise: exercise.value,
+                        reps: reps.value,
+                        sets: sets.value,
+                        comment: comment.value,
+                        date
+                    });
+                }
+            }
+            return data;
+        }
+    }
+    
+	async saveTableData() {
+		this.fetch_api.postData("/newschedule/save", this.getTableData()).then(result => {
+			this.showResultMessage(result);
+		});
+	}
+
+    displayOnSnackbar(text) {
+		// Show fading popup message on bottom of screen
+		const snackbar = document.getElementById("snackbar");
+		const snackbarContent = document.getElementById("snackbar-content");
+		snackbarContent.innerHTML = text;
+		snackbar.className = "show";
+		// make it fade after 5s
+		setTimeout(() => {snackbar.className = "";}, 5000);
+	}
+
+    test() {
+        let text = "BLABLA BLA" + "<br>" + "BLUBLUBLUB" + "<br>" + "lulluu";
+        this.displayOnSnackbar(text);
+    }
 }
 
 window.onload = () => {
@@ -79,6 +116,8 @@ window.onload = () => {
 		tableHandler.createRow();
 	});
 
-	document.getElementById("submitButton").addEventListener("click", () => {}); //(tableHandler.saveTableData()));
+	document.getElementById("submitButton").addEventListener("click", () => {
+        tableHandler.test(); //(tableHandler.saveTableData());
+    }); 
 
 };

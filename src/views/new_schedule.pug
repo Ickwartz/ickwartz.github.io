@@ -1,36 +1,43 @@
 doctype html
 html(lang='en')
-  head
+head
     include partials/_head
     script(type="module" src="/js/new_schedule.js")
     link(rel='stylesheet' href='../css/snackbar.css' type='text/css')
-  body
+body
     // Main Menu Navbar & Contacts Bar
     include partials/_nav
     //(admin)
-    if (true) 
+    if (true)
+        div.container.input-table-container
+            div 
+                h4 Trainingsplan für:
+                label(for="user-input" style="padding:5px") User:
+                input#user-input(type="text", placeholder="User")
+                label(for="date-input" style="padding:5px") Datum:
+                input#date-input(type="date", required pattern="\d{2}-\d{2}-\d{4}")
+                label(for="training-name-input" style="padding:5px") Name/ Kurzbeschreibung des Trainingsplans:
+                input#training-name-input(type="text", placeholder="User")
 
-      .table-responsive
-        table#input_table.table
-          thead 
-            tr 
-              th.col-2 User
-              th.col-2 Übung
-              th.col-1 Reps
-              th.col-1 Sets
-              th.col-4 Beschreibung
-              th.col-2 Datum
-          tbody#input_body
+            .table-responsive
+                table#input_table.table
+                    thead 
+                        tr 
+                            th.col-3 Übung
+                            th.col-1 Reps
+                            th.col-1 Sets
+                            th.col-7 Kommentar
+                    tbody#input_body
 
-      button#addRowButton.btn.btn-primary.table-button(type="button") Neue Übung
-      button#submitButton.btn.btn-primary.table-button(type="button") Speichern
+            button#addRowButton.btn.btn-primary.table-button(type="button") Neue Übung
+            button#submitButton.btn.btn-primary.table-button(type="button") Speichern
 
-      div#snackbar
-        p#snackbar-content
+            div#snackbar
+                p#snackbar-content
 
     else
-      center
-        h1 Kein Zugriff zu dieser Seite.
+        center
+            h1 Kein Zugriff zu dieser Seite.
                  
     // Bootstrap
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' crossorigin='anonymous')
