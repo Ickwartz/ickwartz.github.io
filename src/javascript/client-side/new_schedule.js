@@ -2,7 +2,7 @@ import {NewScheduleTableHandler} from "./modules/newScheduleTableHandler.js";
 let tableHandler =  new NewScheduleTableHandler();
 
 
-window.onload = () => {
+window.onload = async () => {
 
 	document.getElementById("addRowButton").addEventListener("click",() => {
 		tableHandler.createRow();
@@ -10,7 +10,9 @@ window.onload = () => {
 
 	document.getElementById("submitButton").addEventListener("click", () => {
         tableHandler.saveTableData();
-    }); 
+    });
+
+	tableHandler.getAvailableExercises();
 
 	tableHandler.applyKeyListeners();
 	let tbody = document.getElementById("input_body");

@@ -12,7 +12,7 @@ class Exercises extends Table_functions{
     #db_functions = new Db_Functions();
 
     #formatInputs() {
-        this.name = this.name.trim().toLowerCase();
+        this.name ? this.name.trim().toLowerCase() : this.name;
     }
 
     getValues() {

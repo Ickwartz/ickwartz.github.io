@@ -5,6 +5,7 @@ class NewScheduleTableHandler  {
 
 	fetch_api = new Fetch_api();
 	rows = 0;
+	availableExercises = [];
 
 	tableBody = document.getElementById("input_body");
 
@@ -19,6 +20,7 @@ class NewScheduleTableHandler  {
 		//ti_exercise.setAttribute("id", `exerciseInp${currentRow}`);
 		ti_exercise.setAttribute("type", "text");
 		ti_exercise.setAttribute("placeholder", "Übung");
+		ti_exercise.setAttribute("list", "availableExercises");
 		ti_exercise.setAttribute("class", "table-input exercise-input");
 		td_exercise.appendChild(ti_exercise);
 
@@ -133,6 +135,24 @@ class NewScheduleTableHandler  {
 			this.displayOnSnackbar("Trainingsplan erfolgreich gespeichert.");
 		}
 
+	}
+
+	async getAvailableExercises() {
+		await this.fetch_api.postData("/newschedule/getexercises").then(result => {
+			this.availableExercises = result;
+		});
+		this.createDataList();
+	}
+
+	createDataList() {
+		let datalist = document.createElement("datalist");
+		datalist.setAttribute("id", "availableExercises");
+		for (let exercise of this.availableExercises) {
+			let option = document.createElement("option");
+			option.value = exercise.name;
+			datalist.appendChild(option);
+		}
+		document.body.appendChild(datalist);
 	}
 
     displayOnSnackbar(text) {

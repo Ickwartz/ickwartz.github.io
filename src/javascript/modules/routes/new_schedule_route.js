@@ -13,20 +13,6 @@ router
         admin: req.session.adminSession ? true : false
     });
 })
-/* TODO SAVE
-    - User verifizierung
-        - response wenn nicht vorhanden
-        --> sonst USER_ID
-    - Übung verifizeren
-        - Wenn nicht existiert warnen das nicht in db und keine Beschreibung angezeigt wird
-        --> sonst EXERCISE_ID
-    - user namen querien
-    - trainingName, date, user_id 
-        --> training 
-        --> query name um TRAINING_ID zu bekommen
-    - exercise_id, user_id, reps, sets, comment, training_id
-        - save
-*/
 
 .post("/save", async (req, res) => {
     let responseData = {};
@@ -71,6 +57,12 @@ router
         responseData.result = true;
     }    
 
+    res.json(responseData);
+})
+
+.post("/getexercises", async (req, res) => {
+    let exercises = new Exercises();
+    let responseData = await exercises.readData();
     res.json(responseData);
 });
 
