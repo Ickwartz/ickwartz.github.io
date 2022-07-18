@@ -9,6 +9,7 @@ body
     include partials/_nav
     //(admin)
     if (true)
+
         div.container.input-table-container
             div 
                 h4 Trainingsplan für:
@@ -18,6 +19,9 @@ body
                 input#date-input(type="date", required pattern="\d{2}-\d{2}-\d{4}")
                 label(for="training-name-input" style="padding:5px") Name/ Kurzbeschreibung des Trainingsplans:
                 input#training-name-input(type="text", placeholder="Trainingsplan")
+                br
+                button.btn.btn-secondary.btn-sm.table-button(type="button", onclick="window.open('/newexercise')") Neue Übung registrieren
+                button#button-refresh-available-exercises.btn.btn-secondary.btn-sm.table-button(type="button") Übungen aktualisieren
 
             .table-responsive
                 table#input_table.table

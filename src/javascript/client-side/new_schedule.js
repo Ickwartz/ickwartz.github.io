@@ -7,10 +7,12 @@ window.onload = async () => {
 	document.getElementById("addRowButton").addEventListener("click",() => {
 		tableHandler.createRow();
 	});
-
 	document.getElementById("submitButton").addEventListener("click", () => {
         tableHandler.saveTableData();
     });
+	document.getElementById("button-refresh-available-exercises").addEventListener("click", () => {
+		tableHandler.getAvailableExercises("Übungen aktualisiert");
+	});
 
 	tableHandler.getAvailableExercises();
 

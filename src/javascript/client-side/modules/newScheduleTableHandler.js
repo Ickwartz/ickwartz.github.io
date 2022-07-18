@@ -135,16 +135,20 @@ class NewScheduleTableHandler  {
 
 	}
 
-	async getAvailableExercises() {
+	async getAvailableExercises(msg) {
 		await this.fetch_api.postData("/newschedule/getexercises").then(result => {
 			this.availableExercises = result;
 		});
 		this.createDataList();
+		msg ? this.displayOnSnackbar(msg) : null;
 	}
 
 	createDataList() {
-		let datalist = document.createElement("datalist");
-		datalist.setAttribute("id", "availableExercises");
+		let datalist = document.getElementById(this.availableExercises);
+		if (!datalist) {
+			datalist = document.createElement("datalist");
+			datalist.setAttribute("id", "availableExercises");
+		}
 		for (let exercise of this.availableExercises) {
 			let option = document.createElement("option");
 			option.value = exercise.name;
@@ -164,6 +168,7 @@ class NewScheduleTableHandler  {
 	}
 
 	applyKeyListeners() {
+		// Key Listeners for tab on Enter key press and new row on Enter for last fields
 		let inputs = document.querySelectorAll("input, textarea");
 		let nodes = Array.prototype.slice.call(inputs);
 		for (let element of inputs) {
