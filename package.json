@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node ./src/start.js",
     "watch": "nodemon ./src/start.js",
+    "debug": "node --inspect-brk ./src/start.js",
     "test": "jest",
     "lint": "eslint **/*.js"
   },
