@@ -10,11 +10,13 @@ class NewScheduleTableHandler  {
 
 	createRow() {
 		this.rows++;
+		let currentRow = this.rows;
 		const tr = document.createElement("tr");
+		tr.setAttribute("data-row", currentRow);
 
         let td_exercise = document.createElement("td");
 		let ti_exercise = document.createElement("input");
-		ti_exercise.setAttribute("id", `exerciseInp${this.rows}`);
+		ti_exercise.setAttribute("id", `exerciseInp${currentRow}`);
 		ti_exercise.setAttribute("type", "text");
 		ti_exercise.setAttribute("placeholder", "Übung");
 		ti_exercise.setAttribute("class", "table-input");
@@ -22,7 +24,7 @@ class NewScheduleTableHandler  {
 
         let td_reps = document.createElement("td");
 		let ti_reps = document.createElement("input");
-		ti_reps.setAttribute("id", `repsInp${this.rows}`);
+		ti_reps.setAttribute("id", `repsInp${currentRow}`);
 		ti_reps.setAttribute("type", "text");
 		ti_reps.setAttribute("placeholder", "Reps");
 		ti_reps.setAttribute("class", "table-input");
@@ -30,7 +32,7 @@ class NewScheduleTableHandler  {
 
         let td_sets = document.createElement("td");
 		let ti_sets = document.createElement("input");
-		ti_sets.setAttribute("id", `setsInp${this.rows}`);
+		ti_sets.setAttribute("id", `setsInp${currentRow}`);
 		ti_sets.setAttribute("type", "text");
 		ti_sets.setAttribute("placeholder", "Sets");
 		ti_sets.setAttribute("class", "table-input");
@@ -38,18 +40,34 @@ class NewScheduleTableHandler  {
 
 		let td_description = document.createElement("td");
 		let ti_description = document.createElement("textarea");
-		ti_description.setAttribute("id", `commentInp${this.rows}`);
+		ti_description.setAttribute("id", `commentInp${currentRow}`);
 		ti_description.setAttribute("style", "width: 100%");
 		ti_description.setAttribute("placeholder", "Beschreibung");
 		ti_description.setAttribute("class", "table-input");
 		td_description.appendChild(ti_description);
 
+		let td_delete = document.createElement("td");
+		td_delete.setAttribute("style", "text-align: center");
+		let b_delete = document.createElement("button");
+		b_delete.setAttribute("type", "button");
+		b_delete.setAttribute("class", "btn button-delete");
+		b_delete.addEventListener("click", () => {
+			this.deleteTableRow(currentRow);
+		});
+		td_delete.appendChild(b_delete);
+
 		tr.appendChild(td_exercise);
 		tr.appendChild(td_reps);
 		tr.appendChild(td_sets);
 		tr.appendChild(td_description);
+		tr.appendChild(td_delete);
 
 		this.tableBody.appendChild(tr);
+	}
+
+	deleteTableRow(row) {
+		let table = document.getElementById("input_table");
+		table.deleteRow(row-1);
 	}
 
     getTableData() {

@@ -105,3 +105,10 @@
     border: 2px solid grey;
     border-radius: 5px
 }
+
+.button-delete {
+    width: 30px;
+    height: 30px;
+    background: url("../../img/delete.jpg");
+    background-size: 30px 30px;
+}
