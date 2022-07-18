@@ -89,12 +89,13 @@ class NewScheduleTableHandler  {
 				if (row.firstChild.tagName == "TH") {
 					continue;
 				}
-				let exerciseEl = row.getElementsByClassName("exercise-input")[0];
-				let exercise = exerciseEl.value;
+				let exercise = row.getElementsByClassName("exercise-input")[0].value;
 				if (exercise == "") {
 					alert("Bitte alle Felder für Übungsnamen ausfüllen!");
 					return null;
-				} else if (!(exercise in this.availableExercises)) {
+				}
+				let exercise_id = this.getExerciseId(exercise); 
+				if (!(exercise_id)) {
 					alert(`Die Übung ${exercise} existiert nicht in der Datenbank, stelle bitte sicher das sie richtig geschrieben ist oder füge den Eintrag hinzu und aktualisiere die Übungen.`);
 					return null;
 				}
@@ -104,7 +105,7 @@ class NewScheduleTableHandler  {
 				sets == "" ? sets = 0 : sets;
 				let comment = row.getElementsByClassName("comment-input")[0].value;
 				exerciseData.push({
-					exercise,
+					exercise_id,
 					reps,
 					sets,
 					comment
@@ -124,11 +125,18 @@ class NewScheduleTableHandler  {
 		}
 	}
 
+	getExerciseId(exerciseName) {
+		for (let exercise of this.availableExercises) {
+			if (exercise.name === exerciseName) {
+				return exercise.exercise_id;
+			}
+		}
+		return null;
+	}
+
 	showResultMessage(resultData) {
 		if (!resultData.result) {
 			alert(`Trainingsplan konnte nicht gespeichert werden, der User ${resultData.user} existiert nicht in der Datenbank!`);
-		} else if (resultData.missingExercises > 0) {
-			alert("Trainingsplan konnte nur teilweise gespeichert werden, folgende Übungen sind nicht in der Datenbank gespeichert: ", resultData.missingExercises);
 		} else {
 			this.displayOnSnackbar("Trainingsplan erfolgreich gespeichert.");
 		}
@@ -141,6 +149,8 @@ class NewScheduleTableHandler  {
 		});
 		this.createDataList();
 		msg ? this.displayOnSnackbar(msg) : null;
+		
+		this.getExerciseId("Schwimmen");
 	}
 
 	createDataList() {

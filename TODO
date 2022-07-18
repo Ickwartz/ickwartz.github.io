@@ -30,29 +30,8 @@
     - Frontend und Backend in separate Folder
 
 - Trainingsplan:
-    - Tabelle:   training_id | datum | user
-    - personalized_exercises bekommen training_id
-    - wenn man Plan für User darstellt:
-    --> SELECT * FROM training WHERE datum = $datum AND user = $user;
-    --> id 
-    --> Anzeige: SELECT * FROM pe WHERE training_id = $training_id;
-        --> coole join magic machen
-    - ERSTELLUNG
-        - Tabelle 
-            - User --> Input name, work with id
-            - Übung --> ID
-            - Reps
-            - Sets
-            - Comment
-            - Datum 
-        - Training ID generieren und an personalized_exercises hängen
-        - Datum mit Training ID verknüpfen
-    - swap der Felder per Enter Taste
-    https://www.tutorialspoint.com/enter-key-press-event-in-javascript
-    - Möglichkeit Zeile zu löschen
-
     Am Anfang Übungen querien und nur ID dann zum Server senden
-    - Alert für nicht gespeicherte Übungen zum blanko erstellen
+    
 
 
 - Calendar

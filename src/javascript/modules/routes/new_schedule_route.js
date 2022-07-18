@@ -40,17 +40,10 @@ router
 
     let exerciseData = data.exerciseData;
     for (let dataSet of exerciseData) {
-        let exerciseName = dataSet.exercise;
+        let exercise_id = dataSet.exercise_id;
         let reps = dataSet.reps;
         let sets = dataSet.sets;
         let comment = dataSet.comment;
-
-        let exercise = new Exercises(exerciseName);
-        let exercise_id = await getExerciseID(exercise);
-        if (!exercise_id) {
-            responseData.missingExercises.push(exerciseName);
-            continue;
-        }
 
         let personalizedExercise = new Personalized_Exercises(exercise_id, user_id, reps, sets, comment, training_id);
         await personalizedExercise.safeData();
@@ -70,13 +63,6 @@ async function getUserID(user) {
     let response = await user.getUserIDFromName();
     if (response.length > 0) {    
         return response[0].user_id;
-    } else return null;
-}
-
-async function getExerciseID(exercise) {
-    let response = await exercise.getExerciseIdFromName();
-    if (response.length > 0) {
-        return response[0].exercise_id;
     } else return null;
 }
 
