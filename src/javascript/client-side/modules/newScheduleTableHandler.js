@@ -123,6 +123,39 @@ class NewScheduleTableHandler  {
 		// make it fade after 5s
 		setTimeout(() => {snackbar.className = "";}, 5000);
 	}
+
+	applyKeyListeners() {
+		let inputs = document.querySelectorAll("input, textarea");
+		let nodes = Array.prototype.slice.call(inputs);
+		for (let element of inputs) {
+			let index = nodes.indexOf(element);
+			
+			if (element.getAttribute("data-event-click") === "true") {
+				continue;
+			} 
+			else if (element.tagName === "INPUT" && element.id !== "training-name-input") {
+				element.addEventListener("keypress", (e) => {
+					if (e.key === "Enter") {
+						inputs[index+1] ? inputs[index+1].focus() : inputs[index].focus();
+						element.setAttribute("data-event-click", "true");
+					}
+				});
+			} 
+			else {
+				element.addEventListener("keypress", (e) => {
+					if (e.key === "Enter") {
+						if (!element[index+1]) {
+							this.createRow();
+						}
+						inputs = document.querySelectorAll("input, textarea");
+						nodes = Array.prototype.slice.call(inputs);
+						inputs[index+1].focus();
+						element.setAttribute("data-event-click", "true");
+					}
+				});
+			}
+		}
+	}
 }
 
 export  {NewScheduleTableHandler}; 
