@@ -4,20 +4,15 @@ class NewScheduleTableHandler  {
 	constructor(){}
 
 	fetch_api = new Fetch_api();
-	rows = 0;
 	availableExercises = [];
 
 	tableBody = document.getElementById("input_body");
 
 	createRow() {
-		this.rows++;
-		let currentRow = this.rows;
 		const tr = document.createElement("tr");
-		tr.setAttribute("data-row", currentRow);
 
         let td_exercise = document.createElement("td");
 		let ti_exercise = document.createElement("input");
-		//ti_exercise.setAttribute("id", `exerciseInp${currentRow}`);
 		ti_exercise.setAttribute("type", "text");
 		ti_exercise.setAttribute("placeholder", "Übung");
 		ti_exercise.setAttribute("list", "availableExercises");
@@ -26,7 +21,6 @@ class NewScheduleTableHandler  {
 
         let td_reps = document.createElement("td");
 		let ti_reps = document.createElement("input");
-		//ti_reps.setAttribute("id", `repsInp${currentRow}`);
 		ti_reps.setAttribute("type", "text");
 		ti_reps.setAttribute("placeholder", "Reps");
 		ti_reps.setAttribute("class", "table-input reps-input");
@@ -34,7 +28,6 @@ class NewScheduleTableHandler  {
 
         let td_sets = document.createElement("td");
 		let ti_sets = document.createElement("input");
-		//ti_sets.setAttribute("id", `setsInp${currentRow}`);
 		ti_sets.setAttribute("type", "text");
 		ti_sets.setAttribute("placeholder", "Sets");
 		ti_sets.setAttribute("class", "table-input sets-input");
@@ -42,7 +35,6 @@ class NewScheduleTableHandler  {
 
 		let td_description = document.createElement("td");
 		let ti_description = document.createElement("textarea");
-		//ti_description.setAttribute("id", `commentInp${currentRow}`);
 		ti_description.setAttribute("style", "width: 100%");
 		ti_description.setAttribute("placeholder", "Beschreibung");
 		ti_description.setAttribute("class", "table-input comment-input");
@@ -53,8 +45,8 @@ class NewScheduleTableHandler  {
 		let b_delete = document.createElement("button");
 		b_delete.setAttribute("type", "button");
 		b_delete.setAttribute("class", "btn button-delete");
-		b_delete.addEventListener("click", () => {
-			this.deleteTableRow(currentRow);
+		b_delete.addEventListener("click", (e) => {
+			this.deleteTableRow(e.target);
 		});
 		td_delete.appendChild(b_delete);
 
@@ -67,9 +59,12 @@ class NewScheduleTableHandler  {
 		this.tableBody.appendChild(tr);
 	}
 
-	deleteTableRow(row) {
+	deleteTableRow(triggerButton) {
+		let parentRow = triggerButton.closest("tr");
 		let table = document.getElementById("input_table");
-		table.deleteRow(row-1);
+		let tableRows = Array.prototype.slice.call(table.rows);
+		let index = tableRows.indexOf(parentRow);
+		table.deleteRow(index);
 	}
 
     getTableData() {
@@ -98,6 +93,9 @@ class NewScheduleTableHandler  {
 				let exercise = exerciseEl.value;
 				if (exercise == "") {
 					alert("Bitte alle Felder für Übungsnamen ausfüllen!");
+					return null;
+				} else if (!(exercise in this.availableExercises)) {
+					alert(`Die Übung ${exercise} existiert nicht in der Datenbank, stelle bitte sicher das sie richtig geschrieben ist oder füge den Eintrag hinzu und aktualisiere die Übungen.`);
 					return null;
 				}
 				let reps = row.getElementsByClassName("reps-input")[0].value;
