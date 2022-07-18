@@ -16,34 +16,34 @@ class NewScheduleTableHandler  {
 
         let td_exercise = document.createElement("td");
 		let ti_exercise = document.createElement("input");
-		ti_exercise.setAttribute("id", `exerciseInp${currentRow}`);
+		//ti_exercise.setAttribute("id", `exerciseInp${currentRow}`);
 		ti_exercise.setAttribute("type", "text");
 		ti_exercise.setAttribute("placeholder", "Übung");
-		ti_exercise.setAttribute("class", "table-input");
+		ti_exercise.setAttribute("class", "table-input exercise-input");
 		td_exercise.appendChild(ti_exercise);
 
         let td_reps = document.createElement("td");
 		let ti_reps = document.createElement("input");
-		ti_reps.setAttribute("id", `repsInp${currentRow}`);
+		//ti_reps.setAttribute("id", `repsInp${currentRow}`);
 		ti_reps.setAttribute("type", "text");
 		ti_reps.setAttribute("placeholder", "Reps");
-		ti_reps.setAttribute("class", "table-input");
+		ti_reps.setAttribute("class", "table-input reps-input");
 		td_reps.appendChild(ti_reps);
 
         let td_sets = document.createElement("td");
 		let ti_sets = document.createElement("input");
-		ti_sets.setAttribute("id", `setsInp${currentRow}`);
+		//ti_sets.setAttribute("id", `setsInp${currentRow}`);
 		ti_sets.setAttribute("type", "text");
 		ti_sets.setAttribute("placeholder", "Sets");
-		ti_sets.setAttribute("class", "table-input");
+		ti_sets.setAttribute("class", "table-input sets-input");
 		td_sets.appendChild(ti_sets);
 
 		let td_description = document.createElement("td");
 		let ti_description = document.createElement("textarea");
-		ti_description.setAttribute("id", `commentInp${currentRow}`);
+		//ti_description.setAttribute("id", `commentInp${currentRow}`);
 		ti_description.setAttribute("style", "width: 100%");
 		ti_description.setAttribute("placeholder", "Beschreibung");
-		ti_description.setAttribute("class", "table-input");
+		ti_description.setAttribute("class", "table-input comment-input");
 		td_description.appendChild(ti_description);
 
 		let td_delete = document.createElement("td");
@@ -86,26 +86,30 @@ class NewScheduleTableHandler  {
 			data.date = date;
 			data.trainingName = trainingName;
 			let exerciseData = []; 
-            
-            for (let i = 1; i <= this.rows; i++) {
-                let exercise = document.getElementById(`exerciseInp${i}`).value;
-                let reps = document.getElementById(`repsInp${i}`).value;
-				reps == "" ? reps = 0 : reps;
-                let sets = document.getElementById(`setsInp${i}`).value;
-				sets == "" ? sets = 0 : sets;
-                let comment = document.getElementById(`commentInp${i}`).value;
-                if (exercise == "") {
-                    alert("Bitte alle Felder für Übungsnamen ausfüllen");
+			let rows = document.getElementsByTagName("tr");
+			for (let row of rows) {
+				//th is treated as tr too
+				if (row.firstChild.tagName == "TH") {
+					continue;
+				}
+				let exerciseEl = row.getElementsByClassName("exercise-input")[0];
+				let exercise = exerciseEl.value;
+				if (exercise == "") {
+					alert("Bitte alle Felder für Übungsnamen ausfüllen!");
 					return null;
-                } else {
-                    exerciseData.push({
-                        exercise: exercise,
-                        reps: reps,
-                        sets: sets,
-                        comment: comment,
-                    });
-                }
-            }
+				}
+				let reps = row.getElementsByClassName("reps-input")[0].value;
+				reps == "" ? reps = 0 : reps;
+				let sets = row.getElementsByClassName("sets-input")[0].value;
+				sets == "" ? sets = 0 : sets;
+				let comment = row.getElementsByClassName("comment-input")[0].value;
+				exerciseData.push({
+					exercise,
+					reps,
+					sets,
+					comment
+				});
+			}
 			data.exerciseData = exerciseData;
             return data;
         }
@@ -118,7 +122,6 @@ class NewScheduleTableHandler  {
 				this.showResultMessage(result);
 			});
 		}
-		
 	}
 
 	showResultMessage(resultData) {
