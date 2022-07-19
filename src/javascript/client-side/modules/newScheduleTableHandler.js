@@ -349,12 +349,14 @@ class NewScheduleTableHandler  {
 				element.setAttribute("data-event-click", "true");
 				element.addEventListener("keypress", (e) => {
 					if (e.key === "Enter") {
-						if (!element[index+1]) {
-							this.createRow();
+						if (!e.shiftKey) {
+							if (!element[index+1]) {
+								this.createRow();
+							}
+							inputs = document.querySelectorAll("input, textarea");
+							nodes = Array.prototype.slice.call(inputs);
+							inputs[index+1].focus();
 						}
-						inputs = document.querySelectorAll("input, textarea");
-						nodes = Array.prototype.slice.call(inputs);
-						inputs[index+1].focus();
 					}
 				});
 			}
