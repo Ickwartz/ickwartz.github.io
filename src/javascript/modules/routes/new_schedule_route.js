@@ -57,6 +57,20 @@ router
     let exercises = new Exercises();
     let responseData = await exercises.readData();
     res.json(responseData);
+})
+
+.post("/getschedules", async (req, res) => {
+    let data = req.body;
+    let date = data.date;
+    let first_name = data.first_name;
+    let surname = data.surname;
+    
+    let user = new Users(first_name, surname);
+    let user_id = await user.getUserIDFromName();
+    user_id = user_id[0].user_id;
+    let training_api = new Training("", "", user_id);
+    let trainings = await training_api.getTrainingsOfDay(date);
+    res.json(trainings);
 });
 
 async function getUserID(user) {

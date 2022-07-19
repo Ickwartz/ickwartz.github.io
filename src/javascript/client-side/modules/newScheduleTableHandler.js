@@ -134,6 +134,51 @@ class NewScheduleTableHandler  {
 		return null;
 	}
 
+	async loadScheduleOptions() {
+		// test with 21.08.2022
+		let user_val = document.getElementById("loading-user-input").value;
+		let first_name = user_val.split(" ")[0];
+		let surname = user_val.split(" ")[1];
+
+		let date_val = document.getElementById("loading-date-input").value;
+		let dateObj = new Date(date_val);
+		let date = dateObj.toISOString().split('T')[0];
+
+		let data = {first_name, surname, date};
+		await this.fetch_api.postData("/newschedule/getschedules", data).then(result => {
+			let modalBody = document.getElementsByClassName("modal-body")[0];
+			let heading = document.createElement("h6");
+			heading.textContent = `Trainings von ${user_val} am ${date_val}: `;
+			let list = this.createScheduleOptionsList(result);
+			modalBody.innerHTML="";
+			modalBody.appendChild(heading);
+			modalBody.appendChild(list);
+		});
+	}
+
+	createScheduleOptionsList(scheduleOptions) {
+		let list = document.createElement("ul");
+		list.setAttribute("class", "list-group");
+		for (let schedule of scheduleOptions) {
+			let listItem = document.createElement("li");
+			listItem.setAttribute("class", "list-group-item");
+			let scheduleLink = document.createElement("a");
+			scheduleLink.textContent = schedule.name;
+			scheduleLink.href = "#";
+			scheduleLink.addEventListener("click", () => {
+				this.loadSchedule(schedule.training_id);
+			});
+			scheduleLink.style = "text-decoration: none; color: black;";
+			listItem.appendChild(scheduleLink);
+			list.appendChild(listItem);
+		}
+		return list;
+	}
+
+	async loadSchedule(id) {
+		console.log(id);
+	}
+
 	showResultMessage(resultData) {
 		if (!resultData.result) {
 			alert(`Trainingsplan konnte nicht gespeichert werden, der User ${resultData.user} existiert nicht in der Datenbank!`);
@@ -175,6 +220,21 @@ class NewScheduleTableHandler  {
 		snackbar.className = "show";
 		// make it fade after 5s
 		setTimeout(() => {snackbar.className = "";}, 5000);
+	}
+
+	addButtonEventListeners() {
+		document.getElementById("addRowButton").addEventListener("click",() => {
+			this.createRow();
+		});
+		document.getElementById("submitButton").addEventListener("click", () => {
+			this.saveTableData();
+		});
+		document.getElementById("button-refresh-available-exercises").addEventListener("click", () => {
+			this.getAvailableExercises("Übungen aktualisiert");
+		});
+		document.getElementById("button-load-schedule").addEventListener("click", () => {
+			this.loadScheduleOptions();
+		});
 	}
 
 	applyKeyListeners() {

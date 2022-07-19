@@ -30,7 +30,10 @@
     - Frontend und Backend in separate Folder
 
 - Trainingsplan:
-    Am Anfang Übungen querien und nur ID dann zum Server senden
+    - Laden(editieren)
+        - nach Name und Datum querien
+        --> Liste der möglichen Trainingspläne anzeigen
+        -> nach Auswahl in Trainingsplan laden
     
 
 
