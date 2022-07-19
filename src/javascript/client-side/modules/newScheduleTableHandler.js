@@ -5,6 +5,7 @@ class NewScheduleTableHandler  {
 
 	fetch_api = new Fetch_api();
 	availableExercises = [];
+	loadingPresets = {};
 
 	tableBody = document.getElementById("input_body");
 
@@ -145,10 +146,12 @@ class NewScheduleTableHandler  {
 	async loadScheduleOptions() {
 		// test with 19.07.2022
 		let user_val = document.getElementById("loading-user-input").value;
+		this.loadingPresets.user = user_val;
 		let first_name = user_val.split(" ")[0];
 		let surname = user_val.split(" ")[1];
 
 		let date_val = document.getElementById("loading-date-input").value;
+		this.loadingPresets.date = date_val;
 		if (!(first_name && surname && date_val)) {
 			alert("Vorname, Nachname und Datum benötigt");
 			return null;
@@ -158,6 +161,7 @@ class NewScheduleTableHandler  {
 		let date = dateObj.toISOString().split('T')[0];
 
 		let data = {first_name, surname, date};
+		
 		await this.fetch_api.postData("/newschedule/getschedules", data).then(result => {
 			let modalBody = document.getElementsByClassName("modal-body")[0];
 			let heading = document.createElement("h6");
@@ -180,6 +184,7 @@ class NewScheduleTableHandler  {
 			scheduleLink.href = "#";
 			scheduleLink.addEventListener("click", () => {
 				this.loadSchedule(schedule.training_id);
+				this.loadingPresets.trainingName = schedule.name;
 			});
 			scheduleLink.style = "text-decoration: none; color: black;";
 			listItem.appendChild(scheduleLink);
@@ -190,6 +195,12 @@ class NewScheduleTableHandler  {
 
 	async loadSchedule(training_id) {
 		await this.fetch_api.postData("/newschedule/loadschedule", {training_id}).then(res => {
+			let userInput = document.getElementById("user-input");
+			let dateInput = document.getElementById("date-input");
+			let trainingInput = document.getElementById("training-name-input");
+			userInput.value = this.loadingPresets.user;
+			dateInput.value = this.loadingPresets.date;
+			trainingInput.value = this.loadingPresets.trainingName;
 			this.tableBody.innerHTML = "";
 			for (let i = 0; i < res.length; i++) {
 				this.createRow();
@@ -218,6 +229,41 @@ class NewScheduleTableHandler  {
 				index++;
 			}
 		});
+		this.resetLoadingModal();
+	}
+
+	resetLoadingModal() {
+		let modalBody = document.getElementsByClassName("modal-body")[0];
+		modalBody.innerHTML = "";
+		
+		let userLabel= document.createElement("label");
+		userLabel.setAttribute("for", "loading-user-input");
+		userLabel.style = "padding:5px";
+		userLabel.textContent = "Vor- und Nachname:";
+
+		let userInput = document.createElement("input");
+		userInput.setAttribute("type", "text");
+		userInput.id = "loading-user-input";
+		userInput.placeholder = "User";
+
+		let br = document.createElement("br");
+		
+		let dateLabel= document.createElement("label");
+		dateLabel.setAttribute("for", "loading-date-input");
+		dateLabel.style = "padding:5px";
+		dateLabel.textContent = "Datum:";
+
+		let dateInput = document.createElement("input");
+		dateInput.setAttribute("type", "date");
+		dateInput.id ="loading-date-input";
+		// eslint-disable-next-line no-useless-escape
+		dateInput.setAttribute("pattern", "\d{2}-\d{2}-\d{4}");
+
+		modalBody.appendChild(userLabel);
+		modalBody.appendChild(userInput);
+		modalBody.appendChild(br);
+		modalBody.appendChild(dateLabel);
+		modalBody.appendChild(dateInput);
 	}
 
 	showResultMessage(resultData) {
@@ -276,6 +322,9 @@ class NewScheduleTableHandler  {
 		document.getElementById("button-load-schedule").addEventListener("click", () => {
 			this.loadScheduleOptions();
 		});
+		document.getElementById("button-reset-loading").addEventListener("click", () => {
+			this.resetLoadingModal();
+		});
 	}
 
 	applyKeyListeners() {
@@ -289,14 +338,15 @@ class NewScheduleTableHandler  {
 				continue;
 			} 
 			else if (element.tagName === "INPUT" && element.id !== "training-name-input") {
+				element.setAttribute("data-event-click", "true");
 				element.addEventListener("keypress", (e) => {
 					if (e.key === "Enter") {
 						inputs[index+1] ? inputs[index+1].focus() : inputs[index].focus();
-						element.setAttribute("data-event-click", "true");
 					}
 				});
 			} 
 			else {
+				element.setAttribute("data-event-click", "true");
 				element.addEventListener("keypress", (e) => {
 					if (e.key === "Enter") {
 						if (!element[index+1]) {
@@ -305,7 +355,6 @@ class NewScheduleTableHandler  {
 						inputs = document.querySelectorAll("input, textarea");
 						nodes = Array.prototype.slice.call(inputs);
 						inputs[index+1].focus();
-						element.setAttribute("data-event-click", "true");
 					}
 				});
 			}

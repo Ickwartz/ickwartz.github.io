@@ -30,11 +30,9 @@
     - Frontend und Backend in separate Folder
 
 - Trainingsplan:
-    - Laden(editieren)
-        - nach Name und Datum querien
-        --> Liste der möglichen Trainingspläne anzeigen
-        -> nach Auswahl in Trainingsplan laden
-        - Option neu zu laden / Infos neu einzugeben
+    - key Event Listeners separieren
+    - Option neu zu laden / Infos neu einzugeben --> Fenster schließen fixen
+    - shift + enter für Zeilenumbruch in Kommentar
     
 
 
