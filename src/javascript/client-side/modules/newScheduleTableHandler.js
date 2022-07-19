@@ -134,13 +134,26 @@ class NewScheduleTableHandler  {
 		return null;
 	}
 
+	getExerciseName(id) {
+		for (let exercise of this.availableExercises) {
+			if (id === exercise.exercise_id) {
+				return exercise.name;
+			}
+		}
+	}
+
 	async loadScheduleOptions() {
-		// test with 21.08.2022
+		// test with 19.07.2022
 		let user_val = document.getElementById("loading-user-input").value;
 		let first_name = user_val.split(" ")[0];
 		let surname = user_val.split(" ")[1];
 
 		let date_val = document.getElementById("loading-date-input").value;
+		if (!(first_name && surname && date_val)) {
+			alert("Vorname, Nachname und Datum benötigt");
+			return null;
+		}
+
 		let dateObj = new Date(date_val);
 		let date = dateObj.toISOString().split('T')[0];
 
@@ -175,8 +188,36 @@ class NewScheduleTableHandler  {
 		return list;
 	}
 
-	async loadSchedule(id) {
-		console.log(id);
+	async loadSchedule(training_id) {
+		await this.fetch_api.postData("/newschedule/loadschedule", {training_id}).then(res => {
+			this.tableBody.innerHTML = "";
+			for (let i = 0; i < res.length; i++) {
+				this.createRow();
+			}
+			let index = 0;
+			let rows = document.getElementsByTagName("tr");
+			for (let row of rows) {
+				if (row.firstChild.tagName == "TH") {
+					continue;
+				}
+				let exerciseInput = row.getElementsByClassName("exercise-input")[0];
+				let repsInput = row.getElementsByClassName("reps-input")[0];
+				let setsInput = row.getElementsByClassName("sets-input")[0];
+				let commentInput = row.getElementsByClassName("comment-input")[0];
+				
+				let exerciseName = this.getExerciseName(res[index].exercise_id);
+				let reps = res[index].reps;
+				let sets = res[index].sets;
+				let comment = res[index].comment;
+
+				exerciseInput.value = exerciseName;
+				repsInput.value = reps;
+				setsInput.value = sets;
+				commentInput.value = comment;
+
+				index++;
+			}
+		});
 	}
 
 	showResultMessage(resultData) {

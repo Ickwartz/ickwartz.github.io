@@ -36,6 +36,15 @@ class Personalized_Exercises extends Table_functions{
         return await this.#db_functions.queryAll(sql);
     }
 
+    async getExercisesWithTrainingId($id) {
+        $id = $id ? $id : this.training_id;
+        let sql = "SELECT * FROM personalized_exercises WHERE training_id=$id;";
+        let params = {
+            $id
+        };
+        return await this.#db_functions.queryAll(sql, params);
+    }
+
     async innerJoinExercises() {
 
         let sql = `

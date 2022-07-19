@@ -1,5 +1,10 @@
-let date_val = "21.07.2022";
+const Personalized_Exercises = require("./modules/table_classes/personalized_exercises");
 
-let dateObj = new Date(date_val);
-let date = dateObj.toISOString().split('T')[0];
-console.log(date);
+async function blub() {
+    let personalized_exercises = new Personalized_Exercises();
+    
+    let result = await personalized_exercises.getExercisesWithTrainingId(27);
+    console.log("RESULT: ", result);
+}
+
+blub();

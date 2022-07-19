@@ -35,7 +35,9 @@ router
 
     let training = new Training(trainingName, date, user_id);
     await training.safeData();
-    let training_id = await training.getTrainingId();
+    let training_response = await training.getTrainingId();
+    let training_id = training_response[0].training_id;
+
     responseData.training_id = training_id;
 
     let exerciseData = data.exerciseData;
@@ -44,7 +46,6 @@ router
         let reps = dataSet.reps;
         let sets = dataSet.sets;
         let comment = dataSet.comment;
-
         let personalizedExercise = new Personalized_Exercises(exercise_id, user_id, reps, sets, comment, training_id);
         await personalizedExercise.safeData();
         responseData.result = true;
@@ -71,6 +72,14 @@ router
     let training_api = new Training("", "", user_id);
     let trainings = await training_api.getTrainingsOfDay(date);
     res.json(trainings);
+})
+
+.post("/loadschedule", async (req, res) => {
+    let data = req.body;
+    let pe_api = new Personalized_Exercises();
+    let id = data.training_id;
+    let schedule = await pe_api.getExercisesWithTrainingId(id);
+    res.json(schedule);
 });
 
 async function getUserID(user) {
