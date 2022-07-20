@@ -28,6 +28,12 @@ class Users extends Table_functions{
         };
     }
 
+    async getUserInfoFromMail() {
+        let params = {$email: this.email};
+        let sql = "SELECT * FROM users WHERE email = $email";
+        return await this.#db_functions.queryAll(sql, params);
+    }
+
     async getUserIDFromName() {
         let sql = "SELECT user_id FROM users WHERE first_name=$first_name AND surname=$surname";
         let params = {$first_name: this.first_name, $surname: this.surname};
@@ -36,7 +42,7 @@ class Users extends Table_functions{
 
     async safeData() {
         let sql = "INSERT INTO users (first_name, surname, email, member_since) VALUES ($first_name, $surname, $email, $member_since);";
-        await this.#db_functions.runQuery(sql, this.getValues()); 
+        return await this.#db_functions.runQuery(sql, this.getValues()); 
     }
 
     async readData() {

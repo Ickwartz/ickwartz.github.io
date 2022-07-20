@@ -14,8 +14,7 @@
 
 
 - Account System
-    - in login_route statt Email in Session Var Vorname
-    - Display des Usernamens auf Website schöner machen 
+    --> lesen in training_route get_user_trainings
 
 - Tests
     - für alle Table Klassen Read und Write
@@ -28,11 +27,6 @@
 
 - Refactor
     - Frontend und Backend in separate Folder
-
-- Trainingsplan:
-    - key Event Listeners separieren
-    - shift + enter für Zeilenumbruch in Kommentar
-    
 
 
 - Calendar

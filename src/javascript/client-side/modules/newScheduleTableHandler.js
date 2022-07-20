@@ -281,8 +281,6 @@ class NewScheduleTableHandler  {
 		});
 		this.createDataList();
 		msg ? this.displayOnSnackbar(msg) : null;
-		
-		this.getExerciseId("Schwimmen");
 	}
 
 	createDataList() {
@@ -309,6 +307,7 @@ class NewScheduleTableHandler  {
 		setTimeout(() => {snackbar.className = "";}, 5000);
 	}
 
+	// TODO: Arrow Functions kürzen
 	addButtonEventListeners() {
 		document.getElementById("addRowButton").addEventListener("click",() => {
 			this.createRow();

@@ -25,10 +25,16 @@ router
             password = await hashing.hashPw(password);
             let user = new User(first_name, surname, email);
             let user_account = new User_Accounts(email, password);
-            user.safeData();
+            let user_id = user.safeData();
             user_account.safeData();
             req.session.loggedin = true;
-            req.session.user = email;
+            req.session.userInfo = {
+                user_id: user_id,
+                first_name: first_name,
+                surname: surname,
+                email: email,
+                member_since: user.member_since
+              };
             res.redirect("/");
         } else {
             req.session.registerMessage = "Passwort wiederholung stimmt nicht überein";

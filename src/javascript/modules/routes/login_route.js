@@ -1,4 +1,5 @@
 const express = require("express");
+const Users = require("../table_classes/users");
 const User_Account = require("../table_classes/user_accounts");
 
 const router = express.Router();
@@ -19,8 +20,10 @@ router
         let user_account = new User_Account(email, password);
         let verified = await user_account.verifyUser();
         if (verified) {
+            let user = new Users("", "", email);
+            let userInfo = await user.getUserInfoFromMail();
             req.session.loggedin = true;
-            req.session.user = email;   // hier maybe verknüpfung zu User --> Vorname
+            req.session.userInfo = userInfo[0];
             req.session.adminSession = await user_account.isAdmin();
             res.redirect("/");
             

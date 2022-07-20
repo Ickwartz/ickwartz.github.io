@@ -26,8 +26,9 @@ class Db_Functions {
             if (err) {
                 throw err;
             }
-            console.log("Query ran successfully", this.lastID);
+            console.log("Query ran successfully");
         });
+        return this.lastID;
     }
 }
 

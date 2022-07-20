@@ -15,7 +15,7 @@ router
 
 .post("/get_user_trainings", async (req, res) => {
     let data = req.body;
-    let user_id = data.user_id;
+    let user_id = req.session.userInfo.user_id;
 
     let training_interface = new Training("", "", user_id);
     let response_data = await training_interface.getAllUserTrainingMonth(data.params.month, data.params.year);

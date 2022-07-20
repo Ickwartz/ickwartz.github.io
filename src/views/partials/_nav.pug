@@ -45,7 +45,7 @@ section#contacts.d-flex.align-items-center
                                         a.dropdown-item(href='#') Mitglieder Übersicht
                         
                         li.nav-item 
-                            a.nav-link(href="#" style="color: blue") #{session.user}
+                            a.nav-link(href="#" style="color: blue") #{session.userInfo.first_name}
                         li.nav-item
                             a.nav-link(href='/logout') Logout
                     else

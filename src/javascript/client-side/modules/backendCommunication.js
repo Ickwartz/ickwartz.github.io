@@ -7,8 +7,6 @@ class CalendarBackend {
 
     async getMonthsAppointments(month, year) {
         let data = {
-            user_id: 22,
-            func: "getAllUserTrainingMonth",
             params: {
                 month: month,
                 year: year
