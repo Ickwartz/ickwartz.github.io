@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const functionalityRoutes = require("./functionality_routes");
 const login = require("./login_route");
 const logout = require("./logout_route");
 const register = require("./register_route");
@@ -11,15 +12,13 @@ const new_schedule = require("./new_schedule_route");
 router
 
     .get("/", (req, res) => {
-        res.render("index", {
-            //vars
-        });
+        res.render("index", {});
     })
 
+    .use("/", functionalityRoutes)
+
     .get("/about", (req, res) => {
-        res.render("about", {
-            //vars
-        });
+        res.render("about", {});
     })
 
     .use("/newexercise", exercises)

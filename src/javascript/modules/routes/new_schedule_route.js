@@ -1,5 +1,4 @@
 const express = require("express");
-const Exercises = require("../table_classes/exercises");
 const Training = require("../table_classes/training");
 const Users = require("../table_classes/users");
 const Personalized_Exercises = require("../table_classes/personalized_exercises");
@@ -51,12 +50,6 @@ router
         responseData.result = true;
     }    
 
-    res.json(responseData);
-})
-
-.post("/getexercises", async (req, res) => {
-    let exercises = new Exercises();
-    let responseData = await exercises.readData();
     res.json(responseData);
 })
 
