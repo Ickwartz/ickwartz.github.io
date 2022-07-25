@@ -1,15 +1,8 @@
 - AM ENDE: Bootstrap local nutzen
 
-- check vor insert ob Eintrag schon vorhanden
-
-
 - Funktionen
     - Übungen erstellen, editieren und löschen(als veraltet markieren für "legacy content")
         --> löschen nur wenn keine Verbindung zu Trainingsplan
-    - Trainingsplan erstellen
-    - Trainingsplan mit User verknüpfen
-    - Kalender für Trainingspläne 
-        --> Übungen für dieses Datum oder Meldung das keine Übungen für diesen Tag vorhanden
     - Registrieren nur wenn auf vorgefertigter Liste
 
 
@@ -20,15 +13,6 @@
             --> nach bestimmter Zeit?
         --> wiederherstellen von Accounts? 
         --> markieren als deleted?
-
-- Tests
-    - für alle Table Klassen Read und Write
-
-- Fragen
-    - Sollen Übungen wenn sie aktualisiert werden auch in alten Trainingsplänen angepasst werden?
-        --> History?
-            --> Nope
-            
 
 - Refactor
     - Frontend und Backend in separate Folder
@@ -44,11 +28,18 @@
 
 - Improvements
     - Im Trainingscalendar aktuellen Monat merken und nicht neuen Tab öffnen
-
-Path Var für VS CODE Shell?
-
-- Wie Client seitig infos über 
+    - Trainingsplan wiederholungen (z.B. wöchentlich Mo, Mi, Fr)
+        -> 1 - 6, Monate
+        --> Datum als Array speichern oder meherere Pläne speichern?
+    - Im Trainingsplan vorschläge für Namen 
+    - Kommentarspalte für User in Trainingsplan
+        - Db slot in personalized_exercises
 
 Trainingsplan drucken
     - addmedia 
     - css für Druckansicht
+    - Trainingsplan clean + Einheitennr mit Zeile zum schreiben
+
+
+Allgemeine Aufgaben
+    - Wie Client seitig infos über Page Zustand

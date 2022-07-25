@@ -276,7 +276,7 @@ class NewScheduleTableHandler  {
 	}
 
 	async getAvailableExercises(msg) {
-		await this.fetch_api.postData("/newschedule/getexercises").then(result => {
+		await this.fetch_api.postData("/getexercises").then(result => {
 			this.availableExercises = result;
 		});
 		this.createDataList();
