@@ -12,15 +12,20 @@ class ScheduleDisplay extends HTMLElement {
             wrapper.id = "display-wrapper";
         }
         for (let scheduleObject of scheduleObjects) {
+            let date = scheduleObject.date;
+            let name = scheduleObject.name;
+            let training_id = scheduleObject.training_id;
             let entry = document.createElement("div");
             entry.className = "container d-flex justify-content-between";
             let description = document.createElement("p");
             description.className = "display-description";
-            description.textContent = `${scheduleObject.date}  |  ${scheduleObject.name}`;
+            description.textContent = `${date}  |  ${name}`;
         
             let details = document.createElement("a");
             details.className = "details-link";
-            details.href = "/details";
+            details.href = `/training/trainingsplan?trainingid=${training_id}`;
+            details.target = "_blank";
+            details.rel = "noreferrer noopener";    // prevent "tabnabbing" attacks that exploit new tab links
             details.textContent = "Details";
             details.style.color = "black";
         

@@ -14,7 +14,12 @@
 
 
 - Account System
-    --> lesen in training_route get_user_trainings
+    - Mitglieder Page für Details bearbeiten
+    - Mitglieder löschen
+        --> alle verbundenen Trainingspläne löschen?
+            --> nach bestimmter Zeit?
+        --> wiederherstellen von Accounts? 
+        --> markieren als deleted?
 
 - Tests
     - für alle Table Klassen Read und Write
@@ -33,8 +38,17 @@
     - slots angucken
     - naming
 
+Übungen
+    - editieren
+    - löschen
+
+- Improvements
+    - Im Trainingscalendar aktuellen Monat merken und nicht neuen Tab öffnen
 
 Path Var für VS CODE Shell?
 
+- Wie Client seitig infos über 
 
 Trainingsplan drucken
+    - addmedia 
+    - css für Druckansicht

@@ -45,16 +45,19 @@ class Personalized_Exercises extends Table_functions{
         return await this.#db_functions.queryAll(sql, params);
     }
 
-    async innerJoinExercises() {
+    async innerJoinExercises(training_id) {
+        let params = {
+            $training_id: training_id
+        };
 
         let sql = `
         SELECT pe.exercise_id, pe.reps, pe.sets, pe.comment, e.name, e.description
         FROM personalized_exercises AS pe
         INNER JOIN exercises AS e
         ON pe.exercise_id = e.exercise_id
-        ;`;
+        WHERE pe.training_id = $training_id;`;
 
-        return await this.#db_functions.queryAll(sql);
+        return await this.#db_functions.queryAll(sql, params);
     }
 }
 

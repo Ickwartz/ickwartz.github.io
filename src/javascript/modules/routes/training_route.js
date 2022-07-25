@@ -1,9 +1,8 @@
 const Training = require("../table_classes/training");
+const PersonalizedExercises = require("../table_classes/personalized_exercises");
 const express = require("express");
 
 const router = express.Router();
-
-const training_schedule = require("./schedule_route");
 
 router
 
@@ -25,8 +24,16 @@ router
 })
 
 
-.use("/training/trainingsplan", training_schedule);
-
+.get("/trainingsplan", (req, res) => {
+    let training_id = req.query.trainingid;
+    let p_e_instance = new PersonalizedExercises();
+    p_e_instance.innerJoinExercises(training_id).then((data) => {
+        res.render("training_schedule", {
+            items: data,
+            loggedin: req.session.loggedin ? true : false
+        });
+    });
+});
 
 
 module.exports = router;
