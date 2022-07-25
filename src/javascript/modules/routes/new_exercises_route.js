@@ -6,7 +6,7 @@ const router = express.Router();
 router
 
 .get("/", (req, res) => {
-    res.render("new_exercise", {
+    res.render("exercises", {
         admin: req.session.adminSession ? true : false
     });
 })

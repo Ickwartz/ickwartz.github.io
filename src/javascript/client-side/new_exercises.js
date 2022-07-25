@@ -3,10 +3,11 @@ import {NewExerciseTableHandler} from "./modules/newExerciseTableHandler.js";
 window.onload = () => {
 	let tableHandler =  new NewExerciseTableHandler();
 
-	document.getElementById("addRowButton").addEventListener("click",() => {
-		tableHandler.createRow();
-	});
+	tableHandler.applyEventListeners();
 
-	document.getElementById("submitButton").addEventListener("click", () => (tableHandler.saveTableData()));
-
+	let tbody = document.getElementById("input_body");
+	const observer = new MutationObserver(async () => {
+		tableHandler.applyKeyListeners();
+    });
+    observer.observe(tbody, {childList: true});
 };

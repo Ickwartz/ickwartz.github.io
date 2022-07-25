@@ -27,18 +27,19 @@ html
 
         if (loggedin)
             // table
-            .table-responsive
-                table.table
-                    thead
-                        tr
-                            th.col-1
-                            th.col-1(scope='col') #
-                            th.col-2(scope='col') Übung
-                            th.col-2(scope='col') Wdh
-                            th.col-2(scope='col') Sätze
-                            th.col-4(scope='col') Anmerkung
-                    tbody#exercises_table
-                        +table(items)
+            .container.table-container
+                .table-responsive
+                    table.table
+                        thead
+                            tr
+                                th.col-1
+                                th.col-1(scope='col') #
+                                th.col-2(scope='col') Übung
+                                th.col-2(scope='col') Wdh
+                                th.col-2(scope='col') Sätze
+                                th.col-4(scope='col') Anmerkung
+                        tbody#exercises_table
+                            +table(items)
         else
             include partials/_no-access
 

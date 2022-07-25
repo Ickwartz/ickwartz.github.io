@@ -7,16 +7,16 @@ html(lang='en')
   body
     // Main Menu Navbar & Contacts Bar
     include partials/_nav
-
-    if (admin)
-      div.container.input-table-container
+    // admin
+    if (true) 
+      div.container.table-container
         .table-responsive
           table#input_table.table
             thead 
               tr 
-                th.col-1 #
                 th.col-2 Übung
                 th.col-9 Beschreibung
+                th.col-1 Löschen
             tbody#input_body
 
         button#addRowButton.btn.btn-primary.table-button(type="button") Neue Übung
