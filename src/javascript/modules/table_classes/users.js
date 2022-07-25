@@ -8,16 +8,9 @@ class Users extends Table_functions{
         this.surname = surname;
         this.email = email;
         this.member_since = this.getDate();
-        this.#formatInputs();
     }
 
     #db_functions = new Db_Functions();
-
-    #formatInputs() {
-        this.first_name ? this.first_name = this.first_name.trim().toLowerCase() : this.first_name;
-        this.surname ? this.surname = this.surname.trim().toLowerCase() : this.surname;
-        this.email ? this.email = this.email.trim().toLowerCase() : this.email;
-    }
 
     getValues() {
         return {
@@ -30,12 +23,12 @@ class Users extends Table_functions{
 
     async getUserInfoFromMail() {
         let params = {$email: this.email};
-        let sql = "SELECT * FROM users WHERE email = $email";
+        let sql = "SELECT * FROM users WHERE lower(email) = lower($email)";
         return await this.#db_functions.queryAll(sql, params);
     }
 
     async getUserIDFromName() {
-        let sql = "SELECT user_id FROM users WHERE first_name=$first_name AND surname=$surname";
+        let sql = "SELECT user_id FROM users WHERE lower(first_name)=lower($first_name) AND lower(surname)=lower($surname)";
         let params = {$first_name: this.first_name, $surname: this.surname};
         return await this.#db_functions.queryAll(sql, params);
     }

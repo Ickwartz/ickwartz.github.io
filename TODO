@@ -16,6 +16,7 @@
 
 - Refactor
     - Frontend und Backend in separate Folder
+    - Check ob Einträge vorhanden nicht mehr durch lowercase in tableclasses sondern lower(var) in sql
 
 
 - Calendar

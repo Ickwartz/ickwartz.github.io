@@ -7,14 +7,9 @@ class User_Accounts extends Table_functions{
         super();
         this.email = email;
         this.password = password;
-        this.#formatInput();
     }
 
     #db_functions = new Db_Functions();
-
-    #formatInput() {
-        this.email = this.email.trim().toLowerCase();
-    }
 
     getValues() {
         return {
@@ -24,7 +19,7 @@ class User_Accounts extends Table_functions{
     }
 
     async verifyUser() {
-        let sql = "SELECT * FROM user_accounts WHERE email = $email;";
+        let sql = "SELECT * FROM user_accounts WHERE lower(email) = lower($email);";
         let login_data = this.getValues();
 
         let result = await this.#db_functions.queryAll(sql, login_data.$email);
@@ -35,7 +30,7 @@ class User_Accounts extends Table_functions{
     }
 
     async isAdmin() {
-        let sql = "SELECT * FROM admins WHERE email = $email;";
+        let sql = "SELECT * FROM admins WHERE lower(email) = lower($email);";
         let email = this.getValues().$email;
         let result = await this.#db_functions.queryAll(sql, email);
 

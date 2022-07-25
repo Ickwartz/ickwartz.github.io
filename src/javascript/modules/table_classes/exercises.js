@@ -6,14 +6,9 @@ class Exercises extends Table_functions{
         super();
         this.name = name;
         this.description = description;
-        this.#formatInputs();
     }
 
     #db_functions = new Db_Functions();
-
-    #formatInputs() {
-        this.name ? this.name.trim().toLowerCase() : this.name;
-    }
 
     getValues() {
         return {
@@ -23,7 +18,7 @@ class Exercises extends Table_functions{
     }
 
     async getExerciseIdFromName() {
-        let sql = "SELECT exercise_id FROM exercises WHERE name=$name";
+        let sql = "SELECT exercise_id FROM exercises WHERE lower(name) = lower($name)";
         let params = {$name: this.name};
         return await this.#db_functions.queryAll(sql, params);
     }
@@ -40,7 +35,7 @@ class Exercises extends Table_functions{
     }
 
     async existsInTable() {
-        let sql = "SELECT * FROM exercises WHERE name = $name";
+        let sql = "SELECT * FROM exercises WHERE lower(name) = lower($name)";
         let result = await this.#db_functions.queryAll(sql, this.getValues().$name);
         if (result.length > 0) {    
             return true;
