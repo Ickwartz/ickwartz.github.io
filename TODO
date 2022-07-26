@@ -16,15 +16,9 @@
 
 - Refactor
     - Frontend und Backend in separate Folder
-    - Check ob Einträge vorhanden nicht mehr durch lowercase in tableclasses sondern lower(var) in sql
-
-
-- Calendar
-    - slots angucken
-    - naming
 
 Übungen
-    - löschen
+    - löschen ? 
 
 - Improvements
     - Im Trainingscalendar aktuellen Monat merken und nicht neuen Tab öffnen
@@ -34,6 +28,7 @@
     - Im Trainingsplan vorschläge für Namen 
     - Kommentarspalte für User in Trainingsplan
         - Db slot in personalized_exercises
+    - Wenn Meldung kein Zugriff, Login ermöglichen --> besser für Bookmarks
 
 Trainingsplan drucken
     - addmedia 

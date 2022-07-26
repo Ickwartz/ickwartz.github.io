@@ -9,6 +9,7 @@ const exercises = require("./new_exercises_route");
 const editExercises = require("./edit_exercises_route");
 const training = require("./training_route");
 const new_schedule = require("./new_schedule_route");
+const users_area = require("./users_area_route");
 
 router
 
@@ -34,7 +35,9 @@ router
 
     .use("/logout", logout)
 
-    .use("/register", register);
+    .use("/register", register)
+
+    .use("/usersarea", users_area);
 
 
 module.exports = router;
