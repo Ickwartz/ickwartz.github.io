@@ -1,3 +1,3 @@
 window.onload = () => {
-    console.log(window["henlo"]);
+    console.log(window.henlo);
 };

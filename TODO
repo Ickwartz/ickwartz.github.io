@@ -11,6 +11,7 @@
     - Mitglieder löschen
         --> alle verbundenen Trainingspläne löschen?
             --> nach bestimmter Zeit?
+            --> Löschen aus Registrierungsliste
         --> wiederherstellen von Accounts? 
         --> markieren als deleted?
 
@@ -29,9 +30,10 @@
     - Kommentarspalte für User in Trainingsplan
         - Db slot in personalized_exercises
     - Wenn Meldung kein Zugriff, Login ermöglichen --> besser für Bookmarks
+    - Suchen Funktion für Bearbeiten (User, Registrierung, Exercises)
 
 Trainingsplan drucken
-    - addmedia 
+    - @media 
     - css für Druckansicht
     - Trainingsplan clean + Einheitennr mit Zeile zum schreiben
 

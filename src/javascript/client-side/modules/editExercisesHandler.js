@@ -59,7 +59,7 @@ class EditExercisesHandler {
     editExercise(exercise) {
         let modal = document.querySelector("edit-modal");
         modal.fillModalBody(exercise);
-        modal.addClickButton(this, exercise);
+        modal.addSaveButton(this, exercise);
     }
 
     async updateExercise(exercise, modal) {
