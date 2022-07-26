@@ -1,9 +1,11 @@
 import {Fetch_api} from "./fetch_api.js";
+import {Snackbar} from "./snackbar.js";
 
 class NewScheduleTableHandler  {
 	constructor(){}
 
 	fetch_api = new Fetch_api();
+	snackbar = new Snackbar();
 	availableExercises = [];
 	loadingPresets = {};
 
@@ -269,7 +271,7 @@ class NewScheduleTableHandler  {
 		if (!resultData.result) {
 			alert(`Trainingsplan konnte nicht gespeichert werden, der User ${resultData.user} existiert nicht in der Datenbank!`);
 		} else {
-			this.displayOnSnackbar("Trainingsplan erfolgreich gespeichert.");
+			this.snackbar.displayOnSnackbar("Trainingsplan erfolgreich gespeichert.");
 		}
 
 	}
@@ -279,7 +281,7 @@ class NewScheduleTableHandler  {
 			this.availableExercises = result;
 		});
 		this.createDataList();
-		msg ? this.displayOnSnackbar(msg) : null;
+		msg ? this.snackbar.displayOnSnackbar(msg) : null;
 	}
 
 	createDataList() {
@@ -295,17 +297,7 @@ class NewScheduleTableHandler  {
 		}
 		document.body.appendChild(datalist);
 	}
-
-    displayOnSnackbar(text) {
-		// Show fading popup message on bottom of screen
-		const snackbar = document.getElementById("snackbar");
-		const snackbarContent = document.getElementById("snackbar-content");
-		snackbarContent.innerHTML = text;
-		snackbar.className = "show";
-		// make it fade after 5s
-		setTimeout(() => {snackbar.className = "";}, 5000);
-	}
-
+	
 	// TODO: Arrow Functions kürzen
 	addButtonEventListeners() {
 		document.getElementById("addRowButton").addEventListener("click",() => {

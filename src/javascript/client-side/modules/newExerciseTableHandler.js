@@ -1,9 +1,11 @@
 import {Fetch_api} from "./fetch_api.js";
+import {Snackbar} from "./snackbar.js";
 
 class NewExerciseTableHandler  {
 	constructor(){}
 
 	fetch_api = new Fetch_api();
+	snackbar = new Snackbar();
 
 	tableBody = document.getElementById("input_body");
 
@@ -92,17 +94,7 @@ class NewExerciseTableHandler  {
 				text += "<br>" + element.message;
 			}
 		});
-		this.displayOnSnackbar(text);
-	}
-
-	displayOnSnackbar(text) {
-		// Show fading popup message on bottom of screen
-		const snackbar = document.getElementById("snackbar");
-		const snackbarContent = document.getElementById("snackbar-content");
-		snackbarContent.innerHTML = text;
-		snackbar.className = "show";
-		// make it fade after 5s
-		setTimeout(() => {snackbar.className = "";}, 5000);
+		this.snackbar.displayOnSnackbar(text);
 	}
 
 	applyEventListeners() {

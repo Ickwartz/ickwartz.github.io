@@ -7,6 +7,7 @@ window.onload = async () => {
 
 	tableHandler.addButtonEventListeners();
 	tableHandler.applyKeyListeners();
+	tableHandler.snackbar.addSnackbar();
 	let tbody = document.getElementById("input_body");
 	const observer = new MutationObserver(async () => {
 		tableHandler.applyKeyListeners();
