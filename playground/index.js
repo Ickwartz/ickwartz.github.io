@@ -1,6 +1,3 @@
-const createElements = require("./module.js");
-
-
 window.onload = () => {
-    createElements();
+    console.log(window["henlo"]);
 };

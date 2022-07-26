@@ -144,7 +144,6 @@ class NewScheduleTableHandler  {
 	}
 
 	async loadScheduleOptions() {
-		// test with 19.07.2022
 		let user_val = document.getElementById("loading-user-input").value;
 		this.loadingPresets.user = user_val;
 		let first_name = user_val.split(" ")[0];
