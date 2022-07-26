@@ -23,6 +23,7 @@ class editExercisesHandler {
         });
 
         let tbody = document.getElementById("display-table");
+        tbody.innerHTML = "";
         let counter = 0;
         for (let exercise of exercises) {
             counter++;
@@ -43,43 +44,34 @@ class editExercisesHandler {
             editLink.textContent = "bearbeiten";
             editLink.style ="color: black";
             editLink.setAttribute("data-bs-toggle", "modal");
-            editLink.setAttribute("data-bs-target", "#editModal");
+            editLink.setAttribute("data-bs-target", "#edit-modal");
             editLink.addEventListener("click", () => {
                 this.editExercise(exercise);
             });
             edit.appendChild(editLink);
 
             tr.append(nr, exerciseName, description, edit);
-            tbody.appendChild(tr);
+            tbody.append(tr);
         }
     }
     
     editExercise(exercise) {
-        this.fillModalBody(exercise);
-
-
+        let modal = document.querySelector("edit-modal");
+        modal.fillModalBody(exercise);
+        modal.addClickButton(this, exercise);
     }
 
-    fillModalBody(exercise) {
-        let modalTableBody = document.getElementById("edit-table");
-
-        let nameTd = document.createElement("td");
-        let modalExerciseName = document.createElement("input");
-        modalExerciseName.placeholder = "Übungsname";
-        modalExerciseName.style = "margin: 5px";
-        modalExerciseName.value = exercise.name;
-        nameTd.appendChild(modalExerciseName);
-
-
-        let descTd = document.createElement("td");
-        let modalExerciseDescription = document.createElement("textarea");
-        modalExerciseDescription.placeholder = "Beschreibung";
-        modalExerciseDescription.style = "margin: 5px; width: 95%";
-        modalExerciseDescription.value = exercise.description;
-        descTd.appendChild(modalExerciseDescription);
-
-        modalTableBody.replaceChildren(nameTd, descTd);
+    async updateExercise(exercise, modal) {
+        let name = modal.querySelector("input").value;
+        let description = modal.querySelector("textarea").value;
+        exercise.name = name;
+        exercise.description = description;
+        await this.fetch_api.postData("/editexercises/update", exercise).then(() => {
+            console.log("success");
+        });
+        this.loadExercises();
     }
+    
 }
 
 window.onload = () => {

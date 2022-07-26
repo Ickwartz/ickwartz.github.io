@@ -21,24 +21,7 @@ html(lang='de')
 								th.col-1 
 						tbody#display-table
 			
-			#editModal.modal.fade(tabindex='-1' role='dialog' aria-hidden='true')
-				.modal-dialog(role='document' style="width: 75%; max-width: 900px")
-					.modal-content
-						.modal-header
-							h5.modal-title Übung bearbeiten
-							button.close(type='button' data-bs-dismiss='modal' aria-label='Close')
-								span(aria-hidden='true') ×
-						.modal-body
-							.table-responsive
-								table.table
-									thead 
-										tr
-											th.col-3 Übungsname 
-											th.col-9 Beschreibung
-									tbody#edit-table
-									
-						.modal-footer
-							button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Abbrechen
+			edit-modal
 		else 
 			center
 				h1 Kein Zugriff zu dieser Seite.

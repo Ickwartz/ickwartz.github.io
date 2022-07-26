@@ -23,6 +23,14 @@ class Exercises extends Table_functions{
         return await this.#db_functions.queryAll(sql, params);
     }
 
+    async updateExercise(id) {
+        let params = this.getValues();
+        params.$exercise_id = id;
+        let sql = "UPDATE exercises SET name=$name, description=$description WHERE exercise_id=$exercise_id;";
+
+        await this.#db_functions.runQuery(sql, params);
+    }
+
     async saveData() {
         let values = this.getValues();
         if (!(await this.existsInTable(values.$name))) {
