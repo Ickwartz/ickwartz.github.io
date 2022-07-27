@@ -11,7 +11,12 @@ class Fetch_api {
 			},
 			body: JSON.stringify(data)
 		})
-		.then(response => response.json())
+		.then(response => {
+			if (response.status === 204) {
+				return;
+			}
+			return response.json();
+		})
 		.then(data => {
 			return data;
 		});

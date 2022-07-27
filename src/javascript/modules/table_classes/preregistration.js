@@ -1,10 +1,9 @@
 const Db_Functions = require("../db_functions");
 
-class Registration {
-    constructor(name, email, status) {
+class PreRegistration {
+    constructor(name, email) {
         this.name = name;
         this.email = email;
-        this.status = status;
     }
 
     #db_functions = new Db_Functions();
@@ -12,28 +11,27 @@ class Registration {
     getValues() {
         return {
             $name: this.name,
-            $email: this.email,
-            $status: this.status
+            $email: this.email
         };
     }
 
-    register() {
-        let sql = "INSERT INTO registration (name, email, status) VALUES ($name, $email, $status);";
+    preregister() {
+        let sql = "INSERT INTO preregistration (name, email) VALUES ($name, $email);";
         this.#db_functions.runQuery(sql, this.getValues());
     }
 
-    async isRegistered() {
-        let sql = "SELECT * FROM registration WHERE email=$email;";
+    async isPreRegistered() {
+        let sql = "SELECT * FROM preregistration WHERE email=$email;";
         let params = { $email: this.email };
         let result = await this.#db_functions.queryAll(sql, params);
         if (result > 0) return true;
         return false;
     }
 
-    async getRegisteredList() {
-        let sql = "SELECT * FROM registration;";
+    async getPreRegisteredList() {
+        let sql = "SELECT * FROM preregistration;";
         return await this.#db_functions.queryAll(sql);
     }
 }
 
-module.exports = Registration;
+module.exports = PreRegistration;

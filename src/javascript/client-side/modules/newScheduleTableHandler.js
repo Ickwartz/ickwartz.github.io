@@ -239,7 +239,6 @@ class NewScheduleTableHandler  {
 		
 		let userLabel= document.createElement("label");
 		userLabel.setAttribute("for", "loading-user-input");
-		userLabel.style = "padding:5px";
 		userLabel.textContent = "Vor- und Nachname:";
 
 		let userInput = document.createElement("input");
@@ -251,7 +250,6 @@ class NewScheduleTableHandler  {
 		
 		let dateLabel= document.createElement("label");
 		dateLabel.setAttribute("for", "loading-date-input");
-		dateLabel.style = "padding:5px";
 		dateLabel.textContent = "Datum:";
 
 		let dateInput = document.createElement("input");

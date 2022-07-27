@@ -20,30 +20,33 @@ router
     let password = req.body.password;
     let password_confirm = req.body.password_confirm;
 
-    if (first_name && surname && email && password && password_confirm) {
-        if (password === password_confirm) {
-            password = await hashing.hashPw(password);
-            let user = new User(first_name, surname, email);
-            let user_account = new User_Accounts(email, password);
-            let user_id = user.safeData();
-            user_account.safeData();
-            req.session.loggedin = true;
-            req.session.userInfo = {
-                user_id: user_id,
-                first_name: first_name,
-                surname: surname,
-                email: email,
-                member_since: user.member_since
-              };
-            res.redirect("/");
-        } else {
-            req.session.registerMessage = "Passwort wiederholung stimmt nicht überein";
-            res.redirect("/register");
-        }
-    } else {
+    if (!first_name || !surname || !email || !password || !password_confirm) {
         req.session.registerMessage = "Bitte alle Felder ausfüllen";
         res.redirect("/register");
+        return;
     }
+    
+    if (password !== password_confirm) {
+        req.session.registerMessage = "Passwort wiederholung stimmt nicht überein";
+        res.redirect("/register");
+        return;
+    }
+        // preregister.isPreRegistered + eintrag löschen
+
+    password = await hashing.hashPw(password);
+    let user = new User(first_name, surname, email);
+    let user_account = new User_Accounts(email, password);
+    let user_id = user.safeData();
+    user_account.safeData();
+    req.session.loggedin = true;
+    req.session.userInfo = {
+        user_id: user_id,
+        first_name: first_name,
+        surname: surname,
+        email: email,
+        member_since: user.member_since
+        };
+    res.redirect("/");
 });
 
 
