@@ -2,6 +2,7 @@ const express = require("express");
 const hashing = require("../helpers/hashing");
 const User  = require("../table_classes/users");
 const User_Accounts = require("../table_classes/user_accounts");
+const Preregister = require("../table_classes/preregistration");
 
 const router = express.Router();
 
@@ -31,7 +32,13 @@ router
         res.redirect("/register");
         return;
     }
-        // preregister.isPreRegistered + eintrag löschen
+    
+    let preregister = new Preregister(surname, email);
+    if (! await preregister.isPreRegistered()) {
+        req.session.registerMessage = "Bitte melden Sie sich bei mir an, bevor Sie sich auf dieser Seite registrieren.";
+        res.redirect("/register");
+        return;
+    }
 
     password = await hashing.hashPw(password);
     let user = new User(first_name, surname, email);
