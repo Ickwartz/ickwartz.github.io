@@ -2,7 +2,6 @@ class Snackbar {
     constructor() {}
 
     addSnackbar() {
-        console.log("Snek");
         let snackbar = document.createElement("div");
         snackbar.id = "snackbar";
         let snackbarContent = document.createElement("p");

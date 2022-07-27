@@ -1,11 +1,14 @@
 import {Fetch_api} from "./modules/fetch_api.js";
 import {CreateHtml} from "./modules/createHtml.js";
+import {Snackbar} from "./modules/snackbar.js";
 
 class UserControl {
     constructor() {}
 
     fetch_api = new Fetch_api();
     createHtml = new CreateHtml();
+    snackbar = new Snackbar();
+    registerList = [];
 
     applyEventListeners() {
         document.querySelector("#users").addEventListener("click", () => {
@@ -24,19 +27,51 @@ class UserControl {
     }
 
     async createPreRegistrationTable() {
-        this.createTableHead(["ID", "Name", "Email"]);
+        this.createTableHead(["ID", "Name", "Email", ""]);
         this.createRegisterField();
-        let registerList = await this.fetch_api.postData("/getregistrationlist");
-        let dataMatrix = registerList.map((entry) => Object.values(entry));
+        this.registerList = await this.fetch_api.postData("/getregistrationlist");
+        let deleteButton = '<button type="button" class="btn button-delete del-registration"></button>';
+        let dataMatrix = this.registerList.map((entry) => {
+            let values = Object.values(entry);
+            values.push(deleteButton);
+            return values;
+        });
         this.fillTableBody(dataMatrix);
+        this.applyDeleteEventListeners();
+    }
+
+    applyDeleteEventListeners() {
+        let deleteRegistrationButtons = document.querySelectorAll(".del-registration");
+        deleteRegistrationButtons.forEach(button => {
+            button.addEventListener("click", (e) => {
+                this.deletePreregistration(e.target);
+            });
+        });
+    }
+
+    async deletePreregistration(element) {
+        let tableRow = element.parentElement.parentElement;
+        let id = tableRow.firstChild.innerHTML;
+        let listEntry = this.registerList.find((entry) => entry.id == id);
+        if (window.confirm(`${listEntry.email} wirklich löschen? Dieser Kunde wird sich nicht mehr registrieren können.`)) {
+            await this.fetch_api.postData("/editusers/delete", {email: listEntry.email}).then(() => {
+                this.createPreRegistrationTable();
+                this.snackbar.displayOnSnackbar(`${listEntry.email} erfolgreich gelöscht`);
+            });
+        }
     }
 
     createTableHead(entries) {
         let thead = document.querySelector("thead");
         let tr = document.createElement("tr");
         for (let entry of entries) {
-            let th = document.createElement("th");
-            th.textContent = entry;
+            if (entries.indexOf(entry) == 0 || entry == "") {
+                let th = this.createHtml.createHtmlElement("th", [["class", "col-1"]], entry);
+                tr.append(th);
+                continue;
+            }
+            let th = this.createHtml.createHtmlElement("th", [], entry);
+                
             tr.append(th);
         }
         thead.replaceChildren(tr);
@@ -50,7 +85,7 @@ class UserControl {
             let tr = document.createElement("tr");
             for (let val of row) {
                 let td = document.createElement("td");
-                td.textContent = val;
+                td.innerHTML = val;
                 tr.append(td);
             }
             tbody.append(tr);
@@ -65,17 +100,21 @@ class UserControl {
         let labelEmail = this.createHtml.createHtmlElement("label", [["for", "register-input-email"]], "Email: ");
         let inputEmail = this.createHtml.createHtmlElement("input", [["id", "register-input-email"], ["type", "text"], ["placeholder", "Email"]], "");
         let button = this.createHtml.createHtmlElement("button", [["class", "btn btn-secondary btn-sm"]], "Registrieren");
-        button.addEventListener("click", () => {
-            this.registerUser(inputName.value, inputEmail.value);
+        button.addEventListener("click", async () => {
+            await this.registerUser(inputName.value, inputEmail.value);
             this.createPreRegistrationTable();
         });
         container.replaceChildren(heading, labelName, inputName, labelEmail, inputEmail, button);
     }
 
     async registerUser(name, email) {
+        if (!email) {
+            alert("Bitte Email zum vorregistrieren angeben.");
+            return;
+        }
         let body = { name, email };
         await this.fetch_api.postData("/editusers/preregister", body).then(() => {
-            // TODO Snackbar
+            this.snackbar.displayOnSnackbar(`${email} erfolgreich vorregistriert`);
         });
     }
 
@@ -85,4 +124,6 @@ class UserControl {
 window.onload = () => {
     let userControl = new UserControl();
     userControl.applyEventListeners();
+    let snackbar = new Snackbar();
+    snackbar.addSnackbar();
 };

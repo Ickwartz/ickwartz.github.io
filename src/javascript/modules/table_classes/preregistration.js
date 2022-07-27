@@ -21,7 +21,7 @@ class PreRegistration {
     }
 
     async isPreRegistered() {
-        let sql = "SELECT * FROM preregistration WHERE email=$email;";
+        let sql = "SELECT * FROM preregistration WHERE lower(email)=lower($email);";
         let params = { $email: this.email };
         let result = await this.#db_functions.queryAll(sql, params);
         if (result > 0) return true;
@@ -31,6 +31,12 @@ class PreRegistration {
     async getPreRegisteredList() {
         let sql = "SELECT * FROM preregistration;";
         return await this.#db_functions.queryAll(sql);
+    }
+
+    deletePreRegistration(email) {
+        let params = { $email: email};
+        let sql = "DELETE FROM preregistration WHERE lower(email)=lower($email);";
+        this.#db_functions.runQuery(sql, params);
     }
 }
 

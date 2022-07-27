@@ -12,9 +12,25 @@ router
 
 .post("/preregister", (req, res) => {
     let data = req.body;
+    if (!data.email) {
+        res.statusCode = 406;
+        res.send();
+    }
     let preregistration = new PreRegistration(data.name, data.email, "offen");
     preregistration.preregister();
     res.statusCode = 204;
+    res.send();
+})
+
+.post("/delete", (req, res) => {
+    let data = req.body;
+    if (!data.email) {
+        res.statusCode = 406;
+        res.send;
+    }
+    let preregistration = new PreRegistration();
+    preregistration.deletePreRegistration(data.email);
+    res.statusCode = 204,
     res.send();
 });
 

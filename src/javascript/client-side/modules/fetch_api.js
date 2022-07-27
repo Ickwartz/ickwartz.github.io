@@ -15,6 +15,9 @@ class Fetch_api {
 			if (response.status === 204) {
 				return;
 			}
+			if (response.status === 406) {
+				return "Input Error";
+			}
 			return response.json();
 		})
 		.then(data => {
