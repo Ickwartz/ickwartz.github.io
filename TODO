@@ -38,7 +38,20 @@ Trainingsplan drucken
     - css für Druckansicht
     - Trainingsplan clean + Einheitennr mit Zeile zum schreiben
 
+Logger einbauen (Winston)
+    - Für Serverstart
+    - Db Aktionen
+    - User Login, Registrierung
+    - errors
+
+Error Handling
+
 
 Allgemeine Aufgaben
     - Wie Client seitig infos über Page Zustand
         --> Browser Cache
+
+
+DATENSCHUTZ
+    - Datenschutzvereinbarung schreiben
+    - IP Adressen nach bestimmter Zeit anonymisieren

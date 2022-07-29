@@ -24,7 +24,8 @@ class PreRegistration {
         let sql = "SELECT * FROM preregistration WHERE lower(email)=lower($email);";
         let params = { $email: this.email };
         let result = await this.#db_functions.queryAll(sql, params);
-        if (result > 0) return true;
+        console.log(result);
+        if (result.length > 0) return true;
         return false;
     }
 

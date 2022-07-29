@@ -21,6 +21,23 @@ class Users extends Table_functions{
         };
     }
 
+    setupForDeletion(id, date) {
+        let params = {
+            $user_id: id,
+            $expiring_date: date
+        };
+        let sql = "UPDATE users SET expiring_date=$expiring_date WHERE user_id=$user_id;";
+        this.#db_functions.runQuery(sql, params);
+    }
+
+    deleteUsers() {
+        let params = {
+            $date: this.getDate()
+        };
+        let sql = "DELETE FROM users WHERE expiring_date < $date;";
+        this.#db_functions.runQuery(sql, params);
+    }
+
     async getUserInfoFromMail() {
         let params = {$email: this.email};
         let sql = "SELECT * FROM users WHERE lower(email) = lower($email)";

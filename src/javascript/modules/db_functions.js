@@ -19,6 +19,11 @@ class Db_Functions {
         })
         .catch(err => {throw err;});
     }
+    /*
+    sql
+    placeholders
+    ErrorMessage
+    */
 
     async runQuery(sql, data) {
         let query = this.db.prepare(sql);

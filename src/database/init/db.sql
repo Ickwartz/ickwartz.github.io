@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS users (
     first_name VARCHAR(50) NOT NULL,
     surname VARCHAR(50) NOT NULL,
     email VARCHAR(120) NOT NULL UNIQUE,
-    member_since DATE NOT NULL
+    member_since DATE NOT NULL,
+    expiring_date DATE
 );
 
 CREATE TABLE IF NOT EXISTS user_accounts (

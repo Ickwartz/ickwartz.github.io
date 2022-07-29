@@ -34,17 +34,22 @@ router
     }
     
     let preregister = new Preregister(surname, email);
-    if (! await preregister.isPreRegistered()) {
+    let preregisterCheck = await preregister.isPreRegistered();
+    if (!preregisterCheck) {
         req.session.registerMessage = "Bitte melden Sie sich bei mir an, bevor Sie sich auf dieser Seite registrieren.";
         res.redirect("/register");
         return;
     }
 
+    // check if registered
+
+    req.session.registerMessage = "";
     password = await hashing.hashPw(password);
     let user = new User(first_name, surname, email);
     let user_account = new User_Accounts(email, password);
-    let user_id = user.safeData();
-    user_account.safeData();
+    let user_id = await user.safeData();
+    await user_account.safeData();
+    preregister.deletePreRegistration(email);
     req.session.loggedin = true;
     req.session.userInfo = {
         user_id: user_id,

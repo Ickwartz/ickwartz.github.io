@@ -1,5 +1,6 @@
 const express = require("express");
 const PreRegistration = require("../table_classes/preregistration");
+const Users = require("../table_classes/users");
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router
     res.send();
 })
 
-.post("/delete", (req, res) => {
+.post("/deletePreregister", (req, res) => {
     let data = req.body;
     if (!data.email) {
         res.statusCode = 406;
@@ -31,6 +32,18 @@ router
     let preregistration = new PreRegistration();
     preregistration.deletePreRegistration(data.email);
     res.statusCode = 204,
+    res.send();
+})
+
+.post("/markForDeletion", (req, res) => {
+    let data = req.body;
+    if (!data.user_id) {
+        res.statusCode = 406;
+        res.send();
+    }
+    let users = new Users();
+    users.setupForDeletion(data.user_id, data.date);
+    res.statusCode = 204;
     res.send();
 });
 

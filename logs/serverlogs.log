@@ -1,0 +1,119 @@
+29-07-2022 09:07:93: info: /: GET: undefined
+29-07-2022 09:07:47: info: /css/style.css: GET: undefined
+29-07-2022 09:07:52: info: /favicon.ico: GET: undefined
+29-07-2022 09:07:52: error: 400 || Bad Request - /favicon.ico - GET - ::1
+29-07-2022 09:07:47: info: /login: GET
+29-07-2022 09:07:100: info: /css/style.css: GET
+29-07-2022 09:07:06: info: /favicon.ico: GET
+29-07-2022 09:07:06: error: 400 || Bad Request - /favicon.ico - GET - ::1
+29-07-2022 09:07:16: info: /: GET 200
+29-07-2022 09:07:66: info: /css/style.css: GET 200
+29-07-2022 09:07:70: info: /img/mail.png: GET 200
+29-07-2022 09:07:70: info: /img/phone.png: GET 200
+29-07-2022 09:07:70: info: /img/gym.jpg: GET 200
+29-07-2022 09:07:72: info: /favicon.ico: GET 200
+29-07-2022 09:07:73: error: 400 || Bad Request - /favicon.ico - GET - ::1
+29-07-2022 09:07:35: info: /: GET 200
+29-07-2022 09:07:84: info: /css/style.css: GET 200
+29-07-2022 09:07:87: info: /favicon.ico: GET 200
+29-07-2022 09:07:88: error: 400 || Bad Request - /favicon.ico - GET - ::1
+29-07-2022 09:07:06: info: /: GET undefined
+29-07-2022 09:07:56: info: /css/style.css: GET undefined
+29-07-2022 09:07:60: info: /favicon.ico: GET undefined
+29-07-2022 09:07:61: error: 400 || Bad Request - /favicon.ico - GET - ::1
+29-07-2022 09:07:54: info: /: GET function status(code) {
+  if ((typeof code === 'string' || Math.floor(code) !== code) && code > 99 && code < 1000) {
+    deprecate('res.status(' + JSON.stringify(code) + '): use res.status(' + Math.floor(code) + ') instead')
+  }
+  this.statusCode = code;
+  return this;
+}
+29-07-2022 09:07:04: info: /css/style.css: GET function status(code) {
+  if ((typeof code === 'string' || Math.floor(code) !== code) && code > 99 && code < 1000) {
+    deprecate('res.status(' + JSON.stringify(code) + '): use res.status(' + Math.floor(code) + ') instead')
+  }
+  this.statusCode = code;
+  return this;
+}
+29-07-2022 09:07:08: info: /favicon.ico: GET function status(code) {
+  if ((typeof code === 'string' || Math.floor(code) !== code) && code > 99 && code < 1000) {
+    deprecate('res.status(' + JSON.stringify(code) + '): use res.status(' + Math.floor(code) + ') instead')
+  }
+  this.statusCode = code;
+  return this;
+}
+29-07-2022 09:07:09: error: 400 || Bad Request - /favicon.ico - GET - ::1
+29-07-2022 09:07:07: info: /: GET 200 [object Object]
+29-07-2022 09:07:44: info: /css/style.css: GET 200 [object Object]
+29-07-2022 09:07:46: info: /img/mail.png: GET 200 [object Object]
+29-07-2022 09:07:47: info: /img/phone.png: GET 200 [object Object]
+29-07-2022 09:07:48: info: /img/gym.jpg: GET 200 [object Object]
+29-07-2022 09:07:51: info: /favicon.ico: GET 200 [object Object]
+29-07-2022 09:07:51: error: 400 || Bad Request - /favicon.ico - GET - ::1
+29-07-2022 09:07:58: info: /: GET 200 undefined
+29-07-2022 09:07:95: info: /css/style.css: GET 200 undefined
+29-07-2022 09:07:97: info: /img/mail.png: GET 200 undefined
+29-07-2022 09:07:98: info: /img/phone.png: GET 200 undefined
+29-07-2022 09:07:100: info: /img/gym.jpg: GET 200 undefined
+29-07-2022 09:07:01: info: /favicon.ico: GET 200 undefined
+29-07-2022 09:07:02: error: 400 || Bad Request - /favicon.ico - GET - ::1
+29-07-2022 09:07:13: info: /css/style.css: GET 200
+29-07-2022 10:07:46: info: ::1 - - [Fri, 29 Jul 2022 08:19:31 GMT] "GET / HTTP/1.1" 304 - "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+
+29-07-2022 10:07:50: info: ::1 - - [Fri, 29 Jul 2022 08:19:31 GMT] "GET /css/style.css HTTP/1.1" 304 - "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+
+29-07-2022 10:07:54: info: ::1 - - [Fri, 29 Jul 2022 08:19:31 GMT] "GET /img/mail.png HTTP/1.1" 304 - "http://localhost:8080/css/style.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+
+29-07-2022 10:07:55: info: ::1 - - [Fri, 29 Jul 2022 08:19:31 GMT] "GET /img/phone.png HTTP/1.1" 304 - "http://localhost:8080/css/style.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+
+29-07-2022 10:07:56: info: ::1 - - [Fri, 29 Jul 2022 08:19:31 GMT] "GET /img/gym.jpg HTTP/1.1" 304 - "http://localhost:8080/css/style.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+
+29-07-2022 10:07:59: error: 400 || Bad Request - /favicon.ico - GET - ::1
+29-07-2022 10:07:59: info: ::1 - - [Fri, 29 Jul 2022 08:19:31 GMT] "GET /favicon.ico HTTP/1.1" 400 14 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+
+29-07-2022 10:07:23: info: ::1 - - [Fri, 29 Jul 2022 08:20:53 GMT] "GET / HTTP/1.1" 304 - "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+
+29-07-2022 10:07:27: info: ::1 - - [Fri, 29 Jul 2022 08:20:53 GMT] "GET /css/style.css HTTP/1.1" 304 - "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+
+29-07-2022 10:07:31: info: ::1 - - [Fri, 29 Jul 2022 08:20:53 GMT] "GET /img/mail.png HTTP/1.1" 304 - "http://localhost:8080/css/style.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+
+29-07-2022 10:07:32: info: ::1 - - [Fri, 29 Jul 2022 08:20:53 GMT] "GET /img/phone.png HTTP/1.1" 304 - "http://localhost:8080/css/style.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+
+29-07-2022 10:07:33: info: ::1 - - [Fri, 29 Jul 2022 08:20:53 GMT] "GET /img/gym.jpg HTTP/1.1" 304 - "http://localhost:8080/css/style.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+
+29-07-2022 10:07:35: error: 400 || Bad Request - /favicon.ico - GET - ::1
+29-07-2022 10:07:36: info: ::1 - - [Fri, 29 Jul 2022 08:20:53 GMT] "GET /favicon.ico HTTP/1.1" 400 14 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+
+29-07-2022 10:07:32: info: GET / 304 - - 423.155 ms
+
+29-07-2022 10:07:34: info: GET /css/style.css 304 - - 4.894 ms
+
+29-07-2022 10:07:37: info: GET /img/mail.png 304 - - 11.881 ms
+
+29-07-2022 10:07:37: info: GET /img/phone.png 304 - - 3.034 ms
+
+29-07-2022 10:07:38: info: GET /img/gym.jpg 304 - - 3.091 ms
+
+29-07-2022 10:07:41: error: 400 || Bad Request - /favicon.ico - GET - ::1
+29-07-2022 10:07:42: info: GET /favicon.ico 400 14 - 1.832 ms
+
+29-07-2022 10:07:54: error: 400 || Bad Request - /blzub - GET - ::1
+29-07-2022 10:07:55: info: GET /blzub 400 14 - 1.425 ms
+
+29-07-2022 10:07:60: error: 400 || Bad Request - /favicon.ico - GET - ::1
+29-07-2022 10:07:60: info: GET /favicon.ico 400 14 - 2.009 ms
+
+29-07-2022 10:07:20: info: GET /css/style.css 304 - - 2.113 ms
+
+29-07-2022 10:07:14: info: GET / 200 2115 - 222.980 ms
+
+29-07-2022 10:07:18: info: GET /css/style.css 304 - - 1.880 ms
+
+29-07-2022 10:07:21: info: GET /img/mail.png 304 - - 2.893 ms
+
+29-07-2022 10:07:22: info: GET /img/phone.png 304 - - 3.260 ms
+
+29-07-2022 10:07:23: info: GET /img/gym.jpg 304 - - 7.971 ms
+
+29-07-2022 10:07:35: info: GET /img/favicon.ico 200 179 - 23.467 ms
+
