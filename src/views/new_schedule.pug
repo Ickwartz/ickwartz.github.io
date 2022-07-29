@@ -1,68 +1,68 @@
 doctype html
-html(lang='en')
-head
-    include partials/_head
-    script(type="module" src="/js/new_schedule.js")
-    link(rel='stylesheet' href='../css/snackbar.css' type='text/css')
-body
-    // Main Menu Navbar & Contacts Bar
-    include partials/_nav
-    
-    if (admin)
+html(lang='de')
+    head
+        include partials/_head
+        script(type="module" src="/js/new_schedule.js")
+        link(rel='stylesheet' href='../css/snackbar.css' type='text/css')
+    body
+        // Main Menu Navbar & Contacts Bar
+        include partials/_nav
         
+        if (admin)
+            
 
-        
-        div.container.table-container
-            div 
-                h4 Trainingsplan für:
-                label(for="user-input" style="padding:5px") Vor- und Nachname:
-                input#user-input(type="text", placeholder="User")
-                label(for="date-input" style="padding:5px") Datum:
-                input#date-input(type="date", required pattern="\d{2}-\d{2}-\d{4}")
-                label(for="training-name-input" style="padding:5px") Name/ Kurzbeschreibung des Trainingsplans:
-                input#training-name-input(type="text", placeholder="Trainingsplan")
-                br
-                button.btn.btn-secondary.btn-sm.table-button(type="button", onclick="window.open('/newexercise')") 
-                    | Neue Übung registrieren
-                button#button-refresh-available-exercises.btn.btn-secondary.btn-sm.table-button(type="button") 
-                    | Übungen aktualisieren
-                button.btn.btn-secondary.btn-sm.table-button(type="button", data-bs-toggle="modal" data-bs-target="#loadScheduleModal") 
-                    | Trainingsplan laden
+            
+            div.container.table-container
+                div 
+                    h4 Trainingsplan für:
+                    label(for="user-input" style="padding:5px") Vor- und Nachname:
+                    input#user-input(type="text", placeholder="User")
+                    label(for="date-input" style="padding:5px") Datum:
+                    input#date-input(type="date", required pattern="\d{2}-\d{2}-\d{4}")
+                    label(for="training-name-input" style="padding:5px") Name/ Kurzbeschreibung des Trainingsplans:
+                    input#training-name-input(type="text", placeholder="Trainingsplan")
+                    br
+                    button.btn.btn-secondary.btn-sm.table-button(type="button", onclick="window.open('/newexercise')") 
+                        | Neue Übung registrieren
+                    button#button-refresh-available-exercises.btn.btn-secondary.btn-sm.table-button(type="button") 
+                        | Übungen aktualisieren
+                    button.btn.btn-secondary.btn-sm.table-button(type="button", data-bs-toggle="modal" data-bs-target="#loadScheduleModal") 
+                        | Trainingsplan laden
 
-            .table-responsive
-                table#input_table.table
-                    thead
-                        th.col-3 Übung
-                        th.col-1 Reps
-                        th.col-1 Sets
-                        th.col-6 Kommentar
-                        th.col-1 Löschen
-                    tbody#input_body
+                .table-responsive
+                    table#input_table.table
+                        thead
+                            th.col-3 Übung
+                            th.col-1 Reps
+                            th.col-1 Sets
+                            th.col-6 Kommentar
+                            th.col-1 Löschen
+                        tbody#input_body
 
-            button#addRowButton.btn.btn-primary.table-button(type="button") Neue Übung
-            button#submitButton.btn.btn-primary.table-button(type="button") Speichern
+                button#addRowButton.btn.btn-primary.table-button(type="button") Neue Übung
+                button#submitButton.btn.btn-primary.table-button(type="button") Speichern
 
 
-        #loadScheduleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='loadScheduleModal' aria-hidden='true')
-            .modal-dialog(role='document')
-                .modal-content
-                    .modal-header
-                        h5.modal-title Trainingsplan laden
-                        button.close(type='button' data-bs-dismiss='modal' aria-label='Close')
-                            span(aria-hidden='true') ×
-                    .modal-body
-                        label(for="loading-user-input" style="padding:5px") Vor- und Nachname:
-                        input#loading-user-input(type="text", placeholder="User")
-                        br
-                        label(for="loading-date-input" style="padding:5px") Datum:
-                        input#loading-date-input(type="date", required pattern="\d{2}-\d{2}-\d{4}")
-                    .modal-footer
-                        button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Abbrechen
-                        button#button-reset-loading.btn.btn-secondary(type='button') Zurücksetzen
-                        button#button-load-schedule.btn.btn-primary(type='button') Laden
-    else
-        center
-            h1 Kein Zugriff zu dieser Seite.
-                 
-    // Bootstrap
-    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' crossorigin='anonymous')
+            #loadScheduleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='loadScheduleModal' aria-hidden='true')
+                .modal-dialog(role='document')
+                    .modal-content
+                        .modal-header
+                            h5.modal-title Trainingsplan laden
+                            button.close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                span(aria-hidden='true') ×
+                        .modal-body
+                            label(for="loading-user-input" style="padding:5px") Vor- und Nachname:
+                            input#loading-user-input(type="text", placeholder="User")
+                            br
+                            label(for="loading-date-input" style="padding:5px") Datum:
+                            input#loading-date-input(type="date", required pattern="\d{2}-\d{2}-\d{4}")
+                        .modal-footer
+                            button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Abbrechen
+                            button#button-reset-loading.btn.btn-secondary(type='button') Zurücksetzen
+                            button#button-load-schedule.btn.btn-primary(type='button') Laden
+        else
+            center
+                h1 Kein Zugriff zu dieser Seite.
+                    
+        // Bootstrap
+        script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js' integrity='sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM' crossorigin='anonymous')

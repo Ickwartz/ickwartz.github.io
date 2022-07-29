@@ -1,0 +1,8 @@
+29-07-2022 16:07:07: error: SQLITE_ERROR: table preregistration has no column named gurke
+29-07-2022 16:07:94: error: SQLITE_ERROR: table preregistration has no column named gurke
+29-07-2022 16:07:55: error: SQLITE_ERROR: table preregistration has no column named gurke
+29-07-2022 16:07:78: error: SQLITE_ERROR: table preregistration has no column named gurke
+29-07-2022 16:07:01: error: SQLITE_ERROR: table preregistration has no column named gurke
+29-07-2022 16:07:02: error: Error: SQLITE_ERROR: table preregistration has no column named gurke || running Query: INSERT INTO preregistration (name, email, gurke) VALUES ($name, $email); data: $name,$email 
+29-07-2022 16:07:19: error: Error: Error: SQLITE_ERROR: table preregistration has no column named gurke || running Query: INSERT INTO preregistration (name, email, gurke) VALUES ($name, $email); data: $name,$email  caught in editusers_route /preregister
+29-07-2022 16:07:42: error: Error: Error: SQLITE_ERROR: table preregistration has no column named gurke || running Query: INSERT INTO preregistration (name, email, gurke) VALUES ($name, $email); data: $name,$email  caught in editusers_route /preregister

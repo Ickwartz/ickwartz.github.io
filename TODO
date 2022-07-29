@@ -45,7 +45,8 @@ Logger einbauen (Winston)
     - errors
 
 Error Handling
-
+    - Fetch Api
+    
 
 Allgemeine Aufgaben
     - Wie Client seitig infos über Page Zustand

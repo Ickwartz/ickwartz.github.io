@@ -18,9 +18,11 @@ class UserControl {
         document.querySelector("#registration").addEventListener("click", () => {
             this.createPreRegistrationTable();
         });
+        /*
         document.querySelector("#expiring-users").addEventListener("click", () => {
             console.log("Boop");
         });
+        */
     }    
 
     applyDeleteEventListeners() {
@@ -87,14 +89,12 @@ class UserControl {
         let tableRow = element.parentElement.parentElement;
         let id = tableRow.firstChild.innerHTML;
         let tableEntry = this.userList.find((entry) => entry.user_id == id);
-        console.log(tableEntry);
 
         let today = new Date();
         let deletionDate = new Date();
         deletionDate.setDate(today.getDate() + 30);
         deletionDate = deletionDate.toISOString().split('T')[0];
-        console.log(deletionDate);
-
+        
         if (window.confirm(`${tableEntry.first_name} ${tableEntry.surname} wirklich löschen? Du kannst diese Aktion noch 30 Tage lang rückgängig machen.`)) {
             await this.fetch_api.postData("/editusers/markForDeletion", {
                 user_id: tableEntry.user_id,
@@ -165,6 +165,8 @@ class UserControl {
         let body = { name, email };
         await this.fetch_api.postData("/editusers/preregister", body).then(() => {
             this.snackbar.displayOnSnackbar(`${email} erfolgreich vorregistriert`);
+        }).catch((err) => {
+            this.snackbar.displayOnSnackbar("Something went wrong: " + err.message);
         });
     }
 

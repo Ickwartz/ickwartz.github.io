@@ -21,7 +21,7 @@ class Users extends Table_functions{
         };
     }
 
-    setupForDeletion(id, date) {
+    async setupForDeletion(id, date) {
         let params = {
             $user_id: id,
             $expiring_date: date
@@ -30,7 +30,7 @@ class Users extends Table_functions{
         this.#db_functions.runQuery(sql, params);
     }
 
-    deleteUsers() {
+    async deleteUsers() {
         let params = {
             $date: this.getDate()
         };

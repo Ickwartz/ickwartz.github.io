@@ -49,11 +49,30 @@ class Logger {
             new winston.transports.Console({
                 level: "info"
             }),
-
+            /*
             new winston.transports.File({
                 level: "info",
                 filename: "./logs/serverlogs.log"
-            })
+            })*/
+        ],
+        format: winston.format.combine(
+            winston.format.timestamp({
+                format: "DD-MM-YYYY HH:MM:SS"
+            }),
+            winston.format.printf(log => `${[log.timestamp]}: ${log.level}: ${log.message}`)
+        )
+    });
+
+    dbLogger = winston.createLogger({
+        transports: [
+            new winston.transports.Console({
+                level: "info"
+            }),
+            /*
+            new winston.transports.File({
+                level: "info",
+                filename: "./logs/databaselogs.log"
+            })*/
         ],
         format: winston.format.combine(
             winston.format.timestamp({
@@ -68,7 +87,8 @@ class Logger {
             new winston.transports.Console({
                 level: "debug"
             })
-        ]
+        ],
+        format: winston.format.printf(log => `DEBUG: ${log.message}`)
     });
 
     debug(msg) {

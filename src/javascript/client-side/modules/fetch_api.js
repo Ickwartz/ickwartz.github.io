@@ -12,11 +12,21 @@ class Fetch_api {
 			body: JSON.stringify(data)
 		})
 		.then(response => {
-			if (response.status === 204) {
-				return;
-			}
-			if (response.status === 406) {
-				return "Input Error";
+			let status = response.status;
+			switch (true){
+				case (status == 204): return;
+				case (status >= 200 && status<300): break;
+				case (status >= 300 && status<400): {
+					return "Page was moved";
+				}
+				case (status == 400): return "Bad Request";
+				case (status == 401): return "Unauthorized";
+				case (status == 403): return "Forbidden";
+				case (status == 404): return "Not Found";
+				case (status == 406): return "Input Error";
+				case (status < 500): return "client Error";
+				case (status > 500): return "Server Error";
+				default: return "Something went wrong";
 			}
 			return response.json();
 		})

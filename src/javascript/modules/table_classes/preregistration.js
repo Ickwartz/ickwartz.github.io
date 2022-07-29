@@ -15,16 +15,15 @@ class PreRegistration {
         };
     }
 
-    preregister() {
+    async preregister() {
         let sql = "INSERT INTO preregistration (name, email) VALUES ($name, $email);";
-        this.#db_functions.runQuery(sql, this.getValues());
+        await this.#db_functions.runQuery(sql, this.getValues());
     }
 
     async isPreRegistered() {
         let sql = "SELECT * FROM preregistration WHERE lower(email)=lower($email);";
         let params = { $email: this.email };
         let result = await this.#db_functions.queryAll(sql, params);
-        console.log(result);
         if (result.length > 0) return true;
         return false;
     }
@@ -34,10 +33,10 @@ class PreRegistration {
         return await this.#db_functions.queryAll(sql);
     }
 
-    deletePreRegistration(email) {
+    async deletePreRegistration(email) {
         let params = { $email: email};
         let sql = "DELETE FROM preregistration WHERE lower(email)=lower($email);";
-        this.#db_functions.runQuery(sql, params);
+        await this.#db_functions.runQuery(sql, params);
     }
 }
 
