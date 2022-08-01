@@ -30,6 +30,19 @@ class Users extends Table_functions{
         this.#db_functions.runQuery(sql, params);
     }
 
+    async getMarkedForDeletion() {
+        let sql = 'SELECT * FROM users WHERE NOT expiring_date="";';
+        return await this.#db_functions.queryAll(sql);
+    }
+
+    async cancelDeletion(id) {
+        let sql = 'UPDATE users SET expiring_date="" WHERE user_id=$user_id;';
+        let params = {
+            $user_id: id
+        };
+        this.#db_functions.runQuery(sql, params);
+    }
+
     async deleteUsers() {
         let params = {
             $date: this.getDate()

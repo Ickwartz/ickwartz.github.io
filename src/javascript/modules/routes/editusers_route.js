@@ -61,6 +61,30 @@ router
         res.statusCode = 500;
         res.send();
     });
+})
+
+.post("/getMarkedUsers", async (req, res) => {
+    let users_api = new Users();
+    users_api.getMarkedForDeletion().then((responseData) => {  
+        res.json(responseData); 
+    }).catch(error => {
+        logger.systemLogger.error(`${error} caught in editusers_route /getMarkedUsers`);
+        res.statusCode = 500;
+        res.send();
+    });
+})
+
+.post("/cancelDeletion", async (req, res) => {
+    let data = req.body;
+    let users_api = new Users();
+    users_api.cancelDeletion(data.user_id).then(() => {
+        res.statusCode = 204;
+        res.send();
+    }).catch(error => {
+        logger.systemLogger.error(`${error} caught in editusers_route /cancelDeletion`);
+        res.statusCode = 500;
+        res.send();
+    }); 
 });
 
 module.exports = router;

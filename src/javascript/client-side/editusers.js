@@ -10,6 +10,7 @@ class UserControl {
     snackbar = new Snackbar();
     registerList = [];
     userList = [];
+    markedList = [];
 
     applyEventListeners() {
         document.querySelector("#users").addEventListener("click", () => {
@@ -18,11 +19,9 @@ class UserControl {
         document.querySelector("#registration").addEventListener("click", () => {
             this.createPreRegistrationTable();
         });
-        /*
         document.querySelector("#expiring-users").addEventListener("click", () => {
-            console.log("Boop");
+            this.createMarkedUsersTable();
         });
-        */
     }    
 
     applyDeleteEventListeners() {
@@ -37,6 +36,13 @@ class UserControl {
         deleteUserButtons.forEach((button) => {
             button.addEventListener("click", (e) => {
                 this.markUserForDeletion(e.target);
+            });
+        });
+        
+        let deleteMarkedButtons = document.querySelectorAll(".del-marked");
+        deleteMarkedButtons.forEach((button) => {
+            button.addEventListener("click", (e) => {
+                this.removeMarkedForDeletion(e.target);
             });
         });
     }
@@ -66,7 +72,7 @@ class UserControl {
         this.createRegisterField();
         this.registerList = await this.fetch_api.postData("/getregistrationlist").catch(() => {
             this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
-        });;
+        });
         let deleteButton = '<button type="button" class="btn button-delete del-registration"></button>';
         let dataMatrix = this.registerList.map((entry) => {
             let values = Object.values(entry);
@@ -76,7 +82,7 @@ class UserControl {
         this.fillTableBody(dataMatrix);
         this.applyDeleteEventListeners();
     }
-
+    
     async deletePreregistration(element) {
         let tableRow = element.parentElement.parentElement;
         let id = tableRow.firstChild.innerHTML;
@@ -89,6 +95,25 @@ class UserControl {
                 this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
             });
         }
+    }
+
+    async createMarkedUsersTable() {
+        this.createTableHead(["UserID", "Vorname", "Nachname", "Email", "Anmeldedatum", "Löschdatum", ""]);
+        this.clearInputContainer();
+
+        let deleteButton = '<button type="button" class="btn button-delete del-marked"></button>';
+        this.markedList = await this.fetch_api.postData("/editusers/getMarkedUsers").catch(() => {
+            this.snackbar.displayOnSnackbar("Irgentetwas ist schiefgelaufen.");
+        });
+
+        let dataMatrix = this.markedList.map((user) => {
+            let values = Object.values(user);
+            values.push(deleteButton);
+            return values;
+        });
+        
+        this.fillTableBody(dataMatrix);
+        this.applyDeleteEventListeners();
     }
 
     async markUserForDeletion(element) {
@@ -108,6 +133,21 @@ class UserControl {
             }).then(() => {
                 this.createUserTable();
                 this.snackbar.displayOnSnackbar(`${tableEntry.first_name} ${tableEntry.surname} zum löschen markiert.`);
+            }).catch(() => {
+                this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
+            });
+        }
+    }
+
+    async removeMarkedForDeletion(element) {
+        let tableRow = element.parentElement.parentElement;
+        let id = tableRow.firstChild.innerHTML;
+        let tableEntry = this.markedList.find((entry) => entry.user_id == id);
+
+        if (window.confirm(`Löschung von ${tableEntry.first_name} ${tableEntry.surname} wirklich abbrechen?`)) {
+            await this.fetch_api.postData("/editusers/cancelDeletion", {user_id: id}).then(() => {
+                this.createMarkedUsersTable();
+                this.snackbar.displayOnSnackbar(`${tableEntry.first_name} ${tableEntry.surname} erfolgreich wiederhergestellt.`);
             }).catch(() => {
                 this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
             });

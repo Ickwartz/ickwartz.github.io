@@ -38,7 +38,7 @@ router
         }
     } catch (error) {
         res.statusCode = 500;
-        res.send();
+        res.send("Ein Fehler ist aufgetreten.");
         logger.systemLogger.error(`${error}, caught in login_route /auth`);
     }
     
