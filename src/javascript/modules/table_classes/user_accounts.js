@@ -39,10 +39,20 @@ class User_Accounts extends Table_functions{
         }
         return false;
     }
+
+    async isRegistered() {
+        let sql = "SELECT * FROM user_accounts WHERE lower(email) = lower($email);";
+        let params = {
+            $email: this.email
+        };
+        let res = await this.#db_functions.queryAll(sql, params);
+
+        return (res.length > 0) ? true : false;
+    }
     
     async safeData() {
         let sql = `INSERT INTO user_accounts (user_id, email, password) 
-                    VALUES ((SELECT user_id from users WHERE $email = users.email), $email ,$password);`;
+                    VALUES ((SELECT user_id from users WHERE lower($email) = lower(users.email)), $email ,$password);`;
         await this.#db_functions.runQuery(sql, this.getValues());
     }
 

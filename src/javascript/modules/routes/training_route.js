@@ -1,6 +1,7 @@
 const Training = require("../table_classes/training");
 const PersonalizedExercises = require("../table_classes/personalized_exercises");
 const express = require("express");
+const logger = require("@logger");
 
 const router = express.Router();
 
@@ -17,10 +18,15 @@ router
     let user_id = req.session.userInfo.user_id;
 
     let training_interface = new Training("", "", user_id);
-    let response_data = await training_interface.getAllUserTrainingMonth(data.params.month, data.params.year);
-
-    res.set("Content-Type", "application/json");
-    res.json(response_data);
+    try {
+        let response_data = await training_interface.getAllUserTrainingMonth(data.params.month, data.params.year);
+        res.set("Content-Type", "application/json");
+        res.json(response_data);
+    } catch (error) {
+        res.statusCode = 500;
+        res.send();
+        logger.systemLogger.error(`${error}, caught in training_route /get_user_trainings`);
+    }
 })
 
 
@@ -32,6 +38,10 @@ router
             items: data,
             loggedin: req.session.loggedin ? true : false
         });
+    }).catch((error) => { 
+        res.statusCode = 500;
+        res.send();
+        logger.systemLogger.error(`${error}, caught in functionality_routes /getexercises`);
     });
 });
 

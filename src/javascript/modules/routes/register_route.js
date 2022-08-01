@@ -3,6 +3,7 @@ const hashing = require("../helpers/hashing");
 const User  = require("../table_classes/users");
 const User_Accounts = require("../table_classes/user_accounts");
 const Preregister = require("../table_classes/preregistration");
+const logger = require("@logger");
 
 const router = express.Router();
 
@@ -34,31 +35,54 @@ router
     }
     
     let preregister = new Preregister(surname, email);
-    let preregisterCheck = await preregister.isPreRegistered();
-    if (!preregisterCheck) {
-        req.session.registerMessage = "Bitte melden Sie sich bei mir an, bevor Sie sich auf dieser Seite registrieren.";
-        res.redirect("/register");
-        return;
+    try {
+        let preregisterCheck = await preregister.isPreRegistered();
+        if (!preregisterCheck) {
+            req.session.registerMessage = "Bitte melden Sie sich bei mir an, bevor Sie sich auf dieser Seite registrieren.";
+            res.redirect("/register");
+            return;
+        }
+    } catch (error) {
+        res.statusCode = 500;
+        res.send("Error");
+        logger.systemLogger.error(`${error}, caught in route /registrate on preregister.isPreRegistered`);
     }
-
-    // check if registered
-
-    req.session.registerMessage = "";
-    password = await hashing.hashPw(password);
+   
     let user = new User(first_name, surname, email);
     let user_account = new User_Accounts(email, password);
-    let user_id = await user.safeData();
-    await user_account.safeData();
-    preregister.deletePreRegistration(email);
-    req.session.loggedin = true;
-    req.session.userInfo = {
-        user_id: user_id,
-        first_name: first_name,
-        surname: surname,
-        email: email,
-        member_since: user.member_since
-        };
-    res.redirect("/");
+
+    try {
+        if (user_account.isRegistered()) {
+            req.session.registerMessage = "Es ist schon ein Nutzer mit dieser Email registriert.";
+            res.redirect("/register");
+            return;
+        }
+    } catch (error) {
+        res.statusCode = 500;
+        res.send("Error");
+        logger.systemLogger.error(`${error}, caught in route /registrate on user_account.isRegistered`);
+    }
+
+    try {
+        req.session.registerMessage = "";
+        password = await hashing.hashPw(password);
+        let user_id = await user.safeData();
+        await user_account.safeData();
+        preregister.deletePreRegistration(email);
+        req.session.loggedin = true;
+        req.session.userInfo = {
+            user_id: user_id,
+            first_name: first_name,
+            surname: surname,
+            email: email,
+            member_since: user.member_since
+            };
+        res.redirect("/");
+    } catch (error) {
+        res.statusCode = 500;
+        res.send("Error");
+        logger.systemLogger.error(`${error}, caught in route /registrate while saving user data`);
+    }
 });
 
 
