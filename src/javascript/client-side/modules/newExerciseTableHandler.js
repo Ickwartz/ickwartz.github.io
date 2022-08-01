@@ -79,7 +79,9 @@ class NewExerciseTableHandler  {
 	async saveTableData() {
 		this.fetch_api.postData("/newexercise/save", this.getTableData()).then(result => {
 			this.showResultMessage(result);
-		});
+		}).catch(() => {
+            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
+        });
 	}
 
 	showResultMessage(resultArr) {

@@ -12,6 +12,9 @@ class Fetch_api {
 			body: JSON.stringify(data)
 		})
 		.then(response => {
+			if (!response.ok) {
+				throw Error(response.statusText);
+			}
 			let status = response.status;
 			switch (true){
 				case (status == 204): return;
@@ -33,6 +36,7 @@ class Fetch_api {
 		.then(data => {
 			return data;
 		});
+		
 	}
 }
 

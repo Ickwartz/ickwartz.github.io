@@ -10,11 +10,12 @@ class Logger {
             new winston.transports.Console({
                 level: "warn"
             }),
-
+            /*
             new winston.transports.File({
                 level: "warn",
                 filename: "./logs/systemlogs.log"
             })
+            */
         ],
         format: winston.format.combine(
             winston.format.timestamp({
@@ -30,11 +31,12 @@ class Logger {
             new winston.transports.Console({
                 level: "info"
             }),
-
+            /*
             new winston.transports.File({
                 level: "info",
                 filename: "./logs/eventlogs.log"
             })
+            */
         ],
         format: winston.format.combine(
             winston.format.timestamp({

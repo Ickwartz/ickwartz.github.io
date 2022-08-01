@@ -44,7 +44,9 @@ class UserControl {
     async createUserTable() {
         this.createTableHead(["UserID", "Vorname", "Nachname", "Email", "Anmeldedatum", ""]);
         this.clearInputContainer();
-        this.userList = await this.fetch_api.postData("/getusers");
+        this.userList = await this.fetch_api.postData("/getusers").catch(() => {
+            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
+        });
         let deleteButton = '<button type="button" class="btn button-delete del-user"></button>';
         let dataMatrix = this.userList.map((user) => {
             if (user.expiring_date) {
@@ -62,7 +64,9 @@ class UserControl {
     async createPreRegistrationTable() {
         this.createTableHead(["ID", "Name", "Email", ""]);
         this.createRegisterField();
-        this.registerList = await this.fetch_api.postData("/getregistrationlist");
+        this.registerList = await this.fetch_api.postData("/getregistrationlist").catch(() => {
+            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
+        });;
         let deleteButton = '<button type="button" class="btn button-delete del-registration"></button>';
         let dataMatrix = this.registerList.map((entry) => {
             let values = Object.values(entry);
@@ -81,6 +85,8 @@ class UserControl {
             await this.fetch_api.postData("/editusers/deletePreregister", {email: listEntry.email}).then(() => {
                 this.createPreRegistrationTable();
                 this.snackbar.displayOnSnackbar(`${listEntry.email} erfolgreich gelöscht`);
+            }).catch(() => {
+                this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
             });
         }
     }
@@ -102,6 +108,8 @@ class UserControl {
             }).then(() => {
                 this.createUserTable();
                 this.snackbar.displayOnSnackbar(`${tableEntry.first_name} ${tableEntry.surname} zum löschen markiert.`);
+            }).catch(() => {
+                this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
             });
         }
     }
@@ -165,8 +173,8 @@ class UserControl {
         let body = { name, email };
         await this.fetch_api.postData("/editusers/preregister", body).then(() => {
             this.snackbar.displayOnSnackbar(`${email} erfolgreich vorregistriert`);
-        }).catch((err) => {
-            this.snackbar.displayOnSnackbar("Something went wrong: " + err.message);
+        }).catch(() => {
+            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
         });
     }
 

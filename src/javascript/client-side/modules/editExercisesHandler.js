@@ -13,6 +13,8 @@ class EditExercisesHandler {
         await this.fetch_api.postData("/getexercises").then((result) => {
             this.exerciseList = result;
             this.createExercisesTable(this.exerciseList);
+        }).catch(() => {
+            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
         });
     }
 
@@ -69,6 +71,8 @@ class EditExercisesHandler {
         exercise.description = description;
         await this.fetch_api.postData("/editexercises/update", exercise).then(() => {
             this.snackbar.displayOnSnackbar(`${name} erfolgreich geupdatet`);
+        }).catch(() => {
+            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
         });
         this.loadExercises();
     }

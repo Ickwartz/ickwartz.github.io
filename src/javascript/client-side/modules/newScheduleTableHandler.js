@@ -124,6 +124,8 @@ class NewScheduleTableHandler  {
 		if (tableData) {
 			this.fetch_api.postData("/newschedule/save", tableData).then(result => {
 				this.showResultMessage(result);
+			}).catch(() => {
+				this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
 			});
 		}
 	}
@@ -171,7 +173,9 @@ class NewScheduleTableHandler  {
 			modalBody.innerHTML="";
 			modalBody.appendChild(heading);
 			modalBody.appendChild(list);
-		});
+		}).catch(() => {
+            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
+        });
 	}
 
 	createScheduleOptionsList(scheduleOptions) {
@@ -229,7 +233,9 @@ class NewScheduleTableHandler  {
 
 				index++;
 			}
-		});
+		}).catch(() => {
+            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
+        });
 		this.resetLoadingModal();
 	}
 
@@ -277,7 +283,9 @@ class NewScheduleTableHandler  {
 	async getAvailableExercises(msg) {
 		await this.fetch_api.postData("/getexercises").then(result => {
 			this.availableExercises = result;
-		});
+		}).catch(() => {
+            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
+        });
 		this.createDataList();
 		msg ? this.snackbar.displayOnSnackbar(msg) : null;
 	}

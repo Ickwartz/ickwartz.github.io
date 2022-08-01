@@ -14,15 +14,15 @@ router
 
 .post("/update", async (req, res) => {
     let exercise = req.body;
-    let exercise_api = new Exercises(exercise.name, exercise.description);
-    try {   
-        await exercise_api.updateExercise(exercise.exercise_id);
-    } catch (error) {
-        logger.systemLogger.error(error);
-        res.status = 500;
+    let exercise_api = new Exercises(exercise.name, exercise.description);   
+    exercise_api.updateExercise(exercise.exercise_id).then(() => {
+        res.statusCode=204;
         res.send();
-    }
-    res.send({ok: "OK"});
+    }).catch(err => {
+        logger.systemLogger.error(`${err} caught in edit_exercises_route.js /update`);
+        res.statusCode = 500;
+        res.send();
+    });
 });
 
 module.exports = router;

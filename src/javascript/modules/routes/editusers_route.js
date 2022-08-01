@@ -24,7 +24,7 @@ router
         res.send();
     }).catch(error => {
         logger.systemLogger.error(`${error} caught in editusers_route /preregister`);
-        res.status = 500;
+        res.statusCode = 500;
         res.send();
     });
 })
@@ -41,7 +41,7 @@ router
         res.send();
     }).catch(error => {
         logger.systemLogger.error(`${error} caught in editusers_route /deletePreregister`);
-        res.status = 500;
+        res.statusCode = 500;
         res.send();
     });
 })
@@ -58,7 +58,7 @@ router
         res.send();
     }).catch(error => {
         logger.systemLogger.error(`${error} caught in editusers_route /markfForDeletion`);
-        res.status = 500;
+        res.statusCode = 500;
         res.send();
     });
 });

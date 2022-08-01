@@ -32,6 +32,7 @@
     - Wenn Meldung kein Zugriff, Login ermöglichen --> besser für Bookmarks
     - Suchen Funktion für Bearbeiten (User, Registrierung, Exercises)
     - no redirect after register error --> Send response
+    - nach Login Fehler nicht neue Page 
 
 Trainingsplan drucken
     - @media 
