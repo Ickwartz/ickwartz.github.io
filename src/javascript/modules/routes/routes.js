@@ -27,6 +27,10 @@ router
         res.render("datenschutz", {});
     })
 
+    .get("/impressum", (req, res) => {
+        res.render("impressum", {});
+    })
+
     .use("/newexercise", exercises)
 
     .use("/editexercises", editExercises)

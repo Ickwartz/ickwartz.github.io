@@ -1,11 +1,5 @@
 - AM ENDE: Bootstrap local nutzen
 
-- Funktionen
-    - Übungen erstellen, editieren und löschen(als veraltet markieren für "legacy content")
-        --> löschen nur wenn keine Verbindung zu Trainingsplan
-    - Registrieren nur wenn auf vorgefertigter Liste
-
-
 - Account System
     - Mitglieder Page für Details bearbeiten
     - Mitglieder löschen
@@ -38,15 +32,6 @@ Trainingsplan drucken
     - @media 
     - css für Druckansicht
     - Trainingsplan clean + Einheitennr mit Zeile zum schreiben
-
-Logger einbauen (Winston)
-    - Für Serverstart
-    - Db Aktionen
-    - User Login, Registrierung
-    - errors
-
-Error Handling
-    - Fetch Api
     
 
 Allgemeine Aufgaben
@@ -55,5 +40,8 @@ Allgemeine Aufgaben
 
 
 DATENSCHUTZ
-    - Datenschutzvereinbarung schreiben
     - IP Adressen nach bestimmter Zeit anonymisieren
+
+IMPRESSUM
+    - Handels- / Gewerberegister
+    - Umsatzsteueridentifikationsnummer 

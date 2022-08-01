@@ -24,12 +24,14 @@ router
                 let user = new Users("", "", email);
                 let userInfo = await user.getUserInfoFromMail();
                 req.session.loggedin = true;
+                logger.eventLogger.info(`${email} logged in.`);
                 req.session.userInfo = userInfo[0];
                 req.session.adminSession = await user_account.isAdmin();
                 res.redirect("/");
                 
             } else {
                 res.send("Falsche Email und/oder Passwort");
+                logger.eventLogger.info(`${email} tried to log in unsuccessfully.`);
             }
             res.end(); 
         } else {

@@ -39,6 +39,7 @@ router
         let preregisterCheck = await preregister.isPreRegistered();
         if (!preregisterCheck) {
             req.session.registerMessage = "Bitte melden Sie sich bei mir an, bevor Sie sich auf dieser Seite registrieren.";
+            logger.eventLogger(`Attempt to register without preregistration.`);
             res.redirect("/register");
             return;
         }
@@ -54,6 +55,7 @@ router
     try {
         if (user_account.isRegistered()) {
             req.session.registerMessage = "Es ist schon ein Nutzer mit dieser Email registriert.";
+            logger.eventLogger(`Attempt to register with used email.`);
             res.redirect("/register");
             return;
         }
@@ -68,6 +70,7 @@ router
         password = await hashing.hashPw(password);
         let user_id = await user.safeData();
         await user_account.safeData();
+        logger.eventLogger(`${email} successfully registered.`);
         preregister.deletePreRegistration(email);
         req.session.loggedin = true;
         req.session.userInfo = {
