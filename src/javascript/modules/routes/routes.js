@@ -23,6 +23,10 @@ router
         res.render("about", {});
     })
 
+    .get("/datenschutz", (req, res) => {
+        res.render("datenschutz", {});
+    })
+
     .use("/newexercise", exercises)
 
     .use("/editexercises", editExercises)
