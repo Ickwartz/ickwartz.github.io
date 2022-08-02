@@ -40,6 +40,7 @@ class EditExerciseModal extends HTMLElement {
     }
 
     connectedCallback() {
+        console.log("connected");
         this.innerHTML= `
         <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="loadScheduleModal" aria-hidden="true">
             <div class="modal-dialog" role="document" style="width: 75%; max-width: 900px">

@@ -20,15 +20,19 @@ class ScheduleDisplay extends HTMLElement {
             let description = document.createElement("p");
             description.className = "display-description";
             description.textContent = `${date}  |  ${name}`;
-        
+            
+
             let details = document.createElement("a");
             details.className = "details-link";
-            details.href = `/training/trainingsplan?trainingid=${training_id}`;
-            details.target = "_blank";
-            details.rel = "noreferrer noopener";    // prevent "tabnabbing" attacks that exploit new tab links
+            // details.href = `/training/trainingsplan?trainingid=${training_id}`;
+            // details.target = "_blank";
+            // details.rel = "noreferrer noopener";    // prevent "tabnabbing" attacks that exploit new tab links
+            details.href = "#";
+            details.setAttribute("training-id", training_id);
             details.textContent = "Details";
             details.style.color = "black";
-        
+            
+
             entry.appendChild(description);
             entry.appendChild(details);
             wrapper.appendChild(entry);

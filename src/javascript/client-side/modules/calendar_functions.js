@@ -1,9 +1,11 @@
-import {CalendarBackend} from "./backendCommunication.js";
+import {TrainingScheduleHandler} from "./trainingScheduleHandler.js";
+import {Fetch_api} from "./fetch_api.js";
 
 class CalendarFunctions {
     constructor() {}
 
-    calendarBackend = new CalendarBackend();
+    trainingHandler = new TrainingScheduleHandler();
+    fetch_api = new Fetch_api();
 
     monthsAppointments = [];
 
@@ -17,7 +19,6 @@ class CalendarFunctions {
             year: year,
             date: `${year}-${month}-${day}`
         };
-
     }
 
     formatNumeral(num) {
@@ -32,7 +33,17 @@ class CalendarFunctions {
     async initAppointments() {
         let table = document.getElementsByClassName("table-calendar")[0];
         let dateInfo = table.currentMonthAndYear;
-        this.monthsAppointments = await this.calendarBackend.getMonthsAppointments(this.formatNumeral(dateInfo.month), this.formatNumeral(dateInfo.year));
+        this.monthsAppointments = await this.getMonthsAppointments(this.formatNumeral(dateInfo.month), this.formatNumeral(dateInfo.year));
+    }
+
+    async getMonthsAppointments(month, year) {
+        let data = {
+            params: {
+                month: month,
+                year: year
+            } 
+        };
+        return await this.fetch_api.postData("/training/get_user_trainings", data);
     }
 
     getAppointmentDates() {
@@ -69,6 +80,14 @@ class CalendarFunctions {
             }
         }
         scheduleDisplay.displaySchedule(schedule);
+        let detailLinks = scheduleDisplay.querySelectorAll(".details-link");
+        for (let link of detailLinks) {
+            link.addEventListener("click", () => {
+                let id = link.getAttribute("training-id");
+                let training = schedule.find(training => training.training_id == id);
+                this.trainingHandler.displayTraining(training);
+            });
+        }
     }
 }
 

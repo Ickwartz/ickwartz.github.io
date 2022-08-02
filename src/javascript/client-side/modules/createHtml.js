@@ -11,7 +11,7 @@ class CreateHtml {
      * 
      * @returns {HTMLElement}
      */
-     createHtmlElement(tag, attributes, text) {
+     createHtmlElement(tag, attributes, text = "") {
         
         let element = document.createElement(tag);
         for (let attribute of attributes) {
