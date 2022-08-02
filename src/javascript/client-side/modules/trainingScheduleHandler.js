@@ -10,11 +10,6 @@ class TrainingScheduleHandler {
     displayModal = document.querySelector("new-modal");
 
     displayTraining(training) {
-        console.log(training);
-        this.showModal(training);
-    }
-
-    showModal(training) {
         this.displayModal.setTitle(`${training.date}: ${training.name}`);
         this.fillModalBody(training.training_id);
         this.displayModal.setSaveFunction(this.saveTrainingComments);
@@ -23,6 +18,7 @@ class TrainingScheduleHandler {
 
     async fillModalBody(id) {
         let body = this.displayModal.getBody();
+        body.innerHTML = "";
         this.fetch_api.postData("/training/getTraining", {training_id: id}).then((data) => {
             console.log(data);
             body.append(this.createTable(data));
@@ -108,6 +104,7 @@ class TrainingScheduleHandler {
     }
 
     saveTrainingComments() {
+        // TODO
         console.log("save");
     }
 }

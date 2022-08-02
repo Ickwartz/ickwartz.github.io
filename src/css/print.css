@@ -1,0 +1,17 @@
+@media print {
+
+    .modal-dialog {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0px !important;
+    }
+
+    .modal-footer {
+        display: none !important;
+    }
+
+    .in.collapse {
+        display: block !important;
+    }
+
+}
