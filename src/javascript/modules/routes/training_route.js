@@ -29,26 +29,6 @@ router
     }
 })
 
-/*
-.get("/trainingsplan", (req, res) => {
-    let training_id = req.query.trainingid;
-    let p_e_instance = new PersonalizedExercises();
-    p_e_instance.innerJoinExercises(training_id).then((data) => {
-        
-        res.render("training_schedule", {
-            items: data,
-            loggedin: req.session.loggedin ? true : false
-        });
-        
-       res.statusCode = 204;
-       res.json(data);
-    }).catch((error) => { 
-        res.statusCode = 500;
-        res.send();
-        logger.systemLogger.error(`${error}, caught in functionality_routes /getexercises`);
-    });
-});
-*/
 .post("/getTraining", async (req, res) => {
     let training_id = req.body.training_id;
     let p_e_instance = new PersonalizedExercises();
@@ -59,8 +39,34 @@ router
     } catch (error) { 
         res.statusCode = 500;
         res.send();
-        logger.systemLogger.error(`${error}, caught in functionality_routes /getexercises`);
+        logger.systemLogger.error(`${error}, caught in training_route /gettraining`);
     }
+})
+
+.post("/saveUserNotes", async (req, res) => {
+    let data = req.body;
+    let training_api = new Training();
+    training_api.saveUserNotes(data.training_id, data.user_notes).then(() => {
+        res.statusCode = 204;
+        res.send();
+    }).catch(error => {
+        res.statusCode = 500;
+        res.send();
+        logger.systemLogger.error(`${error}, caught in training_route /saveTrainingComment`);
+    });
+})
+
+.post("/loadUserNotes", async (req,res) => {
+    let id = req.body.training_id;
+    let training_api = new Training();
+    training_api.loadUserNotes(id).then((result) => {
+        res.set("Content-Type", "application/json");
+        res.json(result[0]);
+    }).catch(error => {
+        res.statusCode = 500;
+        res.send();
+        logger.systemLogger.error(`${error}, caught in training_route /loadTrainingComment`);
+    });
 });
 
 module.exports = router;

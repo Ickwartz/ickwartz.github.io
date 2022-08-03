@@ -1,18 +1,20 @@
 import {CreateHtml} from "./createHtml.js";
 import {Fetch_api} from "./fetch_api.js";
+import {Snackbar} from "./snackbar.js";
 
 class TrainingScheduleHandler {
     constructor() {}
 
     createHtml = new CreateHtml();
     fetch_api = new Fetch_api();
+    snackbar = new Snackbar();
     
     displayModal = document.querySelector("new-modal");
 
     displayTraining(training) {
         this.displayModal.setTitle(`${training.date}: ${training.name}`);
         this.fillModalBody(training.training_id);
-        this.displayModal.setSaveFunction(this.saveTrainingComments);
+        this.displayModal.setSaveFunction(() => this.saveUserNotes(training.training_id));
         this.displayModal.show();
     }
 
@@ -20,12 +22,11 @@ class TrainingScheduleHandler {
         let body = this.displayModal.getBody();
         body.innerHTML = "";
         this.fetch_api.postData("/training/getTraining", {training_id: id}).then((data) => {
-            console.log(data);
             body.append(this.createTable(data));
-            body.append(this.createCommentArea());
-        }).catch((error) => {
-            body.innerHTML = "Es gab einen Fehler beim laden des Trainingsplans.";
-            console.error(error);
+            body.append(this.createNotesArea());
+            this.loadUserNotes(id);
+        }).catch(() => {
+            this.snackbar.displayOnSnackbar("Es gab einen Fehler beim laden des Trainingsplans.");
             return;
         });
     }
@@ -93,19 +94,40 @@ class TrainingScheduleHandler {
         return tbody;
     }
 
-    createCommentArea() {
-        let commentHeading = this.createHtml.createHtmlElement("p", [], "Eigene Kommentare:");
-        let commentField = document.createElement("textarea");
-        commentField.style = "width: 100%; height: 300px;";
-        let commentArea = document.createElement("div");
-        commentArea.append(commentHeading, commentField);
+    createNotesArea() {
+        let notesHeading = this.createHtml.createHtmlElement("p", [], "Eigene Kommentare (max 500 Zeichen) :");
+        let notesField = document.createElement("textarea");
+        notesField.style = "width: 100%; height: 300px;";
+        let notesArea = document.createElement("div");
+        notesArea.append(notesHeading, notesField);
 
-        return commentArea;
+        return notesArea;
     }
 
-    saveTrainingComments() {
-        // TODO
-        console.log("save");
+    async loadUserNotes(training_id) {
+        try {
+            let result = await this.fetch_api.postData("/training/loadUserNotes", {training_id});
+            let notes = result.user_notes; 
+            let notesArea = document.querySelector("div.modal-body div textarea");
+            notesArea.value = notes;
+        } catch {
+            this.snackbar.displayOnSnackbar("Beim Laden des Planes ist ein Fehler aufgetreten.");
+        }
+    }
+
+    async saveUserNotes(id) {
+        let notesArea = document.querySelector("div.modal-body div textarea");
+        let notes = notesArea.value;
+        let data = {
+            training_id: id,
+            user_notes: notes
+        };
+        try {
+            await this.fetch_api.postData("/training/saveUserNotes", data);
+            this.snackbar.displayOnSnackbar("Erfolgreich gespeichert");
+        } catch {
+            this.snackbar.displayOnSnackbar("Beim Speichern ist ein Fehler aufgetreten.");
+        }
     }
 }
 

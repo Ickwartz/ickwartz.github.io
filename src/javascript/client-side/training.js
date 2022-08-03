@@ -1,4 +1,5 @@
-import {CalendarFunctions} from "./modules/calendar_functions.js"; 
+import {CalendarFunctions} from "./modules/calendar_functions.js";
+import {Snackbar} from "./modules/snackbar.js";
 
 
 window.onload = async () => {
@@ -8,6 +9,7 @@ window.onload = async () => {
         calendarFunctions.tagAppointmentDays();
         calendarFunctions.setAppointmentEventListener();
     });
+    new Snackbar().addSnackbar();
     // Mutation Observer to tag Appointment Days on Calendar change
     const calendar = document.getElementById("calendar-body");
     const observer = new MutationObserver(async () => {
