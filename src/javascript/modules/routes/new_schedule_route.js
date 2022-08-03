@@ -21,7 +21,7 @@ router
         responseData.result = false;
 
         let data = req.body;
-        let date = data.date;
+        let date = data.date;       // for (let date of dates)
         let trainingName = data.trainingName;
 
         let name = data.user;

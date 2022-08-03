@@ -16,11 +16,9 @@
 - Improvements
     - Trainingsplan wiederholungen (z.B. wöchentlich Mo, Mi, Fr)
         -> 1 - 6, Monate
+        - startdate,    enddate,    week bit ( 0101010 / 01010100) --> Mo, Mi, Fr
         --> Datum als Array speichern oder meherere Pläne speichern?
     - Im Trainingsplan vorschläge für Namen 
-    - Kommentarspalte für User in Trainingsplan
-        - Db slot in personalized_exercises
-    - Wenn Meldung kein Zugriff, Login ermöglichen --> besser für Bookmarks
     - Suchen Funktion für Bearbeiten (User, Registrierung, Exercises)
     - no redirect after register error --> Send response
     - nach Login Fehler nicht neue Page 

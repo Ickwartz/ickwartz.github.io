@@ -1,11 +1,13 @@
 import {Fetch_api} from "./fetch_api.js";
 import {Snackbar} from "./snackbar.js";
+import {CreateHtml} from"./createHtml.js";
 
 class NewScheduleTableHandler  {
 	constructor(){}
 
 	fetch_api = new Fetch_api();
 	snackbar = new Snackbar();
+	createHtml = new CreateHtml().createHtmlElement
 	availableExercises = [];
 	loadingPresets = {};
 
@@ -15,40 +17,41 @@ class NewScheduleTableHandler  {
 		const tr = document.createElement("tr");
 
         let td_exercise = document.createElement("td");
-		let ti_exercise = document.createElement("input");
-		ti_exercise.setAttribute("type", "text");
-		ti_exercise.setAttribute("placeholder", "Übung");
-		ti_exercise.setAttribute("list", "availableExercises");
-		ti_exercise.setAttribute("class", "table-input exercise-input");
+		let ti_exercise = this.createHtml("input", [
+			["type", "text"],
+			["placeholder", "Übung"],
+			["list", "availableExercises"],
+			["class", "table-input exercise-input"]
+		]);
 		td_exercise.appendChild(ti_exercise);
 
         let td_reps = document.createElement("td");
-		let ti_reps = document.createElement("input");
-		ti_reps.setAttribute("type", "text");
-		ti_reps.setAttribute("placeholder", "Reps");
-		ti_reps.setAttribute("class", "table-input reps-input");
+		let ti_reps = this.createHtml("input", [
+			["type", "text"],
+			["placeholder", "Reps"],
+			["class", "table-input reps-input"]
+		]);
 		td_reps.appendChild(ti_reps);
 
         let td_sets = document.createElement("td");
-		let ti_sets = document.createElement("input");
-		ti_sets.setAttribute("type", "text");
-		ti_sets.setAttribute("placeholder", "Sets");
-		ti_sets.setAttribute("class", "table-input sets-input");
+		let ti_sets = this.createHtml("input", [
+			["type", "text"],
+			["placeholder", "Sets"],
+			["class", "table-input sets-input"]
+		]);
 		td_sets.appendChild(ti_sets);
 
 		let td_description = document.createElement("td");
-		let ti_description = document.createElement("textarea");
-		ti_description.setAttribute("style", "width: 100%");
-		ti_description.setAttribute("maxlength", "300");
-		ti_description.setAttribute("placeholder", "Beschreibung");
-		ti_description.setAttribute("class", "table-input comment-input");
+		let ti_description = this.createHtml("textarea", [
+			["style", "width: 100%"],
+			["maxlength", "300"],
+			["placeholder", "Beschreibung"],
+			["class", "table-input comment-input"]
+		]);
 		td_description.appendChild(ti_description);
 
-		let td_delete = document.createElement("td");
-		td_delete.setAttribute("style", "text-align: center");
-		let b_delete = document.createElement("button");
-		b_delete.setAttribute("type", "button");
-		b_delete.setAttribute("class", "btn button-delete");
+		let td_delete = this.createHtml("td",[["style", "text-align: center"]]);
+		let b_delete = this.createHtml("button",[["type", "button"], ["class", "btn button-delete"]]);
 		b_delete.addEventListener("click", (e) => {
 			this.deleteTableRow(e.target);
 		});
