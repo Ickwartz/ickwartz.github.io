@@ -1,13 +1,11 @@
-- AM ENDE: Bootstrap local nutzen
+-- PRE PUBLISH --
+    - Bootstrap local nutzen
+    - referer in login_route zu website URL
+    - Datenschutz und Impressum vervollständigen
+    - Proxy?
 
 - Account System
     - Mitglieder Page für Details bearbeiten
-    - Mitglieder löschen
-        --> alle verbundenen Trainingspläne löschen?
-            --> nach bestimmter Zeit?
-            --> Löschen aus Registrierungsliste
-        --> wiederherstellen von Accounts? 
-        --> markieren als deleted?
 
 - Refactor
     - Frontend und Backend in separate Folder
@@ -16,7 +14,6 @@
     - löschen ? 
 
 - Improvements
-    - Im Trainingscalendar aktuellen Monat merken und nicht neuen Tab öffnen
     - Trainingsplan wiederholungen (z.B. wöchentlich Mo, Mi, Fr)
         -> 1 - 6, Monate
         --> Datum als Array speichern oder meherere Pläne speichern?
@@ -28,11 +25,6 @@
     - no redirect after register error --> Send response
     - nach Login Fehler nicht neue Page 
 
-Trainingsplan drucken
-    - @media 
-    - css für Druckansicht
-    - Trainingsplan clean + Einheitennr mit Zeile zum schreiben
-    
 
 Allgemeine Aufgaben
     - Wie Client seitig infos über Page Zustand

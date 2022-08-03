@@ -5,9 +5,19 @@ const logger = require("@logger");
 
 const router = express.Router();
 
+let lastReferer;
+
+function checkReferer(ref) {
+    if (!ref) return "/";
+    let parts = ref.split("/");
+    if (parts[0] === "http:" && parts[1] === "" && parts[2] === "localhost:8080") return ref;    // exactly http://localhost:8080
+    return "/";
+}
+
 router
 
 .get("/", (req, res) => {
+    lastReferer = checkReferer(req.header("referer"));
     res.render("login", {
 
     });
@@ -27,7 +37,7 @@ router
                 logger.eventLogger.info(`${email} logged in.`);
                 req.session.userInfo = userInfo[0];
                 req.session.adminSession = await user_account.isAdmin();
-                res.redirect("/");
+                res.redirect(lastReferer);
                 
             } else {
                 res.send("Falsche Email und/oder Passwort");
