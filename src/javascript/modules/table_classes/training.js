@@ -60,6 +60,13 @@ class Training extends Table_functions{
         return await this.#db_functions.queryAll(sql, params);
     }
 
+    async trainingExists() {
+        let sql = "SELECT * FROM training WHERE name=$name AND date=$date and user_id=$user_id;";
+        let params = this.getValues();
+        let result = await this.#db_functions.queryAll(sql, params);
+        return (result.length > 0);
+    }
+
     async saveUserNotes(id, notes) {
         let sql = "UPDATE training SET user_notes = $user_notes WHERE training_id = $training_id;";
         let params =  {

@@ -31,6 +31,11 @@ class Personalized_Exercises extends Table_functions{
         await this.#db_functions.runQuery(sql, this.getValues());
     }
 
+    async deleteTrainingData() {
+        let sql = `DELETE FROM personalized_exercises WHERE training_id = $training_id;`;
+        await this.#db_functions.runQuery(sql, this.getValues().$training_id);
+    }
+
     async readData() {
         let sql = "SELECT * FROM personalized_exercises;";
         return await this.#db_functions.queryAll(sql);

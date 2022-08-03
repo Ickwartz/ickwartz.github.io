@@ -35,7 +35,9 @@ router
         }
 
         let training = new Training(trainingName, date, user_id);
-        await training.safeData();
+        let update = await training.trainingExists();
+        if (!update) await training.safeData();
+        
         let training_response = await training.getTrainingId();
         let training_id = training_response[0].training_id;
 
@@ -48,15 +50,18 @@ router
             let sets = dataSet.sets;
             let comment = dataSet.comment;
             let personalizedExercise = new Personalized_Exercises(exercise_id, user_id, reps, sets, comment, training_id);
+            if (update) {
+                await personalizedExercise.deleteTrainingData();
+                update = false;
+            }
             await personalizedExercise.safeData();
-            responseData.result = true;
-        }    
-
+            responseData.result = true;     
+        }
         res.json(responseData);
     } catch (error) {
         res.statusCode = 500;
         res.send();
-        logger.systemLogger.error(`${error}, caught in new_schedule_route /save`);        
+        logger.systemLogger.error(`${error} | caught in new_schedule_route /save`);        
     }
     
 })
@@ -77,7 +82,7 @@ router
     } catch (error) {
         res.statusCode = 500;
         res.send();
-        logger.systemLogger.error(`${error}, caught in new_schedule_route /getschedules`);
+        logger.systemLogger.error(`${error} | caught in new_schedule_route /getschedules`);
     }
 })
 
@@ -91,7 +96,7 @@ router
     } catch (error) {
         res.statusCode = 500;
         res.send();
-        logger.systemLogger.error(`${error}, caught in new_schedule_route /loadschedule`);
+        logger.systemLogger.error(`${error} | caught in new_schedule_route /loadschedule`);
     }
 });
 
