@@ -97,7 +97,7 @@ class TrainingScheduleHandler {
 
     createNotesArea() {
         this.notesHeader = this.createHtml.createHtmlElement("p", [], "Eigene Kommentare (max 500 Zeichen) :");
-        let notesField = document.createElement("textarea");
+        let notesField = this.createHtml.createHtmlElement("textarea", [["maxlength", "500"]]);
         notesField.style = "width: 100%; height: 300px;";
         notesField.addEventListener("keypress", () => {
             let charCount = notesField.value.length;

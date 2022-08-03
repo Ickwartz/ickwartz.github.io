@@ -21,6 +21,7 @@ class NewExerciseTableHandler  {
 
 		let td_description = document.createElement("td");
 		let ti_description = document.createElement("textarea");
+		ti_description.setAttribute("maxlength", "500");
 		ti_description.setAttribute("style", "width: 100%");
 		ti_description.setAttribute("placeholder", "Beschreibung");
 		ti_description.setAttribute("class", "table-input description-input");

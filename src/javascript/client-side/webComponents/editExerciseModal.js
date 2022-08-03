@@ -31,6 +31,7 @@ class EditExerciseModal extends HTMLElement {
 
         let descTd = document.createElement("td");
         let modalExerciseDescription = document.createElement("textarea");
+        modalExerciseDescription.maxLength = "500";
         modalExerciseDescription.placeholder = "Beschreibung";
         modalExerciseDescription.style = "margin: 5px; width: 95%";
         modalExerciseDescription.value = exercise.description;
