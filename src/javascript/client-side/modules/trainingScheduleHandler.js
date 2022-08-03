@@ -10,6 +10,7 @@ class TrainingScheduleHandler {
     snackbar = new Snackbar();
     
     displayModal = document.querySelector("new-modal");
+    notesHeader;
 
     displayTraining(training) {
         this.displayModal.setTitle(`${training.date}: ${training.name}`);
@@ -95,11 +96,15 @@ class TrainingScheduleHandler {
     }
 
     createNotesArea() {
-        let notesHeading = this.createHtml.createHtmlElement("p", [], "Eigene Kommentare (max 500 Zeichen) :");
+        this.notesHeader = this.createHtml.createHtmlElement("p", [], "Eigene Kommentare (max 500 Zeichen) :");
         let notesField = document.createElement("textarea");
         notesField.style = "width: 100%; height: 300px;";
+        notesField.addEventListener("keypress", () => {
+            let charCount = notesField.value.length;
+            this.changeNotesHeaderWordCount(charCount);
+        });
         let notesArea = document.createElement("div");
-        notesArea.append(notesHeading, notesField);
+        notesArea.append(this.notesHeader, notesField);
 
         return notesArea;
     }
@@ -108,11 +113,17 @@ class TrainingScheduleHandler {
         try {
             let result = await this.fetch_api.postData("/training/loadUserNotes", {training_id});
             let notes = result.user_notes; 
-            let notesArea = document.querySelector("div.modal-body div textarea");
-            notesArea.value = notes;
+            this.changeNotesHeaderWordCount(notes.length);
+            let notesField = document.querySelector("div.modal-body div textarea");
+            console.log(notesField);
+            notesField.textContent = notes;
         } catch {
             this.snackbar.displayOnSnackbar("Beim Laden des Planes ist ein Fehler aufgetreten.");
         }
+    }
+
+    changeNotesHeaderWordCount(count) {
+        this.notesHeader.textContent = `Eigene Kommentare: (${count} / 500 Zeichen)`;
     }
 
     async saveUserNotes(id) {
