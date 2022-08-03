@@ -5,10 +5,12 @@ const logger = require("@logger");
 
 const router = express.Router();
 
-let lastReferer;
+let lastReferer = "/";
 
 function checkReferer(ref) {
+    console.log(ref, lastReferer);
     if (!ref) return "/";
+    if (ref === "http://localhost:8080/login") return lastReferer;
     let parts = ref.split("/");
     if (parts[0] === "http:" && parts[1] === "" && parts[2] === "localhost:8080") return ref;    // exactly http://localhost:8080
     return "/";
@@ -18,8 +20,21 @@ router
 
 .get("/", (req, res) => {
     lastReferer = checkReferer(req.header("referer"));
+    let auth = req.query.auth;
+    let message;
+    switch (auth) {
+        case "wrongauth": {
+            message = "Falsche Email und/oder Passwort";
+            break;
+        }
+        case "incomplete": {
+            message = "Bitte Email und Passwort eingeben";
+            break;
+        }
+        default: message = "";
+    }
     res.render("login", {
-
+        message
     });
 })
 
@@ -40,13 +55,11 @@ router
                 res.redirect(lastReferer);
                 
             } else {
-                res.send("Falsche Email und/oder Passwort");
+                res.redirect("/login?auth=wrongauth");
                 logger.eventLogger.info(`${email} tried to log in unsuccessfully.`);
             }
-            res.end(); 
         } else {
-            res.send("Bitte Email und Passwort eingeben");
-            res.end();
+            res.redirect("/login?auth=incomplete");
         }
     } catch (error) {
         res.statusCode = 500;

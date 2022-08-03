@@ -7,11 +7,22 @@ const logger = require("@logger");
 
 const router = express.Router();
 
+function getRegisterMessage(reg) {
+    switch (reg) {
+        case "incomplete": return "Bitte alle Felder ausfüllen";
+        case "pwmismatch": return "Passwort wiederholung stimmt nicht überein";
+        case "noprereg": return "Bitte melden Sie sich bei mir an, bevor Sie sich auf dieser Seite registrieren.";
+        case "used": return "Es ist schon ein Nutzer mit dieser Email registriert.";
+        default: return "";
+    }
+}
+
 router
 
 .get("/", (req, res) => {
+    let message = getRegisterMessage(req.query.reg);
     res.render("register", {
-        registerMessage: req.session.registerMessage
+        registerMessage: message
     });
 })
 
@@ -23,14 +34,12 @@ router
     let password_confirm = req.body.password_confirm;
 
     if (!first_name || !surname || !email || !password || !password_confirm) {
-        req.session.registerMessage = "Bitte alle Felder ausfüllen";
-        res.redirect("/register");
+        res.redirect("/register?reg=incomplete");
         return;
     }
     
     if (password !== password_confirm) {
-        req.session.registerMessage = "Passwort wiederholung stimmt nicht überein";
-        res.redirect("/register");
+        res.redirect("/register?reg=pwmismatch");
         return;
     }
     
@@ -38,9 +47,8 @@ router
     try {
         let preregisterCheck = await preregister.isPreRegistered();
         if (!preregisterCheck) {
-            req.session.registerMessage = "Bitte melden Sie sich bei mir an, bevor Sie sich auf dieser Seite registrieren.";
-            logger.eventLogger(`Attempt to register without preregistration.`);
-            res.redirect("/register");
+            logger.eventLogger.info(`Attempt to register without preregistration.`);
+            res.redirect("/register?reg=noprereg");
             return;
         }
     } catch (error) {
@@ -54,9 +62,8 @@ router
 
     try {
         if (user_account.isRegistered()) {
-            req.session.registerMessage = "Es ist schon ein Nutzer mit dieser Email registriert.";
-            logger.eventLogger(`Attempt to register with used email.`);
-            res.redirect("/register");
+            logger.eventLogger.info(`Attempt to register with used email.`);
+            res.redirect("/register?reg=used");
             return;
         }
     } catch (error) {
@@ -70,7 +77,7 @@ router
         password = await hashing.hashPw(password);
         let user_id = await user.safeData();
         await user_account.safeData();
-        logger.eventLogger(`${email} successfully registered.`);
+        logger.eventLogger.info(`${email} successfully registered.`);
         preregister.deletePreRegistration(email);
         req.session.loggedin = true;
         req.session.userInfo = {
