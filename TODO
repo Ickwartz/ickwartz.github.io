@@ -13,12 +13,17 @@
 Übungen
     - löschen ? 
 
-- Improvements
+Trainingspläne
     - Trainingsplan wiederholungen (z.B. wöchentlich Mo, Mi, Fr)
         -> 1 - 6, Monate
         - startdate,    enddate,    week bit ( 0101010 / 01010100) --> Mo, Mi, Fr
         --> Datum als Array speichern oder meherere Pläne speichern?
     - Im Trainingsplan vorschläge für Namen 
+    - Laden:
+        - Alle Trainingspläne eines Nutzers anzeigen
+        -> suchen/sortieren
+
+- Improvements
     - Suchen Funktion für Bearbeiten (User, Registrierung, Exercises)
 
 Allgemeine Aufgaben

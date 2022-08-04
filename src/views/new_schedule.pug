@@ -7,27 +7,51 @@ html(lang='de')
     body
         // Main Menu Navbar & Contacts Bar
         include partials/_nav
-        
+        style(type="text/css").
+            label {
+                padding:5px;
+            }
         if (admin)
             
 
             
             div.container.table-container
-                div 
-                    h4 Trainingsplan für:
-                    label(for="user-input" style="padding:5px") Vor- und Nachname:
-                    input#user-input(type="text", placeholder="User")
-                    label(for="date-input" style="padding:5px") Datum:
-                    input#date-input(type="date", required pattern="\d{2}-\d{2}-\d{4}")
-                    label(for="training-name-input" style="padding:5px") Name/ Kurzbeschreibung des Trainingsplans:
-                    input#training-name-input(type="text", placeholder="Trainingsplan")
-                    br
-                    button.btn.btn-secondary.btn-sm.table-button(type="button", onclick="window.open('/newexercise')") 
-                        | Neue Übung registrieren
-                    button#button-refresh-available-exercises.btn.btn-secondary.btn-sm.table-button(type="button") 
-                        | Übungen aktualisieren
-                    button.btn.btn-secondary.btn-sm.table-button(type="button", data-bs-toggle="modal" data-bs-target="#loadScheduleModal") 
-                        | Trainingsplan laden
+                h4 Trainingsplan für:  
+                table 
+                    thead 
+                        th 
+                        th 
+                    tbody
+                        tr 
+                            td Vor- und Nachname:
+                            td 
+                                input#user-input(type="text", placeholder="User")
+                        tr 
+                            td Name/ Kurzbeschreibung des Trainingsplans: 
+                            td 
+                                input#training-name-input(type="text", placeholder="Trainingsplan")
+                        tr 
+                            td Datum: 
+                            td 
+                                input#date-input(type="date", required pattern="\d{2}-\d{2}-\d{4}")
+                        tr 
+                            td 
+                                p Training Wiederholen (Monate, 0 = einmalig): 
+                            td 
+                                select#repeat-duration(name="repeat-duration") 
+                                    option(value=0) 0
+                                    option(value=1) 1
+                                    option(value=2) 2
+                                    option(value=3) 3
+                                    option(value=4) 4
+                                    option(value=5) 5
+                                    option(value=6) 6
+                button.btn.btn-secondary.btn-sm.table-button(type="button", onclick="window.open('/newexercise')") 
+                    | Neue Übung registrieren
+                button#button-refresh-available-exercises.btn.btn-secondary.btn-sm.table-button(type="button") 
+                    | Übungen aktualisieren
+                button.btn.btn-secondary.btn-sm.table-button(type="button", data-bs-toggle="modal" data-bs-target="#loadScheduleModal") 
+                    | Trainingsplan laden
 
                 .table-responsive
                     table#input_table.table

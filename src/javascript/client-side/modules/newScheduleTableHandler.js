@@ -7,9 +7,10 @@ class NewScheduleTableHandler  {
 
 	fetch_api = new Fetch_api();
 	snackbar = new Snackbar();
-	createHtml = new CreateHtml().createHtmlElement
-	availableExercises = [];
-	loadingPresets = {};
+	createHtml = new CreateHtml().createHtmlElement;
+	availableExercises = [];	// suggestions for exercises
+	availableUsers = [];	// suggestions for usernames
+	loadingPresets = {};	// to fill in name, date etc inputs after loading
 
 	tableBody = document.getElementById("input_body");
 
@@ -290,12 +291,12 @@ class NewScheduleTableHandler  {
 		}).catch(() => {
             this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
         });
-		this.createDataList();
+		this.createAvailableExercisesList();
 		msg ? this.snackbar.displayOnSnackbar(msg) : null;
 	}
 
-	createDataList() {
-		let datalist = document.getElementById(this.availableExercises);
+	createAvailableExercisesList() {
+		let datalist = document.getElementById("availableExercises");
 		if (!datalist) {
 			datalist = document.createElement("datalist");
 			datalist.setAttribute("id", "availableExercises");
@@ -307,8 +308,9 @@ class NewScheduleTableHandler  {
 		}
 		document.body.appendChild(datalist);
 	}
+
+	// load option lists ( available Exercises + usernames)
 	
-	// TODO: Arrow Functions kürzen
 	addButtonEventListeners() {
 		document.getElementById("addRowButton").addEventListener("click",() => {
 			this.createRow();
