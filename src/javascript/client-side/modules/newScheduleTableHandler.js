@@ -77,21 +77,20 @@ class NewScheduleTableHandler  {
 
     getTableData() {
         
-        let user = document.getElementById("user-input").value;
-        let date_val = document.getElementById("date-input").value;
-        let trainingName = document.getElementById("training-name-input").value;
+        let user = document.querySelector("#user-input").value;
+        let date_val = document.querySelector("#date-input").value;
+        let trainingName = document.querySelector("#training-name-input").value;
         if (user == "" || date_val == "" || trainingName == "") {
             alert("Bitte User, Datum und Namen des Trainings angeben");
+			return;
         } else {    
             let data = {};
-            let dateObj = new Date(date_val);
-            let date = dateObj.toISOString().split('T')[0]; // yyyy-mm-dd
 
 			data.user = user;
-			data.date = date;
+			data.dateData = this.getDateData();
 			data.trainingName = trainingName;
 			let exerciseData = []; 
-			let rows = document.getElementsByTagName("tr");
+			let rows = document.querySelectorAll("#input_body tr");
 			for (let row of rows) {
 				//th is treated as tr too
 				if (row.firstChild.tagName == "TH") {
@@ -121,18 +120,67 @@ class NewScheduleTableHandler  {
 			}
 			data.exerciseData = exerciseData;
             return data;
-        }
+			}
     }
     
+	getDateData() {
+		let dateData = {};
+        let date_val = document.querySelector("#date-input").value;
+		let startDate = new Date(date_val);
+		dateData.startDate = startDate.toISOString().split('T')[0];
+		let repDuration = document.querySelector("#repeat-duration").value;
+		if (repDuration == 0) return dateData;
+
+		let endDate = new Date(date_val);
+		endDate.setMonth(endDate.getMonth() + parseInt(repDuration));
+		dateData.endDate = endDate.toISOString().split("T")[0];
+		dateData.repetitionPattern = this.getRepetitionPattern();
+		return dateData;
+	}
+
+	getRepetitionPattern() {
+		let weekdays = document.querySelectorAll("#repetition-weekdays input");
+		let selectedDays = [];
+		for (let day of weekdays) {
+			if(day.checked) selectedDays.push(day.name);
+		}
+		return this.calculateRepeatPattern(selectedDays);
+	}
+
+	calculateRepeatPattern(days) {
+		let weekdayBitValue = {
+			"sunday": 	0b00000001, 
+			"monday": 	0b00000010,
+			"tuesday": 	0b00000100,
+			"wednesday":0b00001000,
+			"thursday": 0b00010000,
+			"friday":	0b00100000,
+			"saturday": 0b01000000,
+		};
+		// if (days == []) {}   // why not working?
+		if (!days[0]) {
+			return 0;
+		} else {
+			return (weekdayBitValue[days.shift()] + this.calculateRepeatPattern(days));
+		}
+	}
+	
 	async saveTableData() {
 		let tableData = this.getTableData();
-		if (tableData) {
-			this.fetch_api.postData("/newschedule/save", tableData).then(result => {
-				this.showResultMessage(result);
-			}).catch(() => {
-				this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
-			});
+		if (!tableData) {
+			alert("Es konnten keine Daten gelesen werden.");
+			return;
 		}
+		if (!tableData.exerciseData) {
+			alert("Es konnten keine Übungen gelesen werden.");
+			return;
+		}
+		this.fetch_api.postData("/newschedule/save", tableData).then(result => {
+			this.showResultMessage(result);
+		}).catch(() => {
+			this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
+			});
+
 	}
 
 	getExerciseId(exerciseName) {

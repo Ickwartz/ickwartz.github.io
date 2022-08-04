@@ -46,7 +46,18 @@ CREATE TABLE IF NOT EXISTS training (
     training_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(50) NOT NULL,
     date DATE NOT NULL,
-    user_id INTEGER NOT NULL
+    repeats BIT DEFAULT 0,
+    user_id INTEGER NOT NULL,
+    user_notes VARCHAR(500)
+);
+
+CREATE TABLE IF NOT EXISTS training_repetition(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    training_id INT,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    repetition_pattern VARCHAR(8) NOT NULL,
+    FOREIGN KEY (training_id) REFERENCES training (training_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS preregistration (

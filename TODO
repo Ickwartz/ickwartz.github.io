@@ -22,6 +22,9 @@ Trainingspläne
     - Laden:
         - Alle Trainingspläne eines Nutzers anzeigen
         -> suchen/sortieren
+    - In Wiederholung editieren:
+        - Aktuelle Wdh cancelen
+        - neue Wdh mit änderung starten
 
 - Improvements
     - Suchen Funktion für Bearbeiten (User, Registrierung, Exercises)

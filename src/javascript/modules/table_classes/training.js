@@ -2,12 +2,13 @@ const Table_functions = require("./table_functions");
 const Db_Functions = require("../db_functions");
 
 class Training extends Table_functions{
-    constructor(name, date, user_id, user_notes) {
+    constructor(name, date, user_id, user_notes, repeats) {
         super();
         this.name = name;
         this.date = date;
         this.user_id = user_id;
         this.user_notes = user_notes;
+        this.repeats = repeats;
     }
 
     #db_functions = new Db_Functions();
@@ -17,12 +18,13 @@ class Training extends Table_functions{
             $name: this.name, 
             $date: this.date, 
             $user_id: this.user_id,
-            $user_notes: this.user_notes
+            $user_notes: this.user_notes,
+            $repeats: this.repeats
         };
     }
 
-    async safeData() {
-        let sql = "INSERT INTO training (name, date, user_id) VALUES ($name, $date, $user_id);";
+    async saveData() {
+        let sql = "INSERT INTO training (name, date, user_id, user_notes, repeats) VALUES ($name, $date, $user_id, $user_notes, $repeats);";
         await this.#db_functions.runQuery(sql, this.getValues());
     }
 
@@ -33,7 +35,12 @@ class Training extends Table_functions{
 
     async getTrainingId() {
         let sql = "SELECT training_id FROM training WHERE name=$name AND date=$date and user_id=$user_id";
-        return await this.#db_functions.queryAll(sql, this.getValues());
+        let params = {
+            $name: this.name,
+            $date: this.date,
+            $user_id: this.user_id
+        };
+        return await this.#db_functions.queryAll(sql, params);
     }
 
     async getAllUserTrainings() {
@@ -62,7 +69,11 @@ class Training extends Table_functions{
 
     async trainingExists() {
         let sql = "SELECT * FROM training WHERE name=$name AND date=$date and user_id=$user_id;";
-        let params = this.getValues();
+        let params = {
+            $name: this.name,
+            $date: this.date,
+            $user_id: this.user_id
+        };
         let result = await this.#db_functions.queryAll(sql, params);
         return (result.length > 0);
     }
@@ -80,6 +91,30 @@ class Training extends Table_functions{
         let sql = "SELECT user_notes FROM training WHERE training_id = $training_id;";
         let params =  {
             $training_id: id
+        };
+        return await this.#db_functions.queryAll(sql, params);
+    }
+
+    async saveRepetition(training_id, start_date, end_date, repetition_pattern) {
+        let sql = `
+            INSERT INTO training_repetition (training_id, start_date, end_date, repetition_pattern)
+            SELECT $training_id, $start_date, $end_date, $repetition_pattern
+            WHERE NOT EXISTS (SELECT 1 FROM training_repetition WHERE training_id = $training_id);
+        `;
+        let params = {
+            $training_id: training_id,
+            $start_date: start_date,
+            $end_date: end_date,
+            $repetition_pattern: repetition_pattern
+        };
+
+        await this.#db_functions.runQuery(sql,params);
+    }
+
+    async loadRepetition(training_id) {
+        let sql = 'SELECT * FROM training_repetition WHERE training_id = $training_id;';
+        let params = {
+            $training_id: training_id
         };
         return await this.#db_functions.queryAll(sql, params);
     }

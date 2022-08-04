@@ -7,10 +7,6 @@ html(lang='de')
     body
         // Main Menu Navbar & Contacts Bar
         include partials/_nav
-        style(type="text/css").
-            label {
-                padding:5px;
-            }
         if (admin)
             
 
@@ -46,6 +42,22 @@ html(lang='de')
                                     option(value=4) 4
                                     option(value=5) 5
                                     option(value=6) 6
+                                div#repetition-weekdays
+                                    label(for="monday") Mo:
+                                    input#monday(type="checkbox", name="monday")
+                                    label(for="tuesday") Di:
+                                    input#tuesday(type="checkbox", name="tuesday")
+                                    label(for="wednesday") Mi:
+                                    input#wednesday(type="checkbox", name="wednesday")
+                                    label(for="thursday") Do:
+                                    input#thursday(type="checkbox", name="thursday")
+                                    label(for="friday") Fr:
+                                    input#friday(type="checkbox", name="friday")
+                                    label(for="saturday") Sa:
+                                    input#saturday(type="checkbox", name="saturday")
+                                    label(for="sunday") So:
+                                    input#sunday(type="checkbox", name="sunday")
+
                 button.btn.btn-secondary.btn-sm.table-button(type="button", onclick="window.open('/newexercise')") 
                     | Neue Übung registrieren
                 button#button-refresh-available-exercises.btn.btn-secondary.btn-sm.table-button(type="button") 

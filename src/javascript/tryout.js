@@ -27,7 +27,6 @@ function getBitRepeatPattern(days) {
     }
 }
 
-
 function getAllDays(startDate, endDate, repeatPattern) {
     console.log("Start: ", startDate.toISOString().split('T')[0]);
     console.log("End: ", endDate.toISOString().split('T')[0]);
