@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS personalized_exercises (
     sets int,
     training_id int NOT NULL,
     FOREIGN KEY (exercise_id) REFERENCES exercises (exercise_id) ON DELETE CASCADE,
+    FOREIGN KEY (training_id) REFERENCES training (training_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
 );
 
@@ -46,7 +47,6 @@ CREATE TABLE IF NOT EXISTS training (
     training_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(50) NOT NULL,
     date DATE NOT NULL,
-    repeats BIT DEFAULT 0,
     user_id INTEGER NOT NULL,
     user_notes VARCHAR(500)
 );

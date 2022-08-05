@@ -1,48 +1,75 @@
-let startDateString = "2022-08-08";
-// let endDateString = "2022-10-08";
+// let startDateString = "2022-08-08";
+// // let endDateString = "2022-10-08";
 
-let startDate = new Date(startDateString);
-let endDate = new Date(startDateString);
-endDate.setMonth(endDate.getMonth() + 1);
+// let startDate = new Date(startDateString);
+// let endDate = new Date(startDateString);
+// endDate.setMonth(endDate.getMonth() + 1);
 
-// let bitRepeatPattern = 0b00101010;
-let weekdays = {
-    "0": 0b00000001,    //Sonntag
-    "1": 0b00000010,
-    "2": 0b00000100,
-    "3": 0b00001000,
-    "4": 0b00010000,
-    "5": 0b00100000,
-    "6": 0b01000000,
-};
+// // let bitRepeatPattern = 0b00101010;
+// let weekdays = {
+//     "0": 0b00000001,    //Sonntag
+//     "1": 0b00000010,
+//     "2": 0b00000100,
+//     "3": 0b00001000,
+//     "4": 0b00010000,
+//     "5": 0b00100000,
+//     "6": 0b01000000,
+// };
 
-let testdays = [1,3,5]; // Sonntag = 0
+// let testdays = [1,3,5]; // Sonntag = 0
 
-function getBitRepeatPattern(days) {
-    // if (days == []) {}   // why not working?
-    if (!days[0]) {
-        return 0;
-    } else {
-        return (weekdays[days.shift()] + getBitRepeatPattern(days));
-    }
+// function getBitRepeatPattern(days) {
+//     // if (days == []) {}   // why not working?
+//     if (!days[0]) {
+//         return 0;
+//     } else {
+//         return (weekdays[days.shift()] + getBitRepeatPattern(days));
+//     }
+// }
+
+// function getAllDays(startDate, endDate, repeatPattern) {
+//     console.log("Start: ", startDate.toISOString().split('T')[0]);
+//     console.log("End: ", endDate.toISOString().split('T')[0]);
+//     let currentDate = startDate;
+//     let allDates = [];
+//     while (currentDate <= endDate) {
+//         let dayIndex = currentDate.getDay();
+//         let patternValue = weekdays[dayIndex] & repeatPattern;
+//         if (patternValue > 0) allDates.push(currentDate.toISOString().split('T')[0]);
+//         currentDate.setDate(currentDate.getDate() + 1);
+//     }
+//     console.log(allDates);
+// }
+
+// getAllDays(startDate, endDate, getBitRepeatPattern(testdays));
+
+function getStartDate(month, year){
+    let dateString = `${month}-01-${year}`;
+    let date = new Date(dateString);
+    date.setMonth(date.getMonth() - 6);
+    let startMonth = "" + (date.getMonth() + 1);
+    startMonth = startMonth.length == 1 ? "0" + startMonth : startMonth;
+    let startYear = date.getFullYear();
+
+    // let startMonth = "";
+    // let startYear = "";
+    // if (month[1] < 7 && month[0] == 0) {
+    //     startMonth = 12 + (month[1] - 6);
+    //     startYear = year - 1;
+    // } else {
+    //     startMonth = "0" + (month[1] - 6);
+    //     startYear = year;
+    // }'
+
+    console.log(startMonth + "-" + startYear);
 }
 
-function getAllDays(startDate, endDate, repeatPattern) {
-    console.log("Start: ", startDate.toISOString().split('T')[0]);
-    console.log("End: ", endDate.toISOString().split('T')[0]);
-    let currentDate = startDate;
-    let allDates = [];
-    while (currentDate <= endDate) {
-        let dayIndex = currentDate.getDay();
-        let patternValue = weekdays[dayIndex] & repeatPattern;
-        if (patternValue > 0) allDates.push(currentDate.toISOString().split('T')[0]);
-        currentDate.setDate(currentDate.getDate() + 1);
-    }
-    console.log(allDates);
-}
-
-getAllDays(startDate, endDate, getBitRepeatPattern(testdays));
-
+getStartDate("01", "2022");     // 07
+getStartDate("05", "2022");     // 11
+getStartDate("07", "2022");     // 01
+getStartDate("08", "2022");     // 02
+getStartDate("11", "2022");     // 05
+getStartDate("12", "2022");     // 06
 
 
 // bits 0b00000000

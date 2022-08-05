@@ -22,8 +22,6 @@ router
 
         let data = req.body;
         let dateData = data.dateData;
-        let repeats = 0;
-        if (dateData.repetitionPattern) repeats = 1;
         let trainingName = data.trainingName;
 
         let name = data.user;
@@ -36,13 +34,13 @@ router
             res.json(responseData);
         }
 
-        let training = new Training(trainingName, dateData.startDate, user_id, "", repeats);
+        let training = new Training(trainingName, dateData.startDate, user_id, "");
         let update = await training.trainingExists();
         if (!update) await training.saveData();
         
         let training_response = await training.getTrainingId();
         let training_id = training_response[0].training_id;
-        await training.saveRepetition(training_id, dateData.startDate, dateData.endDate, dateData.repetitionPattern);
+        if (dateData.repetitionPattern) await training.saveRepetition(training_id, dateData.endDate, dateData.repetitionPattern);
         responseData.training_id = training_id;
 
         let exerciseData = data.exerciseData;

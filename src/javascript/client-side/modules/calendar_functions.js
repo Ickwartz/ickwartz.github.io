@@ -43,7 +43,55 @@ class CalendarFunctions {
                 year: year
             } 
         };
-        return await this.fetch_api.postData("/training/get_user_trainings", data);
+        // return await this.fetch_api.postData("/training/get_user_trainings", data);
+        let result = await this.fetch_api.postData("/training/get_user_trainings", data);
+        let appointments = [];
+        let firstDayMonth = `${year}-${month}-01`;
+        let endDate = new Date(firstDayMonth);
+        endDate.setMonth(endDate.getMonth() + 1);
+        for (let appointment of result) {
+            let appointmentEndDate = new Date (appointment.end_date);
+            let currentEndDate = appointmentEndDate < endDate ? appointmentEndDate : endDate;
+            // (appointmentEndDate < endDate) continue;
+            if (!appointment.repetition_pattern) {
+                appointments.push(appointment);
+                continue;
+            }
+            let startDate = appointment.date < firstDayMonth ? new Date(firstDayMonth) : new Date(appointment.date);
+            let days = this.getAllRepetitiveAppointments(startDate, currentEndDate, appointment.repetition_pattern);
+            for (let day of days) {
+                appointments.push({
+                    date: day,
+                    name: appointment.name,
+                    training_id: appointment.training_id,
+                    user_id: appointment.user_id,
+                    user_notes: appointment.user_notes
+                });
+            }
+        }
+        return appointments;
+    }
+
+    getAllRepetitiveAppointments(startDate, endDate, repeatPattern) {
+        let weekdays = {
+                "0": 0b00000001,    //Sonntag
+                "1": 0b00000010,
+                "2": 0b00000100,
+                "3": 0b00001000,
+                "4": 0b00010000,
+                "5": 0b00100000,
+                "6": 0b01000000,
+            };
+
+        let currentDate = startDate;
+        let allDates = [];
+        while (currentDate <= endDate) {
+            let dayIndex = currentDate.getDay();
+            let patternValue = weekdays[dayIndex] & repeatPattern;
+            if (patternValue > 0) allDates.push(currentDate.toISOString().split('T')[0]);
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+        return allDates;
     }
 
     getAppointmentDates() {
