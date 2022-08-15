@@ -10,7 +10,7 @@ router
 
 .get("/", (req, res) => {
     res.render("new_schedule", {
-        admin: true // req.session.adminSession ? true : false
+        admin: req.session.adminSession ? true : false
     });
 })
 

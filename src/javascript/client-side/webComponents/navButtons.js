@@ -16,7 +16,7 @@ class NavButtons extends HTMLElement {
             let monthAndYear = monthAndYear_el.innerHTML.split(" ");
 
             let month = months.indexOf(monthAndYear[0]);
-            let year = monthAndYear[1] ;
+            let year = parseInt(monthAndYear[1]) ;
             year = (month === 0) ? year - 1 : year;
             month = (month === 0) ? 11 : month - 1;
 

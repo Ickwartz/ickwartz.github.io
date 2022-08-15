@@ -4,6 +4,7 @@ let tableHandler =  new NewScheduleTableHandler();
 
 window.onload = async () => {
 	tableHandler.getAvailableExercises();
+	tableHandler.getAvailableUsers();
 
 	tableHandler.addButtonEventListeners();
 	tableHandler.applyKeyListeners();

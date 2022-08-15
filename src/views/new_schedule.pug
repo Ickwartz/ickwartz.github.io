@@ -21,7 +21,7 @@ html(lang='de')
                         tr 
                             td Vor- und Nachname:
                             td 
-                                input#user-input(type="text", placeholder="User")
+                                input#user-input(type="text", placeholder="User", list="availableUsersList")
                         tr 
                             td Name/ Kurzbeschreibung des Trainingsplans: 
                             td 
@@ -88,7 +88,7 @@ html(lang='de')
                                 span(aria-hidden='true') ×
                         .modal-body
                             label(for="loading-user-input" style="padding:5px") Vor- und Nachname:
-                            input#loading-user-input(type="text", placeholder="User")
+                            input#loading-user-input(type="text", placeholder="User", list="availableUsersList")
                             br
                             label(for="loading-date-input" style="padding:5px") Monat:
                             input#loading-date-input(type="month")

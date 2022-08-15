@@ -9,7 +9,6 @@ class NewScheduleTableHandler  {
 	snackbar = new Snackbar();
 	createHtml = new CreateHtml().createHtmlElement;
 	availableExercises = [];	// suggestions for exercises
-	availableUsers = [];	// suggestions for usernames
 	loadingPresets = {};	// to fill in name, date etc inputs after loading
 
 	tableBody = document.getElementById("input_body");
@@ -364,7 +363,7 @@ class NewScheduleTableHandler  {
 		await this.fetch_api.postData("/getexercises").then(result => {
 			this.availableExercises = result;
 		}).catch(() => {
-            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
+            this.snackbar.displayOnSnackbar("Fehler beim laden der Übungen.");
         });
 		this.createAvailableExercisesList();
 		msg ? this.snackbar.displayOnSnackbar(msg) : null;
@@ -384,7 +383,27 @@ class NewScheduleTableHandler  {
 		document.body.appendChild(datalist);
 	}
 
-	// load option lists ( available Exercises + usernames)
+	async getAvailableUsers() {
+		await this.fetch_api.postData("/getUsers").then(result => {
+			this.createAvailableUsersList(result);
+		}).catch(() => {
+			this.snackbar.displayOnSnackbar("Fehler beim laden der User.");
+		});
+	}
+
+	createAvailableUsersList(availableUsers) {
+		let datalist = document.querySelector("#availableUsersList");
+		if (!datalist) {
+			datalist = document.createElement("datalist");
+			datalist.setAttribute("id", "availableUsersList");
+		}
+		for (let user of availableUsers) {
+			let option = document.createElement("option");
+			option.value = `${user.first_name} ${user.surname}`;
+			datalist.appendChild(option);
+		}
+		document.body.appendChild(datalist);
+	}
 	
 	addButtonEventListeners() {
 		document.getElementById("addRowButton").addEventListener("click",() => {

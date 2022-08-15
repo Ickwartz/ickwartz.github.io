@@ -23,8 +23,6 @@ class CalendarTable extends HTMLTableElement {
             let day_el = this.querySelector(`[data-date="${day}"]`);
             day_el.classList.add("appointment-day");
         }
-        // this -> div.container-calendar(0) -> table.table-calendar(1) -> tbody#calendar-body(1)
-        // el.tagDate([5, 12, ...])
     }
 
     getAppointmentDayElements() {
@@ -32,8 +30,9 @@ class CalendarTable extends HTMLTableElement {
     }
 
     showCalendar(month, year) {
-        this.currentMonthAndYear.month = month + 1;
-        this.currentMonthAndYear.year = year;
+        console.log(month, year);
+        this.currentMonthAndYear.month = parseInt(month) + 1;
+        this.currentMonthAndYear.year = parseInt(year);
         // -1 because default is week starting with sunday but i want it to start with monday
         let firstDay = ( new Date( year, month ) ).getDay() -1;
         firstDay = firstDay === -1 ? 6 : firstDay;
@@ -72,10 +71,6 @@ class CalendarTable extends HTMLTableElement {
                     if ( date === today.getDate() && year === today.getFullYear() && month === today.getMonth() ) {
                         cell.className += " selected";
                     }
-                    /*if (appointmentDays.includes(date)) {
-                        cell.className += " appointment-day";
-                        cell.addEventListener("click", () => this.showAppointments(cell));
-                    }*/
                     row.appendChild(cell);
                     date++;
                 }
