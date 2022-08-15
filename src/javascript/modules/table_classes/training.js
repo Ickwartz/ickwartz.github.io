@@ -111,6 +111,23 @@ class Training extends Table_functions{
         return await this.#db_functions.queryAll(sql, params);
     }
 
+    async updateRepetition(training_id, end_date, repetition_pattern) {
+        let sql = `
+            UPDATE training_repetition
+            SET 
+            end_date = $end_date,
+            repetition_pattern = $repetition_pattern
+            WHERE training_id = $training_id;
+        `;
+        let params = {
+            $training_id: training_id,
+            $end_date: end_date,
+            $repetition_pattern: repetition_pattern
+        };
+
+        await this.#db_functions.runQuery(sql,params);
+    }
+
     async saveRepetition(training_id, end_date, repetition_pattern) {
         let sql = `
             INSERT INTO training_repetition (training_id, end_date, repetition_pattern)

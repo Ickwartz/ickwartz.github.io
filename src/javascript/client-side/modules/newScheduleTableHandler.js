@@ -263,6 +263,9 @@ class NewScheduleTableHandler  {
 		userInput.value = this.loadingPresets.user;
 
 		dateInput.value = res.date;
+		if (res.repetition) {
+			this.fillRepetitionInputs(res.repetition, res.date);
+		}
 
 		trainingInput.value = this.loadingPresets.trainingName;
 		this.tableBody.innerHTML = "";
@@ -293,6 +296,29 @@ class NewScheduleTableHandler  {
 			index++;
 		}
 		this.resetLoadingModal();
+	}
+
+	fillRepetitionInputs(repetitionData, date) {
+		let repDurationInput = document.querySelector("#repeat-duration");
+		let startDate = new Date(date);
+		let endDate = new Date(repetitionData.end_date);
+		repDurationInput.value = Math.round((endDate-startDate)/(1000*3600*24*30));
+
+		let weekdayInputs = document.querySelectorAll("#repetition-weekdays input");
+		let repPattern = repetitionData.repetition_pattern;
+		let weekdays = {
+			"sunday": 0b00000001,
+			"monday": 0b00000010,
+			"tuesday": 0b00000100,
+			"wednesday": 0b00001000,
+			"thursday": 0b00010000,
+			"friday": 0b00100000,
+			"saturday": 0b01000000,
+			};
+		for (let day of weekdayInputs) {
+			if (!(weekdays[day.id] & repPattern)) continue;
+			day.checked = true;
+		}
 	}
 
 	resetLoadingModal() {

@@ -40,7 +40,13 @@ router
         
         let training_response = await training.getTrainingId();
         let training_id = training_response[0].training_id;
-        if (dateData.repetitionPattern) await training.saveRepetition(training_id, dateData.endDate, dateData.repetitionPattern);
+        if (dateData.repetitionPattern) {
+            if (update) { 
+                await training.updateRepetition(training_id, dateData.endDate, dateData.repetitionPattern);
+            } else {
+                await training.saveRepetition(training_id, dateData.endDate, dateData.repetitionPattern);
+            }
+        } 
         responseData.training_id = training_id;
 
         let exerciseData = data.exerciseData;
@@ -95,10 +101,11 @@ router
         let id = data.training_id;
         let schedule = await pe_api.getExercisesWithTrainingId(id);
         let scheduleDate = await training_api.getTrainingDate(id);
-        console.log(scheduleDate);
+        let scheduleRepetition = await training_api.loadRepetition(id);
         res.json({
             schedule,
-            date: scheduleDate[0].date
+            date: scheduleDate[0].date,
+            repetition: scheduleRepetition[0]
         });
     } catch (error) {
         res.statusCode = 500;

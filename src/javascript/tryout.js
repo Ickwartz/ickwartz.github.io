@@ -43,13 +43,13 @@
 
 // getAllDays(startDate, endDate, getBitRepeatPattern(testdays));
 
-function getStartDate(month, year){
-    let dateString = `${month}-01-${year}`;
-    let date = new Date(dateString);
-    date.setMonth(date.getMonth() - 6);
-    let startMonth = "" + (date.getMonth() + 1);
-    startMonth = startMonth.length == 1 ? "0" + startMonth : startMonth;
-    let startYear = date.getFullYear();
+// function getStartDate(month, year){
+//     let dateString = `${month}-01-${year}`;
+//     let date = new Date(dateString);
+//     date.setMonth(date.getMonth() - 6);
+//     let startMonth = "" + (date.getMonth() + 1);
+//     startMonth = startMonth.length == 1 ? "0" + startMonth : startMonth;
+//     let startYear = date.getFullYear();
 
     // let startMonth = "";
     // let startYear = "";
@@ -61,16 +61,13 @@ function getStartDate(month, year){
     //     startYear = year;
     // }'
 
-    console.log(startMonth + "-" + startYear);
-}
+    // console.log(startMonth + "-" + startYear);
+// }
 
-getStartDate("01", "2022");     // 07
-getStartDate("05", "2022");     // 11
-getStartDate("07", "2022");     // 01
-getStartDate("08", "2022");     // 02
-getStartDate("11", "2022");     // 05
-getStartDate("12", "2022");     // 06
-
+let a = new Date("2022-08-15");
+let b = new Date("2022-10-15");
+let diff = Math.round((b-a)/(1000*3600*24*30))+1;
+console.log(diff);
 
 // bits 0b00000000
 //  bits & vglBit --> 0 / 1
