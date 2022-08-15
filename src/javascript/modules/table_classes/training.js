@@ -133,6 +133,14 @@ class Training extends Table_functions{
         };
         return await this.#db_functions.queryAll(sql, params);
     }
+
+    async getTrainingDate(training_id) {
+        let sql = "SELECT date FROM training WHERE training_id = $training_id";
+        let params = {
+            $training_id: training_id
+        };
+        return await this.#db_functions.queryAll(sql, params);
+    }
 }
 
 module.exports = Training;

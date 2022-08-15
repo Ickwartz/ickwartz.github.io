@@ -13,7 +13,6 @@ class Fetch_api {
 		})
 		.then(response => {
 			if (!response.ok) {
-				console.log(response.statusText);
 				throw Error(response.statusText);
 			}
 			let status = response.status;

@@ -69,7 +69,8 @@ router
 .post("/getschedules", async (req, res) => {
     try {
         let data = req.body;
-        let date = data.date;
+        let month = data.month;
+        let year = data.year;
         let first_name = data.first_name;
         let surname = data.surname;
         
@@ -77,7 +78,7 @@ router
         let user_id = await user.getUserIDFromName();
         user_id = user_id[0].user_id;
         let training_api = new Training("", "", user_id);
-        let trainings = await training_api.getTrainingsOfDay(date);
+        let trainings = await training_api.getAllUserTrainingMonth(month, year);
         res.json(trainings);
     } catch (error) {
         res.statusCode = 500;
@@ -90,9 +91,15 @@ router
     try {
         let data = req.body;
         let pe_api = new Personalized_Exercises();
+        let training_api = new Training();
         let id = data.training_id;
         let schedule = await pe_api.getExercisesWithTrainingId(id);
-        res.json(schedule);
+        let scheduleDate = await training_api.getTrainingDate(id);
+        console.log(scheduleDate);
+        res.json({
+            schedule,
+            date: scheduleDate[0].date
+        });
     } catch (error) {
         res.statusCode = 500;
         res.send();

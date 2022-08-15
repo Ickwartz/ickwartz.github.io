@@ -207,21 +207,19 @@ class NewScheduleTableHandler  {
 		let surname = user_val.split(" ")[1];
 
 		let date_val = document.getElementById("loading-date-input").value;
-		this.loadingPresets.date = date_val;
-		if (!(first_name && surname && date_val)) {
-			alert("Vorname, Nachname und Datum benötigt");
+		let month = date_val.split("-")[1];
+		let year = date_val.split("-")[0];
+		if (!(first_name && surname && month)) {
+			alert("Vorname, Nachname und Monat benötigt");
 			return null;
 		}
 
-		let dateObj = new Date(date_val);
-		let date = dateObj.toISOString().split('T')[0];
-
-		let data = {first_name, surname, date};
+		let data = {first_name, surname, month, year};
 		
 		await this.fetch_api.postData("/newschedule/getschedules", data).then(result => {
 			let modalBody = document.getElementsByClassName("modal-body")[0];
 			let heading = document.createElement("h6");
-			heading.textContent = `Trainings von ${user_val} am ${date_val}: `;
+			heading.textContent = `Trainings von ${user_val} im ${month} ${year}: `;
 			let list = this.createScheduleOptionsList(result);
 			modalBody.innerHTML="";
 			modalBody.appendChild(heading);
@@ -254,19 +252,21 @@ class NewScheduleTableHandler  {
 	async loadSchedule(training_id) {
 		let res = {};
 		try {
-			res = await this.fetch_api.postData("/newschedule/loadschedule", {training_id})
-		} catch (error) {
-            // this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
-			this.snackbar.displayOnSnackbar(error.message);
+			res = await this.fetch_api.postData("/newschedule/loadschedule", {training_id});
+		} catch {
+            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
 		}
+		let schedule = res.schedule;
 		let userInput = document.getElementById("user-input");
 		let dateInput = document.getElementById("date-input");
 		let trainingInput = document.getElementById("training-name-input");
 		userInput.value = this.loadingPresets.user;
-		dateInput.value = this.loadingPresets.date;
+
+		dateInput.value = res.date;
+
 		trainingInput.value = this.loadingPresets.trainingName;
 		this.tableBody.innerHTML = "";
-		for (let i = 0; i < res.length; i++) {
+		for (let i = 0; i < schedule.length; i++) {
 			this.createRow();
 		}
 		let index = 0;
@@ -280,10 +280,10 @@ class NewScheduleTableHandler  {
 			let setsInput = row.getElementsByClassName("sets-input")[0];
 			let commentInput = row.getElementsByClassName("comment-input")[0];
 			
-			let exerciseName = this.getExerciseName(res[index].exercise_id);
-			let reps = res[index].reps;
-			let sets = res[index].sets;
-			let comment = res[index].comment;
+			let exerciseName = this.getExerciseName(schedule[index].exercise_id);
+			let reps = schedule[index].reps;
+			let sets = schedule[index].sets;
+			let comment = schedule[index].comment;
 
 			exerciseInput.value = exerciseName;
 			repsInput.value = reps;
@@ -312,13 +312,11 @@ class NewScheduleTableHandler  {
 		
 		let dateLabel= document.createElement("label");
 		dateLabel.setAttribute("for", "loading-date-input");
-		dateLabel.textContent = "Datum:";
+		dateLabel.textContent = "Monat:";
 
 		let dateInput = document.createElement("input");
-		dateInput.setAttribute("type", "date");
+		dateInput.setAttribute("type", "month");
 		dateInput.id ="loading-date-input";
-		// eslint-disable-next-line no-useless-escape
-		dateInput.setAttribute("pattern", "\d{2}-\d{2}-\d{4}");
 
 		modalBody.appendChild(userLabel);
 		modalBody.appendChild(userInput);
