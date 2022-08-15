@@ -43,20 +43,20 @@ class CalendarFunctions {
                 year: year
             } 
         };
-        // return await this.fetch_api.postData("/training/get_user_trainings", data);
         let result = await this.fetch_api.postData("/training/get_user_trainings", data);
         let appointments = [];
         let firstDayMonth = `${year}-${month}-01`;
         let endDate = new Date(firstDayMonth);
-        endDate.setMonth(endDate.getMonth() + 1);
+        endDate.setMonth(endDate.getMonth() + 1, 0);
         for (let appointment of result) {
-            let appointmentEndDate = new Date (appointment.end_date);
-            let currentEndDate = appointmentEndDate < endDate ? appointmentEndDate : endDate;
-            // (appointmentEndDate < endDate) continue;
             if (!appointment.repetition_pattern) {
+                if (appointment.date < firstDayMonth || appointment.date > endDate) continue;
                 appointments.push(appointment);
                 continue;
             }
+            let appointmentEndDate = new Date (appointment.end_date);
+            let currentEndDate = appointmentEndDate < endDate ? appointmentEndDate : endDate;
+            
             let startDate = appointment.date < firstDayMonth ? new Date(firstDayMonth) : new Date(appointment.date);
             let days = this.getAllRepetitiveAppointments(startDate, currentEndDate, appointment.repetition_pattern);
             for (let day of days) {
@@ -69,6 +69,7 @@ class CalendarFunctions {
                 });
             }
         }
+
         return appointments;
     }
 

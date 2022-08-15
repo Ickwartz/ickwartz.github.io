@@ -47,6 +47,7 @@ class Training extends Table_functions{
     }
 
     async getAllUserTrainingMonth(month, year) {
+        // get all trainings up to 6 months back (6 months = longest possible repetition)
         let dateString = `${month}-01-${year}`;
         let date = new Date(dateString);
         date.setMonth(date.getMonth() - 6);
