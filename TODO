@@ -1,3 +1,7 @@
+Zugänge begrenzen
+    - new_schedule_route.js
+
+
 -- PRE PUBLISH --
     - Bootstrap local nutzen
     - referer in login_route zu website URL

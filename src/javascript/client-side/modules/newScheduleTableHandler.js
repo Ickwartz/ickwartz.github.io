@@ -227,7 +227,7 @@ class NewScheduleTableHandler  {
 			modalBody.appendChild(heading);
 			modalBody.appendChild(list);
 		}).catch(() => {
-            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
+			this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
         });
 	}
 
@@ -252,43 +252,46 @@ class NewScheduleTableHandler  {
 	}
 
 	async loadSchedule(training_id) {
-		await this.fetch_api.postData("/newschedule/loadschedule", {training_id}).then(res => {
-			let userInput = document.getElementById("user-input");
-			let dateInput = document.getElementById("date-input");
-			let trainingInput = document.getElementById("training-name-input");
-			userInput.value = this.loadingPresets.user;
-			dateInput.value = this.loadingPresets.date;
-			trainingInput.value = this.loadingPresets.trainingName;
-			this.tableBody.innerHTML = "";
-			for (let i = 0; i < res.length; i++) {
-				this.createRow();
+		let res = {};
+		try {
+			res = await this.fetch_api.postData("/newschedule/loadschedule", {training_id})
+		} catch (error) {
+            // this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
+			this.snackbar.displayOnSnackbar(error.message);
+		}
+		let userInput = document.getElementById("user-input");
+		let dateInput = document.getElementById("date-input");
+		let trainingInput = document.getElementById("training-name-input");
+		userInput.value = this.loadingPresets.user;
+		dateInput.value = this.loadingPresets.date;
+		trainingInput.value = this.loadingPresets.trainingName;
+		this.tableBody.innerHTML = "";
+		for (let i = 0; i < res.length; i++) {
+			this.createRow();
+		}
+		let index = 0;
+		let rows = document.querySelectorAll("#input_body tr");
+		for (let row of rows) {
+			if (row.firstChild.tagName == "TH") {
+				continue;
 			}
-			let index = 0;
-			let rows = document.getElementsByTagName("tr");
-			for (let row of rows) {
-				if (row.firstChild.tagName == "TH") {
-					continue;
-				}
-				let exerciseInput = row.getElementsByClassName("exercise-input")[0];
-				let repsInput = row.getElementsByClassName("reps-input")[0];
-				let setsInput = row.getElementsByClassName("sets-input")[0];
-				let commentInput = row.getElementsByClassName("comment-input")[0];
-				
-				let exerciseName = this.getExerciseName(res[index].exercise_id);
-				let reps = res[index].reps;
-				let sets = res[index].sets;
-				let comment = res[index].comment;
+			let exerciseInput = row.getElementsByClassName("exercise-input")[0];
+			let repsInput = row.getElementsByClassName("reps-input")[0];
+			let setsInput = row.getElementsByClassName("sets-input")[0];
+			let commentInput = row.getElementsByClassName("comment-input")[0];
+			
+			let exerciseName = this.getExerciseName(res[index].exercise_id);
+			let reps = res[index].reps;
+			let sets = res[index].sets;
+			let comment = res[index].comment;
 
-				exerciseInput.value = exerciseName;
-				repsInput.value = reps;
-				setsInput.value = sets;
-				commentInput.value = comment;
+			exerciseInput.value = exerciseName;
+			repsInput.value = reps;
+			setsInput.value = sets;
+			commentInput.value = comment;
 
-				index++;
-			}
-		}).catch(() => {
-            this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
-        });
+			index++;
+		}
 		this.resetLoadingModal();
 	}
 
