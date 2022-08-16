@@ -22,6 +22,7 @@ class UserControl {
         document.querySelector("#expiring-users").addEventListener("click", () => {
             this.createMarkedUsersTable();
         });
+        this.addSearching();
     }    
 
     applyDeleteEventListeners() {
@@ -168,6 +169,29 @@ class UserControl {
             tr.append(th);
         }
         thead.replaceChildren(tr);
+    }
+
+    addSearching() {
+        let input = document.querySelector(".search-input");
+        input.addEventListener("keyup", function() {
+            let filter = this.value.toLowerCase();
+            let table = document.querySelector("table");
+            let rows = table.querySelectorAll("tbody tr");
+
+            for (let row of rows) {
+                let fields = row.querySelectorAll("td");
+                let found = false;
+                for (let field of fields) {
+                    let value = field.textContent.toLowerCase();
+                    if (value && value.indexOf(filter) != -1) found = true;
+                }
+                if (found) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        });
     }
 
     clearInputContainer() {
