@@ -13,8 +13,28 @@ class EditExercisesHandler {
         await this.fetch_api.postData("/getexercises").then((result) => {
             this.exerciseList = result;
             this.createExercisesTable(this.exerciseList);
+            this.addSearching();
         }).catch(() => {
             this.snackbar.displayOnSnackbar("Irgendetwas ist schiefgelaufen.");
+        });
+    }
+
+    addSearching() {
+        let searchInput = document.querySelector(".search-input");
+        searchInput.addEventListener("keyup", function() {
+            let filter = this.value.toLowerCase();
+            let table = document.querySelector("table");
+            let rows = table.querySelectorAll("tbody tr");
+
+            for (let row of rows) {
+                let exercise = row.querySelectorAll("td")[1];
+                let value = exercise.textContent.toLowerCase();
+                if (value.indexOf(filter) != -1) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
         });
     }
 

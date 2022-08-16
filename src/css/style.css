@@ -145,3 +145,8 @@ tr.hide-table-padding td {
   .accordion-toggle:hover {
     cursor: pointer;
   }
+
+  .search-input {
+      margin: 3px;
+      border-radius: 5px
+  }
