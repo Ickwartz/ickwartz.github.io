@@ -6,6 +6,7 @@ Zugänge begrenzen
     - referer in login_route zu website URL
     - Datenschutz und Impressum vervollständigen
     - Proxy?
+    - Cookies statt Session
 
 - Account System
     - Mitglieder Page für Details bearbeiten

@@ -1,26 +1,34 @@
 const express = require("express");
 const session = require('express-session');
+const sqliteStoreFactory = require("express-session-sqlite").default;
+const sqlite3 = require("sqlite3");
 const path = require("path");
 const routes = require("./javascript/modules/routes/routes");
 const morgan = require("../utils/morganMiddleware");
 const logger = require("../utils/winstonLogger");
 
+const SqliteStore = sqliteStoreFactory(session);
 const app = express();
+
+const store = new SqliteStore({
+    driver: sqlite3.Database,
+    path: "./src/database/session_db.db",
+    ttl: 1000 * 3600 * 24,  // 1d
+    prefix: "sess",
+    cleanupInterval: 900000 // 15min
+});
 
 // general App Configuration
 app
     .use(morgan)
-    // Log requests
-    /*.use((req, res, next) => {
-        logger.serverLogger.info(`${req.originalUrl}: ${req.method} ${res.statusCode}`);
-        next();
-    })
-    */
+
     .set("view engine", "pug")
     .set("views", path.join(__dirname, "views"))
 
     .use(session({
+        store: store,
         secret: "wubalubadubdub",
+        cookie: {maxAge: 1000 * 3600 * 24}, // 1d
         resave: true,   // reactivate old session
         saveUninitialized: true, // helps identify revisiting users
     }))
