@@ -8,6 +8,10 @@ Zugänge begrenzen
     - Proxy?
     - Logs nicht nur info
 
+
+-- Bugs --
+    - falscher Login --> richtiger Login => keine Weiterleitung auf Main Page
+
 - Account System
     - Mitglieder Page für Details bearbeiten
 
