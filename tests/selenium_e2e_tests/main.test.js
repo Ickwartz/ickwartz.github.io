@@ -5,16 +5,18 @@ let service = new chrome.ServiceBuilder("C:/Users/Schiffke/Documents/Ausbildung/
 // chrome.setDefaultService(service);
 let options = new chrome.Options();
 
-async function example() {
-    // let driver = await new Builder().forBrowser(chrome).build();
+describe("Open Google, search for Selenium and close window", () => {
     let driver = chrome.Driver.createSession(options, service);
-    await driver.get("http://google.com");
-    try {
-        await driver.findElement(By.id("L2AGLb")).click();
-    } catch (error) {
-        console.log("Fehler css");
-    }
-    await driver.findElement(By.name("q")).sendKeys("Selenium", Key.RETURN);
-}
 
-example();
+    afterAll(async () => {
+        await driver.quit();
+    });
+
+    test("Open Google, search for Selenium and close window", async () => {
+        await driver.get("http://google.com");
+        await driver.findElement(By.id("L2AGLb")).click();
+        await driver.findElement(By.name("q")).sendKeys("Selenium", Key.RETURN);
+    });
+
+});
+    
