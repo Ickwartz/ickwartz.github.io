@@ -7,7 +7,7 @@ Zugänge begrenzen
     - Datenschutz und Impressum vervollständigen
     - Proxy?
     - Logs nicht nur info
-    
+
 - Account System
     - Mitglieder Page für Details bearbeiten
 
@@ -17,12 +17,23 @@ Zugänge begrenzen
 Übungen
     - löschen ? 
 
-- Improvements
-    - Suchen Funktion für Bearbeiten (User, Registrierung, Exercises)
-
 Allgemeine Aufgaben
     - Wie Client seitig infos über Page Zustand
         --> Browser Cache
+
+
+End to End Tests
+    - WebDriverIO
+        - am einfachsten aber auch wenigste Funktionen
+    - Selenium
+        - deckt sehr viele Websprachen ab (z.B. JS, C#, Python)
+        - breite Browserunterstützung
+        - etablierter Name
+    - Cypress
+        - einfach installierbar
+        - deckt viele Testvarianten ab (Unit, Integration, E2E)
+        - nur JS
+ 
 
 
 DATENSCHUTZ
@@ -36,5 +47,3 @@ IMPRESSUM
     - Handels- / Gewerberegister
     - Umsatzsteueridentifikationsnummer 
 
-
-    Testen was passiert wenn Anmerkungen oder Comment sehr lang sind
