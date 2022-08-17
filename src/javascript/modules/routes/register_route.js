@@ -61,7 +61,7 @@ router
     let user_account = new User_Accounts(email, password);
 
     try {
-        if (user_account.isRegistered()) {
+        if (await user_account.isRegistered()) {
             logger.eventLogger.info(`Attempt to register with used email.`);
             res.redirect("/register?reg=used");
             return;
