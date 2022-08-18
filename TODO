@@ -1,44 +1,17 @@
-Zugänge begrenzen
-
-
 -- PRE PUBLISH --
+    - Passwort vergessen
     - Bootstrap local nutzen
     - referer in login_route zu website URL
     - Datenschutz und Impressum vervollständigen
     - Proxy?
     - Logs nicht nur info
+    - Inputs Names geben
+    - chrome downloaden bei build in temp ordner + Pfad generieren
 
-
--- Bugs --
-    - falscher Login --> richtiger Login => keine Weiterleitung auf Main Page
-
-- Account System
-    - Mitglieder Page für Details bearbeiten
-
-- Refactor
-    - Frontend und Backend in separate Folder
-
-Übungen
-    - löschen ? 
-
-Allgemeine Aufgaben
-    - Wie Client seitig infos über Page Zustand
-        --> Browser Cache
-
-
-End to End Tests
-    - WebDriverIO
-        - am einfachsten aber auch wenigste Funktionen
-    - Selenium
-        - deckt sehr viele Websprachen ab (z.B. JS, C#, Python)
-        - breite Browserunterstützung
-        - etablierter Name
-    - Cypress
-        - einfach installierbar
-        - deckt viele Testvarianten ab (Unit, Integration, E2E)
-        - nur JS
- 
-
+- Page Pattern Object
+    - navbar
+    - login
+    https://webdriver.io/docs/pageobjects/
 
 DATENSCHUTZ
     - (IP Adressen nach bestimmter Zeit anonymisieren)
@@ -51,3 +24,6 @@ IMPRESSUM
     - Handels- / Gewerberegister
     - Umsatzsteueridentifikationsnummer 
 
+IMPROVEMENTS
+    - nach trainingsplan laden modal schließen
+    - Geburtsdatum speichern
