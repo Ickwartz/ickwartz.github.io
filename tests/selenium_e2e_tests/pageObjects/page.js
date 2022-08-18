@@ -12,7 +12,7 @@ class Page {
         await this.driver.get("http://localhost:8080" +url);
     }
 
-    async close() {
+    async quit() {
         await this.driver.quit();
     }
 

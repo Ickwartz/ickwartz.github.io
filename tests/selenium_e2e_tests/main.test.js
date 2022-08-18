@@ -23,15 +23,27 @@ describe("Website UI Tests", () => {
     });
 
     describe("Login Test", () => {
-        test("Login fail", () => {
+        test("Login fail", async () => {
             let loginPage = new LoginPage();
-            loginPage.enterEmail("gibberish@mail.de");
-            loginPage.enterPassword("gibberish");
-            loginPage.submit();
-            expect(loginPage.verifyNoError()).toBeTruthy();
-            loginPage.close();
+            await loginPage.open();
+            await loginPage.enterEmail("gibberish@mail.de");
+            await loginPage.enterPassword("gibberish");
+            await loginPage.submit();
+            let errorDisplayed = !(await loginPage.verifyNoError());
+            await loginPage.quit(); 
+            expect(errorDisplayed).toBeTruthy();
+        });
+
+        test("Login successfull", async () => {
+            let loginPage = new LoginPage();
+            await loginPage.open();
+            await loginPage.enterEmail("selenium@test.de");
+            await loginPage.enterPassword("selenium");
+            await loginPage.submit();
+            let success = await loginPage.verifyNoError();
+            await loginPage.quit(); 
+            expect(success).toBeTruthy();
         });
     });
-
 });
     

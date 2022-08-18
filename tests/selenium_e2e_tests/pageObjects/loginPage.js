@@ -6,47 +6,42 @@ class LoginPage extends Page {
         super();
     }
 
-    get EmailInput () {
-        return this.driver.findElement(By.name("email"));
+    async open() {
+        await super.open("/login");
     }
 
-    get PasswordInput () {
-        return this.driver.findElement(By.name("password"));
-    }
-
-    get submitBtn () {
-        return this.driver.findElement(By.id("submit_button"));
-    }
-
-    get ForgotPassword () {
-        return this.driver.findElement(By.linkText("Passwort vergessen?"));
-    }
-
-    get Register () {
-        return this.driver.findElement(By.linkText("Registrieren"));
-    }
-
-    enterEmail(input) {
-        this.EmailInput.sendKeys(input);
+    async enterEmail(input) {
+        let emailInput = await this.driver.findElement(By.name("email"));
+        await emailInput.sendKeys(input);
         return this;
     }
 
-    enterPassword(pw) {
-        this.PasswordInput.sendKeys(pw);
+    async enterPassword(pw) {
+        let pwInput = await this.driver.findElement(By.name("password"));
+        await pwInput.sendKeys(pw);
         return this;
     }
 
-    submit() {
-        this.EmailInput.submit();
+    async submit() {
+        let submitButton = await this.driver.findElement(By.css('button[type="submit"]'));
+        submitButton.click();
         return this;
     }
 
-    verifyNoError() {
-        let errorMessage = this.driver.findElements(By.css('h4[text="Falsche Email und/oder Passwort"]'));
-        if (errorMessage.length == 0) {
-            return false;
+    async verifyNoError() {
+        let errorMessage = await this.driver.findElements(By.css('h4[text="Falsche Email und/oder Passwort"]'));
+        if (errorMessage.length > 0) {
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    async getRegisterLink() {
+        return await this.driver.findElement(By.linkText("Registrieren"));
+    }
+
+    async getForgotPwLink() {
+        return await this.driver.findElement(By.linkText("Passwort vergessen?"));
     }
 
     // enterUser etc
