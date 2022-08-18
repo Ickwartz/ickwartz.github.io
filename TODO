@@ -1,29 +1,17 @@
-Zugänge begrenzen
-
-
 -- PRE PUBLISH --
+    - Passwort vergessen
     - Bootstrap local nutzen
     - referer in login_route zu website URL
     - Datenschutz und Impressum vervollständigen
     - Proxy?
     - Logs nicht nur info
-    
-- Account System
-    - Mitglieder Page für Details bearbeiten
+    - Inputs Names geben
+    - chrome downloaden bei build in temp ordner + Pfad generieren
 
-- Refactor
-    - Frontend und Backend in separate Folder
-
-Übungen
-    - löschen ? 
-
-- Improvements
-    - Suchen Funktion für Bearbeiten (User, Registrierung, Exercises)
-
-Allgemeine Aufgaben
-    - Wie Client seitig infos über Page Zustand
-        --> Browser Cache
-
+- Page Pattern Object
+    - navbar
+    - login
+    https://webdriver.io/docs/pageobjects/
 
 DATENSCHUTZ
     - (IP Adressen nach bestimmter Zeit anonymisieren)
@@ -36,5 +24,6 @@ IMPRESSUM
     - Handels- / Gewerberegister
     - Umsatzsteueridentifikationsnummer 
 
-
-    Testen was passiert wenn Anmerkungen oder Comment sehr lang sind
+IMPROVEMENTS
+    - nach trainingsplan laden modal schließen
+    - Geburtsdatum speichern

@@ -5,4 +5,8 @@ notes
 dump
 /playground
 /database/SQLite
+<<<<<<< HEAD
 /database/*.db
+=======
+/database/*.db
+>>>>>>> selenium
