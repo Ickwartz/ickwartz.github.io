@@ -42,7 +42,22 @@ router
         res.redirect("/register?reg=pwmismatch");
         return;
     }
-    
+      
+    let user = new User(first_name, surname, email);
+    password = await hashing.hashPw(password);
+    let user_account = new User_Accounts(email, password);
+    try {
+        if (await user_account.isRegistered()) {
+            logger.eventLogger.info(`Attempt to register with used email.`);
+            res.redirect("/register?reg=used");
+            return;
+        }
+    } catch (error) {
+        res.statusCode = 500;
+        res.send("Error");
+        logger.systemLogger.error(`${error}, caught in route /registrate on user_account.isRegistered`);
+    }
+
     let preregister = new Preregister(surname, email);
     try {
         let preregisterCheck = await preregister.isPreRegistered();
@@ -55,22 +70,6 @@ router
         res.statusCode = 500;
         res.send("Error");
         logger.systemLogger.error(`${error}, caught in route /registrate on preregister.isPreRegistered`);
-    }
-   
-    let user = new User(first_name, surname, email);
-    password = await hashing.hashPw(password);
-    let user_account = new User_Accounts(email, password);
-
-    try {
-        if (await user_account.isRegistered()) {
-            logger.eventLogger.info(`Attempt to register with used email.`);
-            res.redirect("/register?reg=used");
-            return;
-        }
-    } catch (error) {
-        res.statusCode = 500;
-        res.send("Error");
-        logger.systemLogger.error(`${error}, caught in route /registrate on user_account.isRegistered`);
     }
 
     try {
