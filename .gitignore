@@ -4,3 +4,4 @@ notes
 ./src/database/SQLite/
 dump
 /playground
+/database

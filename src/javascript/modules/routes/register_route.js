@@ -58,6 +58,7 @@ router
     }
    
     let user = new User(first_name, surname, email);
+    password = await hashing.hashPw(password);
     let user_account = new User_Accounts(email, password);
 
     try {
@@ -74,7 +75,6 @@ router
 
     try {
         req.session.registerMessage = "";
-        password = await hashing.hashPw(password);
         let user_id = await user.safeData();
         await user_account.safeData();
         logger.eventLogger.info(`${email} successfully registered.`);
