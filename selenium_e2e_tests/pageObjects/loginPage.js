@@ -1,4 +1,4 @@
-const { By } = require("selenium-webdriver");
+const { By, until } = require("selenium-webdriver");
 const Page = require("./page");
 
 class LoginPage extends Page {
@@ -13,31 +13,31 @@ class LoginPage extends Page {
     async enterEmail(input) {
         let emailInput = await this.driver.findElement(By.name("email"));
         await emailInput.sendKeys(input);
-        return this;
     }
 
     async enterPassword(pw) {
         let pwInput = await this.driver.findElement(By.name("password"));
         await pwInput.sendKeys(pw);
-        return this;
     }
 
     async submit() {
         let submitButton = await this.driver.findElement(By.css('button[type="submit"]'));
         submitButton.click();
-        return this;
+        let re = new RegExp(`^(?!(${this.baseUrl+"login"})$).*$`, "g"); // alles das nicht baseURL/login ist
+        await this.driver.wait(until.urlMatches(re), 5000, "Timed out after submit", 500);
     }
 
     async verifyError() {
-        let errorMessage = await this.driver.findElements(By.css('h4[text="Falsche Email und/oder Passwort"]'));
+        let errorMessage = await this.driver.findElements(By.xpath(`//h4[text()="Falsche Email und/oder Passwort"]`));
         if (errorMessage.length > 0) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     async verifySuccess() {
-        return await this.driver.getCurrentUrl()  == this.baseUrl ? true : false; 
+        let url = await this.driver.getCurrentUrl();
+        return url == this.baseUrl ? true : false; 
     }
 
     async getRegisterLink() {
