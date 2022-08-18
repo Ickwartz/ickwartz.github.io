@@ -7,7 +7,7 @@ class LoginPage extends Page {
     }
 
     async open() {
-        await super.open("/login");
+        await super.open("login");
     }
 
     async enterEmail(input) {
@@ -28,12 +28,16 @@ class LoginPage extends Page {
         return this;
     }
 
-    async verifyNoError() {
+    async verifyError() {
         let errorMessage = await this.driver.findElements(By.css('h4[text="Falsche Email und/oder Passwort"]'));
         if (errorMessage.length > 0) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
+    }
+
+    async verifySuccess() {
+        return await this.driver.getCurrentUrl()  == this.baseUrl ? true : false; 
     }
 
     async getRegisterLink() {

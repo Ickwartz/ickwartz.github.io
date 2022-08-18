@@ -8,8 +8,10 @@ class Page {
         this.driver = chrome.Driver.createSession(options, service);
     }
 
+    baseUrl = "http://localhost:8080/";
+
     async open(url) {
-        await this.driver.get("http://localhost:8080" +url);
+        await this.driver.get(this.baseUrl + url);
     }
 
     async quit() {
