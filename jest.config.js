@@ -6,6 +6,9 @@ module.exports = {
   testEnvironmentOptions: {
     url: "http://localhost/"
   },
-  setupFilesAfterEnv: ["./jest-setup.js"]
+  setupFilesAfterEnv: ["./jest-setup.js"],
   // ...
+  moduleNameMapper: {
+    "@logger": "./utils/winstonLogger.js"
+  }
 };
