@@ -7,16 +7,14 @@ module.exports = {
                 if (err) {
                     rej(err);
                     return;
-                } else {
-                    bcrypt.hash(password, salt, (err, hash) => {
-                        if (err) {
-                            rej(err);
-                            return;
-                        } else {
-                            res(hash);
-                        }
-                    });
                 }
+                bcrypt.hash(password, salt, (err, hash) => {
+                    if (err) {
+                        rej(err);
+                        return;
+                    }
+                    res(hash);
+                });
             });
         });
     },
@@ -27,9 +25,8 @@ module.exports = {
                 if (err) {
                     rej(err);
                     return;
-                } else {
-                    res(pw_matches);
                 }
+                res(pw_matches);
             });
         });
     }
