@@ -44,7 +44,6 @@ class RegistrationPage extends Page {
 
     async alreadyRegistered() {
         let infoMessage = await this.driver.findElements(By.xpath('//h4[text()="Es ist schon ein Nutzer mit dieser Email registriert."]'));
-        console.log(infoMessage);
         return infoMessage.length > 0 ? true : false;
     }
 
