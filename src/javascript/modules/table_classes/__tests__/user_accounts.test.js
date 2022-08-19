@@ -1,6 +1,6 @@
-const User_Account = require("../src/javascript/modules/table_classes/user_accounts");
+const User_Account = require("../user_accounts");
 
-jest.mock("../src/javascript/modules/db_functions");
+jest.mock("../../db_functions");
 
 describe("user_accounts", () => {
     afterEach(() => jest.clearAllMocks());       // reset mocks after each test to prevent errors when adding more tests

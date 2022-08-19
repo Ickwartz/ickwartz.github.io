@@ -1,6 +1,6 @@
-const Db_Functions = require("../src/javascript/modules/db_functions");
+const Db_Functions = require("../db_functions");
 
-jest.mock("../src/javascript/modules/db_instance");
+jest.mock("../db_instance");
 
 describe("Db_Functions", () => {
     afterEach(() => jest.clearAllMocks());
