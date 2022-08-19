@@ -4,6 +4,7 @@ const request = require("supertest");
 jest.mock("../../table_classes/preregistration");
 jest.mock("../../table_classes/users");
 jest.mock("../../table_classes/user_accounts");
+jest.mock("@logger");
 
 describe("post register/registrate", () => {
     test("failes on missing inputs", async () => {
