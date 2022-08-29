@@ -8,7 +8,6 @@ const router = express.Router();
 let lastReferer = "/";
 
 function checkReferer(ref) {
-    console.log(ref, lastReferer);
     if (!ref) return "/";
     if (ref === "http://localhost:8080/login") return lastReferer;
     let parts = ref.split("/");

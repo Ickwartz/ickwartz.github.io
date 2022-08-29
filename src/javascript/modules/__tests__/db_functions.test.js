@@ -15,7 +15,7 @@ describe("Db_Functions", () => {
         }
     });
 
-    test("Should resolve promise with data when query is successfull", async () => {
+    test("Promise should resolve with data when query is successfull", async () => {
         expect(await db_functions.queryAll()).toEqual([{data: "data"}]);
     });
 

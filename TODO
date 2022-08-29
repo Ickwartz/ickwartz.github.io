@@ -8,10 +8,13 @@
     - Inputs Names geben
     - chrome downloaden bei build in temp ordner + Pfad generieren
 
-- Page Pattern Object
-    - navbar
-    - login
-    https://webdriver.io/docs/pageobjects/
+-- Known Bugs --
+- Übungen aktualisieren bei Trainingsplan erstellung verlängert vorschlag liste --> keine Ersetzung?
+
+-- TODO --
+Pw vergessen
+Fehlermessage wenn URL nicht updatet bei Login
+
 
 DATENSCHUTZ
     - (IP Adressen nach bestimmter Zeit anonymisieren)
