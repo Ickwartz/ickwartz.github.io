@@ -13,6 +13,8 @@
     "watch-debug": "nodemon --inspect-brk ./src/start.js",
     "pretest": "eslint **/*.js",
     "test": "jest",
+    "unittest": "jest -- ./src",
+    "e2etest": "jest -- ./selenium_e2e_tests",
     "lint": "eslint **/*.js"
   },
   "_moduleAliases": {
