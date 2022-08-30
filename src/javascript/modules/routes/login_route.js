@@ -9,9 +9,9 @@ let lastReferer = "/";
 
 function checkReferer(ref) {
     if (!ref) return "/";
-    if (ref === "http://localhost:8080/login") return lastReferer;
+    if (/http:\/\/localhost:8080\/login/.test(ref)) return lastReferer;     // if url is login or login with any parameters
     let parts = ref.split("/");
-    if (parts[0] === "http:" && parts[1] === "" && parts[2] === "localhost:8080") return ref;    // exactly http://localhost:8080
+    if (parts[0] === "http:" && parts[1] === "" && parts[2] === "localhost:8080") return ref;    // exactly with http://localhost:8080 and following with any path
     return "/";
 }
 
