@@ -11,11 +11,13 @@ class Db_Functions {
                 let query = this.db.prepare(sql, function(err) {
                     if (err) {
                         reject(err);
+                        return;
                     }
                 });
                 query.all(placeholders, (err, rows) => {
                     if (err) {
                         reject(err);
+                        return;
                     }
                     resolve(rows);
                 });
@@ -25,23 +27,22 @@ class Db_Functions {
             throw Error(`${err} || running QueryAll: ${sql} data: ${Object.keys(placeholders)} `);
         });
     }
-    /*
-    sql
-    placeholders
-    ErrorMessage
-    */
+    
     async runQuery(sql, data) {
         return new Promise ((resolve, reject) => {
             this.db.serialize(() => {
                 let query = this.db.prepare(sql, function(err) {
                     if (err) {
                         reject(err);
+                        return;
                     }
                 });
                 query.run(data, function(err) {
                     if (err) {
                         reject(err);
+                        return;
                     }
+                    console.log(this);
                     resolve(this.lastID);
                 });
             });
@@ -50,25 +51,6 @@ class Db_Functions {
             throw Error(`${err} || running Query: ${sql} data: ${Object.keys(data)} `);
         });
     }
-    /*
-    async runQuery(sql, data) {
-        try {
-            let query = this.db.prepare(sql);
-            query.run(data, function(err) {
-                if (err) {
-                    logger.debug(err);
-                    throw err;
-                }
-                logger.dbLogger.info("Query ran successfully");
-            });
-            return this.lastID;
-            
-        } catch(error) {
-            logger.debug("runQuery:" + error);
-            throw error;
-        }
-    }
-    */
 }
 
 module.exports = Db_Functions;
