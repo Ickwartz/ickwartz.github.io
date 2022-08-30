@@ -10,11 +10,11 @@
 
 -- Known Bugs --
     - Übungen aktualisieren bei Trainingsplan erstellung verlängert vorschlag liste --> keine Ersetzung?
-    - Bei Login nach Fehler wird manchmal URL nicht geupdatet
-
+    
 -- TODO --
     - Pw vergessen
     - Druckbutton bei Trainingsplan
+    - nach trainingsplan laden modal schließen
 
 
 DATENSCHUTZ
@@ -28,6 +28,10 @@ IMPRESSUM
     - Handels- / Gewerberegister
     - Umsatzsteueridentifikationsnummer 
 
+GEBURTSDATUM SPEICHERN
+    - DB anpassen
+    - Queries anpassen
+    - route anpassen
+    - frontend displays anpassen
+
 IMPROVEMENTS
-    - nach trainingsplan laden modal schließen
-    - Geburtsdatum speichern

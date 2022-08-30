@@ -371,16 +371,22 @@ class NewScheduleTableHandler  {
 
 	createAvailableExercisesList() {
 		let datalist = document.getElementById("availableExercises");
-		if (!datalist) {
-			datalist = document.createElement("datalist");
-			datalist.setAttribute("id", "availableExercises");
-		}
+		let options = [];
 		for (let exercise of this.availableExercises) {
 			let option = document.createElement("option");
 			option.value = exercise.name;
-			datalist.appendChild(option);
+			options.push(option);
 		}
-		document.body.appendChild(datalist);
+		if (!datalist) {
+			datalist = document.createElement("datalist");
+			datalist.setAttribute("id", "availableExercises");
+			datalist.append(...options);
+			document.body.appendChild(datalist);
+		} else {
+			datalist.innerHTML = "";
+			datalist.append(...options);
+		}
+		
 	}
 
 	async getAvailableUsers() {
