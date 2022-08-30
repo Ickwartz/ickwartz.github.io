@@ -1,21 +1,39 @@
-import {CalendarFunctions} from "../modules/calendar_functions";
-import {CalendarTable} from "../webComponents/calendarTable";
-import {ScheduleDisplay} from "../webComponents/scheduleDisplay";
+import {CalendarFunctions} from "../calendar_functions";
+import {CalendarTable} from "../../webComponents/calendarTable";
+import {ScheduleDisplay} from "../../webComponents/scheduleDisplay";
 
-jest.mock("../modules/backendCommunication");
-jest.mock("../webComponents/calendarTable");
-jest.mock("../webComponents/scheduleDisplay");
-require("../modules/initWebComponents");
+import {Fetch_api} from "../fetch_api";
 
+jest.mock("../../webComponents/calendarTable");
+jest.mock("../../webComponents/scheduleDisplay");
+jest.mock("../fetch_api.js");
+require("../initWebComponents.js");
+
+let mockedAppointments = [{training_id: 1, name: 'test', date: '2022-02-01', user_id: 1}];
+Fetch_api.prototype.postData.mockReturnValue(mockedAppointments);
 
 describe("CalendarFunctions", () => {
     document.body.innerHTML = "<schedule-calendar></schedule-calendar>";
     let calendar_functions = new CalendarFunctions;
-    let mockedAppointments = [{training_id: 1, name: 'test', date: '2022-02-01', user_id: 1}]; // defined in backendCommunication mock
 
     afterEach(() => {
         jest.clearAllMocks();
       });
+
+    describe("getMonthsAppointments", () => {
+        test("should return appointment without repetition_pattern", async () => {
+            let result = await calendar_functions.getMonthsAppointments("02", "2022");
+            expect(result).toStrictEqual(mockedAppointments);
+        });
+
+        test("should return array of repeated appointments when repetition_pattern is given", async () => {
+            let value = mockedAppointments;
+            value[0].repetition_pattern = 2;    // only Mondays
+            Fetch_api.prototype.postData.mockReturnValueOnce(value);
+            let result = await calendar_functions.getMonthsAppointments("02", "2022");
+            expect(result.length).toBe(4);      // 02/2022 has 4 Mondays
+        });
+    });
 
     test("Dom Tree built successfully", () => {
         expect(document.getElementById("monthAndYear")).toBeTruthy();
