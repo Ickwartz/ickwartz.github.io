@@ -3,7 +3,7 @@ class EditExerciseModal extends HTMLElement {
         super();
     }
 
-    cancelButton = '<button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Abbrechen</button>'
+    cancelButton = '<button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Abbrechen</button>';
 
     addSaveButton(callingClass, exercise) {
         let modalFooter = this.querySelector(".modal-footer");

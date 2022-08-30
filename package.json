@@ -11,6 +11,7 @@
     "watch": "nodemon ./src/start.js",
     "debug": "node --inspect-brk ./src/start.js",
     "watch-debug": "nodemon --inspect-brk ./src/start.js",
+    "pretest": "eslint **/*.js",
     "test": "jest",
     "lint": "eslint **/*.js"
   },

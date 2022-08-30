@@ -9,8 +9,7 @@
     - chrome downloaden bei build in temp ordner + Pfad generieren
 
 -- Known Bugs --
-    - Übungen aktualisieren bei Trainingsplan erstellung verlängert vorschlag liste --> keine Ersetzung?
-    
+
 -- TODO --
     - Pw vergessen
     - Druckbutton bei Trainingsplan

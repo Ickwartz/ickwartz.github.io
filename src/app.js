@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const express = require("express");
 const session = require('express-session');
 const sqliteStoreFactory = require("express-session-sqlite").default;
