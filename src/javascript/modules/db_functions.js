@@ -42,7 +42,6 @@ class Db_Functions {
                         reject(err);
                         return;
                     }
-                    console.log(this);
                     resolve(this.lastID);
                 });
             });
