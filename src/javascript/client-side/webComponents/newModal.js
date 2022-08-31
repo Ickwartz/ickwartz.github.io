@@ -48,13 +48,13 @@ class newModal extends HTMLElement {
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title"></h5>
-                        <button class="close hide-modal-button" type="button" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <button class="close hide-modal-button" type="button" aria-label="Close" name="close_button"><span aria-hidden="true">×</span></button>
                     </div>
                     <div class="modal-body">
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary hide-modal-button" type="button">Schließen</button>
-                        <button class="btn btn-primary modal-save-button" type="button">Speichern</button>
+                        <button class="btn btn-secondary hide-modal-button" type="button" name="close_button">Schließen</button>
+                        <button class="btn btn-primary modal-save-button" type="button" name="save_button">Speichern</button>
                     </div>
                 </div>
             </div>

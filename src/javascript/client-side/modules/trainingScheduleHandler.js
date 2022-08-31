@@ -15,8 +15,16 @@ class TrainingScheduleHandler {
     displayTraining(training) {
         this.displayModal.setTitle(`${training.date}: ${training.name}`);
         this.fillModalBody(training.training_id);
+        this.addModalPrintButton();
         this.displayModal.setSaveFunction(() => this.saveUserNotes(training.training_id));
         this.displayModal.show();
+    }
+
+    addModalPrintButton() {
+        let footer =  this.displayModal.getFooter();
+        let printButton = this.createHtml.createHtmlElement("button", [["class", "btn btn-primary"]], "Drucken");
+        printButton.addEventListener("click", () => window.print());
+        footer.insertBefore(printButton, footer.children[1]);        
     }
 
     async fillModalBody(id) {
