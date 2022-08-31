@@ -12,8 +12,17 @@
 
 -- TODO --
     - Pw vergessen
-    - nach trainingsplan laden modal schließen
+    - User Info ändern (pw, mail)
+    - mock timer für Tests auf die man warten muss (Jest solltes liefern)
 
+
+
+PASSWORT
+    - Email via nodemailer
+    - zufälligen Code generieren und in DB speichern
+    - link in Email mit diesem code als parameter zu einer Route
+    - in Route den Code mit DB vergleichen
+    - wenn Code übereinstimmt Option ein neues Passwort festzulegen
 
 DATENSCHUTZ
     - (IP Adressen nach bestimmter Zeit anonymisieren)
