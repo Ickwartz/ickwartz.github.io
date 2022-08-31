@@ -1,8 +1,11 @@
 import {NewScheduleTableHandler} from "./modules/newScheduleTableHandler.js";
+import {newModal} from "./webComponents/newModal.js";
 let tableHandler =  new NewScheduleTableHandler();
 
 
 window.onload = async () => {
+	window.customElements.define("loading-modal", newModal);
+	tableHandler.createModal();
 	tableHandler.getAvailableExercises();
 	tableHandler.getAvailableUsers();
 

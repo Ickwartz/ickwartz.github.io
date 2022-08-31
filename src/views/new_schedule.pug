@@ -4,6 +4,8 @@ html(lang='de')
         include partials/_head
         script(type="module" src="/js/new_schedule.js")
         link(rel='stylesheet' href='../css/snackbar.css' type='text/css')
+        style. 
+            .modal-dialog {max-width: 550px !important;}
     body
         // Main Menu Navbar & Contacts Bar
         include partials/_nav
@@ -58,11 +60,11 @@ html(lang='de')
                                     label(for="sunday") So:
                                     input#sunday(type="checkbox", name="sunday")
 
-                button.btn.btn-secondary.btn-sm.table-button(type="button", onclick="window.open('/newexercise')") 
+                button.btn.btn-secondary.btn-sm.table-button(type="button", onclick="window.open('/newexercise')", name="new_exercise") 
                     | Neue Übung registrieren
-                button#button-refresh-available-exercises.btn.btn-secondary.btn-sm.table-button(type="button") 
+                button#button-refresh-available-exercises.btn.btn-secondary.btn-sm.table-button(type="button", name="refresh_exercises") 
                     | Übungen aktualisieren
-                button.btn.btn-secondary.btn-sm.table-button(type="button", data-bs-toggle="modal" data-bs-target="#loadScheduleModal") 
+                button.btn.btn-secondary.btn-sm.table-button(type="button", name="load_schedule") 
                     | Trainingsplan laden
 
                 .table-responsive
@@ -78,24 +80,7 @@ html(lang='de')
                 button#addRowButton.btn.btn-primary.table-button(type="button") Neue Übung
                 button#submitButton.btn.btn-primary.table-button(type="button") Speichern
 
-
-            #loadScheduleModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='loadScheduleModal' aria-hidden='true')
-                .modal-dialog(role='document')
-                    .modal-content
-                        .modal-header
-                            h5.modal-title Trainingsplan laden
-                            button.close(type='button' data-bs-dismiss='modal' aria-label='Close')
-                                span(aria-hidden='true') ×
-                        .modal-body
-                            label(for="loading-user-input" style="padding:5px") Vor- und Nachname:
-                            input#loading-user-input(type="text", placeholder="User", list="availableUsersList")
-                            br
-                            label(for="loading-date-input" style="padding:5px") Monat:
-                            input#loading-date-input(type="month")
-                        .modal-footer
-                            button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Abbrechen
-                            button#button-reset-loading.btn.btn-secondary(type='button') Zurücksetzen
-                            button#button-load-schedule.btn.btn-primary(type='button') Laden
+            loading-modal
         else
             center
                 h1 Kein Zugriff zu dieser Seite.

@@ -43,7 +43,7 @@ class newModal extends HTMLElement {
 
     connectedCallback() {
         this.innerHTML = `
-        <div class="modal" tabindex="-1" role="dialog" aria-labelledby="trainingModal" aria-hidden="true">
+        <div class="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
             <div class="modal-dialog" role="document" style="width: 75%; max-width: 900px">
                 <div class="modal-content">
                     <div class="modal-header">

@@ -199,6 +199,33 @@ class NewScheduleTableHandler  {
 		}
 	}
 
+	createModal() {
+		this.modal = document.querySelector("loading-modal");
+		this.modal.setTitle("Trainingsplan laden");
+		let cancelButton = this.createHtml("button", [
+			["class", "btn btn-secondary"],
+			["type", "button"],
+			["name", "cancel_button"]
+		], "Abbrechen");
+		cancelButton.addEventListener("click", () => this.modal.hide());
+		let resetButton = this.createHtml("button", [
+			["class", "btn btn-secondary"],
+			["id", "button-reset-loading"],
+			["type", "button"],
+			["name", "reset_button"]
+		], "Zurücksetzen");
+		let loadButton = this.createHtml("button", [
+			["class", "btn btn-primary"],
+			["id", "button-load-schedule"],
+			["type", "button"],
+			["name", "load_button"]
+		], "Laden");
+		let footer = this.modal.getFooter();
+		footer.innerHTML = "";
+		footer.append(cancelButton, resetButton, loadButton);
+		this.resetLoadingModal();
+	}
+
 	async loadScheduleOptions() {
 		let user_val = document.getElementById("loading-user-input").value;
 		this.loadingPresets.user = user_val;
@@ -216,7 +243,7 @@ class NewScheduleTableHandler  {
 		let data = {first_name, surname, month, year};
 		
 		await this.fetch_api.postData("/newschedule/getschedules", data).then(result => {
-			let modalBody = document.getElementsByClassName("modal-body")[0];
+			let modalBody = this.modal.getBody();
 			let heading = document.createElement("h6");
 			heading.textContent = `Trainings von ${user_val} im ${month} ${year}: `;
 			let list = this.createScheduleOptionsList(result);
@@ -240,6 +267,7 @@ class NewScheduleTableHandler  {
 			scheduleLink.addEventListener("click", () => {
 				this.loadSchedule(schedule.training_id);
 				this.loadingPresets.trainingName = schedule.name;
+				this.modal.hide();
 			});
 			scheduleLink.style = "text-decoration: none; color: black;";
 			listItem.appendChild(scheduleLink);
@@ -321,7 +349,7 @@ class NewScheduleTableHandler  {
 	}
 
 	resetLoadingModal() {
-		let modalBody = document.getElementsByClassName("modal-body")[0];
+		let modalBody = this.modal.getBody();
 		modalBody.innerHTML = "";
 		
 		let userLabel= document.createElement("label");
@@ -420,6 +448,9 @@ class NewScheduleTableHandler  {
 		});
 		document.getElementById("button-refresh-available-exercises").addEventListener("click", () => {
 			this.getAvailableExercises("Übungen aktualisiert");
+		});
+		document.querySelector('button[name="load_schedule"]').addEventListener("click", () => {
+			this.modal.show();
 		});
 		document.getElementById("button-load-schedule").addEventListener("click", () => {
 			this.loadScheduleOptions();
