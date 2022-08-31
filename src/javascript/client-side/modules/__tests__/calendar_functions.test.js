@@ -9,27 +9,28 @@ jest.mock("../../webComponents/scheduleDisplay");
 jest.mock("../fetch_api.js");
 require("../initWebComponents.js");
 
-let mockedAppointments = [{training_id: 1, name: 'test', date: '2022-02-01', user_id: 1}];
-Fetch_api.prototype.postData.mockReturnValue(mockedAppointments);
 
 describe("CalendarFunctions", () => {
     document.body.innerHTML = "<schedule-calendar></schedule-calendar>";
-    let calendar_functions = new CalendarFunctions;
+    let calendar_functions;
+    let mockedAppointments;
 
-    afterEach(() => {
+    beforeEach(() => {
         jest.clearAllMocks();
+        calendar_functions = new CalendarFunctions;
+        mockedAppointments = [{training_id: 1, name: 'test', date: '2022-02-01', user_id: 1}];
       });
 
     describe("getMonthsAppointments", () => {
         test("should return appointment without repetition_pattern", async () => {
+            Fetch_api.prototype.postData.mockReturnValueOnce(mockedAppointments);
             let result = await calendar_functions.getMonthsAppointments("02", "2022");
             expect(result).toStrictEqual(mockedAppointments);
         });
 
         test("should return array of repeated appointments when repetition_pattern is given", async () => {
-            let value = mockedAppointments;
-            value[0].repetition_pattern = 2;    // only Mondays
-            Fetch_api.prototype.postData.mockReturnValueOnce(value);
+            mockedAppointments[0].repetition_pattern = 2;    // only Mondays
+            Fetch_api.prototype.postData.mockReturnValueOnce(mockedAppointments);
             let result = await calendar_functions.getMonthsAppointments("02", "2022");
             expect(result.length).toBe(4);      // 02/2022 has 4 Mondays
         });
@@ -67,13 +68,16 @@ describe("CalendarFunctions", () => {
     });
 
     test("initAppointments should set monthsAppointments var to list of objects", () => {
+        Fetch_api.prototype.postData.mockReturnValueOnce(mockedAppointments);
         let expectedResult = mockedAppointments;  
         calendar_functions.initAppointments().then(()=>{
             expect(calendar_functions.monthsAppointments).toStrictEqual(expectedResult);
         });
     });
 
-    test("getAppointmentDates should return list of dates(only day) of appointments", () => {
+    test("getAppointmentDates should return list of dates(only day) of appointments", async () => {
+        Fetch_api.prototype.postData.mockReturnValueOnce(mockedAppointments);
+        await calendar_functions.initAppointments();
         expect(calendar_functions.getAppointmentDates()).toStrictEqual([1]);
     });
 
